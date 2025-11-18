@@ -25,4 +25,8 @@ class Attendance extends Model
     public function class(){
         return $this->belongsTo(Room::class, 'class_id', 'id');
     }
+
+    public function subject(){
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
 }

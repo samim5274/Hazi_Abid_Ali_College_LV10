@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance - (SMS)</title>
+    <title>Subject List - (SMS)</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -42,12 +42,13 @@
             <div class="page-header mb-6">
                 <div class="page-block">
                     <div class="page-header-title">
-                        <h5 class="mb-1 font-semibold text-gray-800">Class List</h5>
+                        <h5 class="mb-1 font-semibold text-gray-800">Subject Details</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{url('/attendance')}}">Attendance</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Class List</li>
+                        <li class="breadcrumb-item"><a href="{{url('/attendance')}}">Class List</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Student List</li>
                     </ul>
                 </div>
             </div>
@@ -60,31 +61,21 @@
                 </div>
                 <div class="card-body p-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        @foreach($room as $val)
-                        <a href="{{url('/class-subject/'.$val->id)}}">
+                        @foreach($subject as $val)
+                        <a href="{{url('/class/subject/'.$class_id.'/'.$val->id)}}">
                             <div class="border p-5 rounded-md bg-white shadow-sm transform transition duration-300 hover:-translate-y-2 hover:shadow-xl">
                                 <div class="flex items-center justify-between mb-3">
                                     <h3 class="text-lg font-semibold text-[#3F4D67]">
-                                        {{ $val->name }} - {{ $val->section ?? 'N/A' }}
+                                        {{ $val->name }}
                                     </h3>
                                     <span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">
-                                        {{ $val->section ?? 'N/A' }}
+                                        {{ $val->room->name ?? 'N/A' }}
                                     </span>
-                                </div>
-                                <div class="space-y-2 text-sm text-gray-600">
-                                    <p>
-                                        <i class="fa-solid fa-user-tie mr-2 text-blue-500"></i>
-                                        Teacher: {{ $val->teachers->first_name }} {{ $val->teachers->last_name }}
-                                    </p>
-                                    <p>
-                                        <i class="fa-solid fa-users mr-2 text-purple-500"></i>
-                                        Capacity: {{ $val->capacity }}
-                                    </p>
                                 </div>
                             </div>
                         </a>
                         @endforeach
-                    </div>
+                    </div>                    
                 </div>
             </div>
             <!-- Card End -->

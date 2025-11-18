@@ -82,6 +82,7 @@
                     <ul class="pc-submenu">
                         <li class="pc-item"><a class="pc-link" href="{{url('/teacher-list')}}"> <span class="pc-micon"> <i class="fa-solid fa-user-tie"></i></span><span class="pc-mtext">Teacher List</span></a></li>
                         <li class="pc-item"><a class="pc-link" href="{{url('add-teacher-view')}}"> <span class="pc-micon"> <i data-feather="edit"></i>  </span><span class="pc-mtext">New Teacher</span></a></li>
+                        <li class="pc-item"><a class="pc-link" href="#"> <span class="pc-micon"> <i class="fa-solid fa-business-time"></i>  </span><span class="pc-mtext">Teacher Attendance</span></a></li>
                     </ul>
                 </li>
                 <li class="pc-item pc-hasmenu">
@@ -182,7 +183,7 @@
                     class="pc-mtext">Attendance</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
                     <ul class="pc-submenu">
                         <li class="pc-item pc-hasmenu">
-                            <a href="{{url('/class-list')}}" class="pc-link">
+                            <a href="{{url('/attendance')}}" class="pc-link">
                                 <span class="pc-micon"> <i class="fa-solid fa-clipboard-user"></i></span>
                                 <span class="pc-mtext">Attendance Records</span>
                             </a>

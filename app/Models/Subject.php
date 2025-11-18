@@ -33,4 +33,8 @@ class Subject extends Model
         return $this->hasMany(ClassSchedule::class);
     }
 
+    public function attendance(){
+        return $this->hasMany(Subject::class, 'subject_id', 'id');
+    }
+
 }

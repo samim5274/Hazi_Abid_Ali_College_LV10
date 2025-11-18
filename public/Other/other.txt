@@ -1,69 +1,87 @@
-menu
-<!-- <li class="pc-item pc-hasmenu">
-    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
-    class="pc-mtext">Menu levels</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-    <ul class="pc-submenu">
-        <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
-        <li class="pc-item pc-hasmenu">
-            <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-            <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li class="pc-item pc-hasmenu">
-            <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-            <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</li> -->
+<!-- paginatior -->
+                    <!-- @if ($attend->hasPages())
+                        <div class="flex flex-wrap items-center justify-between mt-4 w-full">
+
+                            {{-- Page Info --}}
+                            <div class="text-sm md:text-base text-gray-600">
+                                Page {{ $attend->currentPage() }} of {{ $attend->lastPage() }} 
+                                (Total Records: {{ $attend->total() }})
+                            </div>
+
+                            {{-- Pagination --}}
+                            <div class="flex items-center space-x-2">
+
+                                {{-- Previous Button --}}
+                                @if ($attend->onFirstPage())
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                        &laquo; 
+                                    </span>
+                                @else
+                                    <a href="{{ $attend->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                        &laquo; 
+                                    </a>
+                                @endif
+
+                                {{-- Page Numbers --}}
+                                @php
+                                    $start = max(1, $attend->currentPage() - 2);
+                                    $end = min($attend->lastPage(), $attend->currentPage() + 2);
+                                @endphp
+
+                                @for ($i = $start; $i <= $end; $i++)
+                                    @if ($i == $attend->currentPage())
+                                        <span class="px-2 py-1 text-sm md:text-base bg-[#3F4D67] text-white rounded-lg">{{ $i }}</span>
+                                    @else
+                                        <a href="{{ $attend->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                    @endif
+                                @endfor
+
+                                {{-- Next Button --}}
+                                @if ($attend->hasMorePages())
+                                    <a href="{{ $attend->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                        &raquo;
+                                    </a>
+                                @else
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                        &raquo;
+                                    </span>
+                                @endif
+
+                            </div>
+                        </div>
+                    @endif -->
 
 
 
-
-
-
-
-$table->id();
-$table->foreignId('student_id')->constrained('students')->onDelete('restrict');
-$table->foreignId('subject_id')->constrained('subjects')->onDelete('restrict');
-$table->timestamps();
-
-$table->unique(['student_id', 'subject_id']);
-
-protected $fillable = [
-        'student_id',
-        'subject_id',
-    ];
-
-    $student = Student::where('first_name', 'like' , '%'.$request->search.'%')
-                            ->where('last_name', 'like' , '%'.$request->search.'%')
-                            ->where('email', 'like' , '%'.$request->search.'%')
-                            ->where('father_name', 'like' , '%'.$request->search.'%')
-                            ->where('father_contact', 'like' , '%'.$request->search.'%')
-                            ->where('father_nid', 'like' , '%'.$request->search.'%')
-                            ->where('mother_name', 'like' , '%'.$request->search.'%')
-                            ->where('father_nid', 'like' , '%'.$request->search.'%')
-                            ->where('mother_contact', 'like' , '%'.$request->search.'%')
-                            ->where('guardian_name', 'like' , '%'.$request->search.'%')
-                            ->where('guardian_contact', 'like' , '%'.$request->search.'%')
-                            ->where('guardian_email', 'like' , '%'.$request->search.'%')
-                            ->where('guardian_nid', 'like' , '%'.$request->search.'%')
-                            ->where('contact_number', 'like' , '%'.$request->search.'%')->get();
+                    <!-- <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left text-gray-600 border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
+                                <tr>
+                                    <th class="px-4 py-3 border text-center" style="width: 50px">#</th>
+                                    <th class="px-4 py-3 border">Student Name</th>
+                                    <th class="px-4 py-3 border text-center" style="width: 150px">Subject</th>
+                                    <th class="px-4 py-3 border text-center" style="width: 150px">Date</th>
+                                    <th class="px-4 py-3 border text-center" style="width: 150px">Class</th>
+                                    <th class="px-4 py-3 border text-center" style="width: 100px">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                                @foreach($attend as $val)
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-4 py-3 border text-center font-medium text-gray-600">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-3 border"> {{ $val->student->first_name }} {{ $val->student->last_name }}</td>
+                                    <td class="px-4 py-3 border  text-center"> {{ $val->subject->name }}</td>
+                                    <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
+                                    <td class="px-4 py-3 border text-center"> {{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>
+                                    <td class="px-4 py-3 border text-center">
+                                        @if($val->status == 'Present')
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Present</span>
+                                        @else
+                                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Absent</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div> -->

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->timestamps();
             // One student per day unique record
-            $table->unique(['student_id', 'attendance_date']);
+            // $table->unique(['student_id', 'attendance_date']);
         });
     }
 

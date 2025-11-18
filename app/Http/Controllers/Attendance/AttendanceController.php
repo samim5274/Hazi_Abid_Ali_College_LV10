@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 
 use App\Models\Room;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\Attendance;
 
 class AttendanceController extends Controller
@@ -20,38 +21,59 @@ class AttendanceController extends Controller
     }
 
     public function classList(){
-        $room = Room::all();
+        $room = Room::with('teachers')->get();
         return view('attendance.class-list', compact('room'));
     }
 
-    public function attendanceView($class_id){
-        $student = Student::with('room')->where('class_id', $class_id)->where('attend_date', $this->date)->get();        
-        
-        $totalStudent = Student::where('class_id', $class_id)->count(); 
-        $attend = Attendance::with('student')
-            ->where('class_id', $class_id)
-            ->where('attendance_date', $this->date)
-            ->get();
-        $present = Attendance::where('status', 'Present')
-            ->where('class_id', $class_id)
-            ->where('attendance_date', $this->date)
-            ->count();
-        $absent = Attendance::where('status', 'Absent')
-            ->where('class_id', $class_id)
-            ->where('attendance_date', $this->date)
-            ->count();
-        
-        return view('attendance.attendance-list', compact('student','totalStudent','attend','present','absent'));
+    public function attendanceView($class_id){        
+        $subject = Subject::with('room')->where('class_id', $class_id)->get();
+        return view('attendance.subject-attendance-list', compact('subject','class_id'));        
     }
 
-    public function stdPresent($id){
+    public function studentList($class_id,$subject_id){        
+        $date = now()->format('Y-m-d');
+
+        $subject = Subject::findOrFail($subject_id);
+
+        // All students of the class
+        $student = Student::with('room')
+                    ->where('class_id', $class_id)
+                    ->orderBy('roll_number', 'ASC')
+                    ->get();
+
+        $totalStudent = $student->count();
+
+        // Attendance for today
+        $attend = Attendance::with('student', 'subject', 'class')
+                    ->where('class_id', $class_id)
+                    ->where('attendance_date', $date)
+                    ->where('subject_id', $subject_id)
+                    ->get();
+
+        // Count
+        $present = $attend->where('status', 'Present')->count();
+        $absent = $attend->where('status', 'Absent')->count();
+
+        // To check if a student already attended today for this subject
+        $attendanceCheck = Attendance::where('class_id', $class_id)
+                            ->where('subject_id', $subject_id)
+                            ->where('attendance_date', $date)
+                            ->pluck('student_id')
+                            ->toArray();
+
+        return view('attendance.student-attendance-list', compact(
+            'student', 'totalStudent', 'attend', 'present', 'absent', 'subject', 'attendanceCheck'
+        ));
+    }
+
+    public function stdPresent($id, $subjectId){
         $student = Student::where('id', $id)->first();
 
         if (empty($student)){
             return redirect()->back()->with('error','Student not found. Please try again.');
         }
 
-        $findData = Attendance::where('student_id', $id)->where('attendance_date',$this->date)->first();
+        $findData = Attendance::where('student_id', $id)->where('subject_id', $subjectId)->where('attendance_date',$this->date)->first();
         if(!empty($findData)){
             return redirect()->back()->with('warning','This student attendance already done. Try to another.');
         }
@@ -59,25 +81,23 @@ class AttendanceController extends Controller
         $attend = new Attendance();
         $attend->student_id = $id;
         $attend->class_id = $student->class_id;
+        $attend->subject_id = $subjectId;
         $attend->attendance_date = $this->date;
         $attend->status = 'Present';
         $attend->remarks = 'N/A';
 
-        $student->attend_date = Carbon::now()->addDay();
-
         $attend->save();
-        $student->update();
         return redirect()->back()->with('success','Student attend in the class. Thank you.');
     }
 
-    public function stdAbsend($id){
+    public function stdAbsend($id, $subjectId){
         $student = Student::where('id', $id)->first();
 
         if(empty($student)){
             return redirect()->back()->with('error','Student not found. Please try again.');
         }
 
-        $findData = Attendance::where('student_id', $id)->where('attendance_date',$this->date)->first();
+        $findData = Attendance::where('student_id', $id)->where('subject_id', $subjectId)->where('attendance_date',$this->date)->first();
         if(!empty($findData)){
             return redirect()->back()->with('warning','This student attendance already done. Try to another.');
         }
@@ -85,15 +105,13 @@ class AttendanceController extends Controller
         $attend = new Attendance();
         $attend->student_id = $id;
         $attend->class_id = $student->class_id;
+        $attend->subject_id = $subjectId;
         $attend->attendance_date = $this->date;
         $attend->status = 'Absent';
         $attend->remarks = 'N/A';
 
-        $student->attend_date = Carbon::now()->addDay();
-
-        $attend->save();
-        $student->update();
-        return redirect()->back()->with('error','Student not attend in the class. Thank you.');
+        $attend->save();        
+        return redirect()->back()->with('warning','Student not attend in the class. Thank you.');
     }
 
     public function attendApply(){
@@ -106,13 +124,15 @@ class AttendanceController extends Controller
     }
 
     public function dailyAttendet(){
-        $attend = Attendance::with('student')->where('attendance_date', $this->date)->paginate(45);
+        $date = now()->format('Y-m-d');
+        $attend = Attendance::with('student', 'class', 'subject')->where('attendance_date', $date)->get()->groupBy('student_id'); // student wise grouping
+        $subject = Attendance::with('student', 'class', 'subject')->where('attendance_date', $date)->get()->groupBy('subject_id'); // subject wise grouping
 
         $totalStudent = Student::count(); 
-        $present = Attendance::where('status', 'Present')->where('attendance_date', $this->date)->count();
-        $absent = Attendance::where('status', 'Absent')->where('attendance_date', $this->date)->count();
+        $present = Attendance::where('status', 'Present')->where('attendance_date', $date)->count();
+        $absent = Attendance::where('status', 'Absent')->where('attendance_date', $date)->count();
 
-        return view('attendance.daily-student-list', compact('attend','totalStudent','present','absent'));
+        return view('attendance.daily-student-list', compact('attend','totalStudent','present','absent','subject'));
     }
 
     public function searchAttendView(){

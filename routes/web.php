@@ -68,10 +68,11 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 
-    Route::get('/class-list', [AttendanceController::class, 'classList'])->name('class-list');
-    Route::get('/student-attendence/{class_id}', [AttendanceController::class, 'attendanceView'])->name('class-wise-attendance-view');
-    Route::get('/std-present/{id}', [AttendanceController::class, 'stdPresent']);
-    Route::get('/std-absend/{id}', [AttendanceController::class, 'stdAbsend']);
+    Route::get('/attendance', [AttendanceController::class, 'classList'])->name('class-list');
+    Route::get('/class-subject/{class_id}', [AttendanceController::class, 'attendanceView'])->name('class-wise-attendance-view');
+    Route::get('/class/subject/{class_id}/{subject_id}', [AttendanceController::class, 'studentList']);
+    Route::get('/std-present/subject/{id}/{subjectId}', [AttendanceController::class, 'stdPresent']);
+    Route::get('/std-absend/subject/{id}/{subjectId}', [AttendanceController::class, 'stdAbsend']);
     Route::get('/attendance-apply', [AttendanceController::class, 'attendApply']);
     Route::get('/total-present-student', [AttendanceController::class, 'dailyAttendet'])->name('today-present-stuent-list');
     Route::get('/date-wise-student', [AttendanceController::class, 'searchAttendView'])->name('search-view');
