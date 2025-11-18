@@ -1,0 +1,69 @@
+menu
+<!-- <li class="pc-item pc-hasmenu">
+    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
+    class="pc-mtext">Menu levels</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+    <ul class="pc-submenu">
+        <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
+        <li class="pc-item pc-hasmenu">
+            <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+            <ul class="pc-submenu">
+                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
+                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="pc-item pc-hasmenu">
+            <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+            <ul class="pc-submenu">
+                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
+                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li> -->
+
+
+
+
+
+
+
+$table->id();
+$table->foreignId('student_id')->constrained('students')->onDelete('restrict');
+$table->foreignId('subject_id')->constrained('subjects')->onDelete('restrict');
+$table->timestamps();
+
+$table->unique(['student_id', 'subject_id']);
+
+protected $fillable = [
+        'student_id',
+        'subject_id',
+    ];
+
+    $student = Student::where('first_name', 'like' , '%'.$request->search.'%')
+                            ->where('last_name', 'like' , '%'.$request->search.'%')
+                            ->where('email', 'like' , '%'.$request->search.'%')
+                            ->where('father_name', 'like' , '%'.$request->search.'%')
+                            ->where('father_contact', 'like' , '%'.$request->search.'%')
+                            ->where('father_nid', 'like' , '%'.$request->search.'%')
+                            ->where('mother_name', 'like' , '%'.$request->search.'%')
+                            ->where('father_nid', 'like' , '%'.$request->search.'%')
+                            ->where('mother_contact', 'like' , '%'.$request->search.'%')
+                            ->where('guardian_name', 'like' , '%'.$request->search.'%')
+                            ->where('guardian_contact', 'like' , '%'.$request->search.'%')
+                            ->where('guardian_email', 'like' , '%'.$request->search.'%')
+                            ->where('guardian_nid', 'like' , '%'.$request->search.'%')
+                            ->where('contact_number', 'like' , '%'.$request->search.'%')->get();
