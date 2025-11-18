@@ -12,7 +12,7 @@ use App\Models\Teacher;
 class TeacherController extends Controller
 {
     public function teacherList(){
-        $teacher = Teacher::all();
+        $teacher = Teacher::paginate(20);
         return view('teacher.teacher', compact('teacher'));
     }
 
@@ -55,6 +55,12 @@ class TeacherController extends Controller
             'designation'       => 'required|string|max:255',
             'address'           => 'required|string',
 
+            'joining_date'      => 'required|date',
+            'mop_date'          => 'nullable|date',
+            'txtTraning'        => 'nullable|string',
+            'txtIndexNumber'    => 'nullable|string',
+            'status'            => 'required',
+
             'father_name'       => 'nullable|string|max:255',
             'father_contact'    => 'nullable|string|max:20',
             'mother_name'       => 'nullable|string|max:255',
@@ -76,6 +82,12 @@ class TeacherController extends Controller
         $teacher->email                = $request->email;
         $teacher->designation          = $request->designation;
         $teacher->address              = $request->address;
+
+        $teacher->joning_date          = $request->joining_date;
+        $teacher->mop_date             = $request->mop_date;
+        $teacher->traning              = $request->txtTraning;
+        $teacher->index_no             = $request->txtIndexNumber;
+        $teacher->status               = $request->status;
 
         $teacher->father_name          = $request->father_name;
         $teacher->father_contact       = $request->father_contact;
@@ -138,6 +150,12 @@ class TeacherController extends Controller
             'email'             => 'required|email|unique:teachers,email,' . $teacher->id,
             'designation'       => 'required|string|max:255',
             'address'           => 'required|string',
+            'status'            => 'required|string',
+
+            'joining_date'      => 'required|date',
+            'mop_date'          => 'nullable|date',
+            'txtTraning'        => 'nullable|string',
+            'txtIndexNumber'    => 'nullable|string',
 
             'father_name'       => 'nullable|string|max:255',
             'father_contact'    => 'nullable|string|max:20',
@@ -149,22 +167,29 @@ class TeacherController extends Controller
         ]);
 
         $teacher->fill([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'dob' => $request->dob,
-            'gender' => $request->gender,
-            'blood_group' => $request->blood_group,
-            'national_id' => $request->national_id,
-            'contact_number' => $request->contact_number,
-            'email' => $request->email,
-            'designation' => $request->designation,
-            'address' => $request->address,
-            'father_name' => $request->father_name,
-            'father_contact' => $request->father_contact,
-            'mother_name' => $request->mother_name,
-            'mother_contact' => $request->mother_contact,
-            'guardian_name' => $request->guardian_name,
-            'guardian_contact' => $request->guardian_contact,
+            'first_name'            => $request->first_name,
+            'last_name'             => $request->last_name,
+            'dob'                   => $request->dob,
+            'gender'                => $request->gender,
+            'blood_group'           => $request->blood_group,
+            'national_id'           => $request->national_id,
+            'contact_number'        => $request->contact_number,
+            'email'                 => $request->email,
+            'designation'           => $request->designation,
+            'address'               => $request->address,
+
+            'joning_date'           => $request->joining_date,
+            'mop_date'              => $request->mop_date,
+            'traning'               => $request->txtTraning,
+            'index_no'              => $request->txtIndexNumber,
+            'status'                => $request->status,
+
+            'father_name'           => $request->father_name,
+            'father_contact'        => $request->father_contact,
+            'mother_name'           => $request->mother_name,
+            'mother_contact'        => $request->mother_contact,
+            'guardian_name'         => $request->guardian_name,
+            'guardian_contact'      => $request->guardian_contact,
             'guardian_relationship' => $request->guardian_relationship,
         ]);
 
@@ -238,7 +263,7 @@ class TeacherController extends Controller
 
             $output .= '</td>
                 <td>
-                    <h6 class="mb-1"><a href="'.$editUrl.'">'.$name.'</a></h6>
+                    <h6 class="mb-1 text-[#19b6b6]"><a href="'.$editUrl.'">'.$name.'</a></h6>
                     <p class="m-0">'.$designation.'</p>
                 </td>
                 <td>

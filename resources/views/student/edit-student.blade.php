@@ -70,17 +70,17 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="first_name">First Name</label>
-                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->first_name}}">
+                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->first_name ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="last_name">Last Name</label>
-                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->last_name}}">
+                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->last_name ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="dob">Date of Birth</label>
-                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->dob}}">
+                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{ \Carbon\Carbon::parse($student->dob)->format('Y-m-d') }}">
                                             </div>
 
                                             <div>
@@ -95,42 +95,42 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="blood_group">Blood Group</label>
-                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->blood_group}}">
+                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->blood_group ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="religion">Religion</label>
-                                                <input type="text" id="religion" name="religion" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->religion}}">
+                                                <input type="text" id="religion" name="religion" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->religion ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="nationality">Nationality</label>
-                                                <input type="text" id="nationality" name="nationality" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->nationality}}">
+                                                <input type="text" id="nationality" name="nationality" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->nationality ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="national_id">National ID / Birth Certificate</label>
-                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->national_id}}">
+                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->national_id ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="contact_number">Contact Number</label>
-                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->contact_number}}">
+                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->contact_number ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="email">Email Address</label>
-                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->email}}">
+                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->email  ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="present_address">Present Address</label>
-                                                <textarea id="present_address" name="present_address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$student->address1}}</textarea>
+                                                <textarea id="present_address" name="present_address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$student->address1 ?? 'N/A'}}</textarea>
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="permanent_address">Permanent Address</label>
-                                                <textarea id="permanent_address" name="permanent_address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$student->address2}}</textarea>
+                                                <textarea id="permanent_address" name="permanent_address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$student->address2 ?? 'N/A'}}</textarea>
                                             </div>
 
                                             <div>
@@ -144,6 +144,16 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Reg. No</label>
+                                                <input type="b_reg_no" id="b_reg_no" name="b_reg_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->b_reg_no ?? '0'}}">
+                                            </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Roll</label>
+                                                <input type="b_roll_no" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->b_roll_no ?? '0'}}">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -154,77 +164,97 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
-                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_name}}">
+                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_profession">Profession</label>
-                                                <input type="text" id="father_profession" name="father_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_profession}}">
+                                                <input type="text" id="father_profession" name="father_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_profession ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_contact">Father Contact</label>
-                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_contact}}">
+                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_email">Email</label>
-                                                <input type="email" id="father_email" name="father_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_email}}">
+                                                <input type="email" id="father_email" name="father_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_email ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_nid">NID Number</label>
-                                                <input type="text" id="father_nid" name="father_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_nid}}">
+                                                <input type="text" id="father_nid" name="father_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->father_nid ?? '0'}}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="father_income">Monthly Income</label>
+                                                <input type="number" id="father_income" name="father_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0" value="{{$student->father_monthly_income ?? 0}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
-                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_name}}">
+                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_profession">Profession</label>
-                                                <input type="text" id="mother_profession" name="mother_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_profession}}">
+                                                <input type="text" id="mother_profession" name="mother_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_profession ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_contact">Mother Contact</label>
-                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_contact}}">
+                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_email">Email</label>
-                                                <input type="email" id="mother_email" name="mother_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_email}}">
+                                                <input type="email" id="mother_email" name="mother_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_email ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_nid">NID Number</label>
-                                                <input type="text" id="mother_nid" name="mother_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_nid}}">
+                                                <input type="text" id="mother_nid" name="mother_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->mother_nid ?? '0'}}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="mother_income">Monthly Income</label>
+                                                <input type="number" id="mother_income" name="mother_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0" value="{{$student->mother_monthly_income ?? 0}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
-                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_name}}">
+                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_contact">Guardian Contact</label>
-                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_contact}}">
+                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_email">Guardian Email</label>
-                                                <input type="email" id="guardian_email" name="guardian_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_email}}">
+                                                <input type="email" id="guardian_email" name="guardian_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_email ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_nid">Guardian NID</label>
-                                                <input type="text" id="guardian_nid" name="guardian_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_nid}}">
+                                                <input type="text" id="guardian_nid" name="guardian_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_nid ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with Student</label>
-                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_relationship}}">
+                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->guardian_relationship ?? 'N/A'}}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="status">Status</label>
+                                                <select id="status" name="status" 
+                                                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option disabled selected>--Select Status--</option>
+                                                    <option value="1" {{ $student->status == '1' ? 'selected' : '' }}>Active</option>
+                                                    <option value="0" {{ $student->status == '0' ? 'selected' : '' }}>De-Active</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +274,7 @@
                                                 <div class="flex flex-col items-center">
                                                     <img src="{{ asset("img/$type/$photo") }}" 
                                                         alt="{{ ucfirst($type) }} Photo" 
-                                                        class="w-40 h-full object-cover border rounded-lg {{ $type != 'mother' ? 'opacity-90' : '' }}" />
+                                                        class="w-60 h-60 object-cover border rounded-lg {{ $type != 'mother' ? 'opacity-90' : '' }}" />
                                                     <span class="mt-2 text-sm text-gray-600">{{ ucfirst($type) }}</span>
                                                 </div>
                                             @endif

@@ -18,9 +18,9 @@ class StudentSeeder extends Seeder
 
         $rollCounters = [];
 
-        for ($i = 1; $i <= 1500; $i++) {
+        for ($i = 1; $i <= 300; $i++) {
 
-            $classId = $faker->numberBetween(1, 12);
+            $classId = $faker->numberBetween(1, 5);
 
             if (!isset($rollCounters[$classId])) {
                 $rollCounters[$classId] = 1;
@@ -48,12 +48,14 @@ class StudentSeeder extends Seeder
                 'father_contact'    => $faker->phoneNumber,
                 'father_email'      => 'student'.$i.'@example.com',
                 'father_nid'        => $faker->numerify($i++),
+                'father_monthly_income' => $faker->numerify($i++),
 
                 'mother_name'       => $faker->name('female'),
                 'mother_profession' => $faker->randomElement(['Housewife', 'Teacher', 'Nurse', 'Doctor', 'Businesswoman']),
                 'mother_contact'    => $faker->phoneNumber,
                 'mother_email'      => 'student'.$i.'@example.com',
                 'mother_nid'        => $faker->numerify($i++),
+                'mother_monthly_income' => $faker->numerify($i++),
 
                 'guardian_name'         => $faker->name,
                 'guardian_contact'      => $faker->phoneNumber,
@@ -61,10 +63,13 @@ class StudentSeeder extends Seeder
                 'guardian_nid'          => $faker->numerify($i++),
                 'guardian_relationship' => $faker->randomElement(['Uncle', 'Aunt', 'Grandparent', 'Brother', 'Sister']),
 
+                'b_reg_no'              => '0000'.$i,
+                'b_roll_no'              => '929904'.$i,
+
                 'status'          => 1, // active
                 'roll_number'     => $rollCounters[$classId], // sequential roll per class
                 'class_id'        => $classId,
-                'attend_date'     => '2025-01-14',
+                'attend_date'     => '2025-11-18',
                 'remark'          => 'N/A',
             ]);
         }

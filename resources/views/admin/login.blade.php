@@ -17,7 +17,7 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Vite (Tailwind last to avoid override) -->
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')

@@ -19,7 +19,8 @@ class StudentReportController extends Controller
         $findData = Student::paginate(45);
         $classes = Room::all();
         $students = Student::all();
-        return view('student.report.student-report', compact('findData','classes', 'students'));
+        $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
+        return view('student.report.student-report', compact('findData','classes', 'students','allProfessions'));
     }
 
     public function findGenderReport(Request $request){
@@ -48,8 +49,13 @@ class StudentReportController extends Controller
             $query->where('blood_group', $request->blood_group);
         }
 
-        $findData = $query->paginate(45)->appends($request->all());
+        if ($request->filled('Father_profession')) {
+            $query->where('father_profession', $request->Father_profession);
+        }
 
-        return view('student.report.student-report', compact('findData', 'classes', 'students'));
+        $findData = $query->paginate(45)->appends($request->all());
+        $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
+
+        return view('student.report.student-report', compact('findData', 'classes', 'students','allProfessions'));
     }
 }

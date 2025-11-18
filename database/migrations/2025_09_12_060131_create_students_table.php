@@ -35,12 +35,14 @@ return new class extends Migration
             $table->string('father_contact')->nullable();
             $table->string('father_email')->nullable();
             $table->string('father_nid')->nullable();
+            $table->string('father_monthly_income')->nullable();
 
             $table->string('mother_name')->nullable();
             $table->string('mother_profession')->nullable();
             $table->string('mother_contact')->nullable();
             $table->string('mother_email')->nullable();
             $table->string('mother_nid')->nullable();
+            $table->string('mother_monthly_income')->nullable();
 
             $table->string('guardian_name')->nullable();
             $table->string('guardian_contact')->nullable();
@@ -49,10 +51,13 @@ return new class extends Migration
             $table->string('guardian_relationship')->nullable();
             
             $table->integer('status')->default(1);
-            $table->integer('roll_number')->default(1);
+            $table->integer('roll_number')->default(0);
             $table->foreignId('class_id')->constrained('rooms')->onDelete('restrict');
             $table->date('attend_date')->nullable();
             $table->string('remark')->nullable();
+            
+            $table->bigInteger('b_reg_no')->nullable()->unique();
+            $table->bigInteger('b_roll_no')->nullable()->unique();
 
             $table->string('photo')->nullable();
             $table->string('father_photo')->nullable();

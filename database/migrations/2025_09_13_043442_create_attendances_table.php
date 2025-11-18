@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('students')->onDelete('restrict');   
             $table->foreignId('class_id')->constrained('rooms')->onDelete('restrict');         
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('restrict');         
             $table->date('attendance_date');            
             $table->string('status')->default('Present');
             $table->string('remarks')->nullable();

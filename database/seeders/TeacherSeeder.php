@@ -40,6 +40,11 @@ class TeacherSeeder extends Seeder
                 'guardian_contact'      => $faker->phoneNumber,
                 'guardian_relationship' => $faker->randomElement(['Uncle', 'Aunt', 'Grandparent', 'Brother', 'Sister']),
 
+                'joning_date'           => $faker->date('Y-m-d', '2021-01-01'),
+                'mop_date'              => $faker->date('Y-m-d', '2023-01-01'),
+                'traning'               => 'N/A',
+                'index_no'              => 'D00'.$i,
+
                 'status'          => 1, // active
                 'remark'          => 'N/A',
             ]);

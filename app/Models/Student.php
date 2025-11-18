@@ -32,12 +32,14 @@ class Student extends Authenticatable
         'father_contact',
         'father_email',
         'father_nid',
+        'father_monthly_income',
 
         'mother_name',
         'mother_profession',
         'mother_contact',
         'mother_email',
         'mother_nid',
+        'mother_monthly_income',
 
         'guardian_name',
         'guardian_contact',
@@ -50,6 +52,9 @@ class Student extends Authenticatable
         'class_id',
         'attend_date',
         'remark',
+
+        'b_reg_no',
+        'b_roll_no',
 
         'photo',
         'father_photo',

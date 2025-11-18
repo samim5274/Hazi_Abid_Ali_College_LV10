@@ -70,8 +70,8 @@
                 <div class="gap-x-6">
                     <div class="col-span-12">
                         <div class="card rounded-lg border">
-                            <div class="card-header">
-                                <h5>Personal Information</h5>
+                            <div class="card-header bg-gray-700 rounded-t-lg">
+                                <h5 class="text-white">Personal Information</h5>
                             </div>
                             
                             <div class="card-body">
@@ -84,12 +84,12 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="first_name">First Name</label>
-                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->first_name}}">
+                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->first_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="last_name">Last Name</label>
-                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->last_name}}">
+                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->last_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
@@ -110,32 +110,52 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="blood_group">Blood Group</label>
-                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->blood_group}}">
+                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->blood_group ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="national_id">National ID / Birth Certificate</label>
-                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->national_id}}">
+                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->national_id ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="contact_number">Contact Number</label>
-                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->contact_number}}">
+                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->contact_number ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="email">Email Address</label>
-                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->email}}">
+                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->email ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="designation">Designation</label>
-                                                <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$teacher->designation}}</textarea>
+                                                <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$teacher->designation ?? 'N/A'}}</textarea>
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="address">Address (Present & Permanent)</label>
-                                                <textarea id="address" name="address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$teacher->address}}</textarea>
+                                                <textarea id="address" name="address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">{{$teacher->address ?? 'N/A'}}</textarea>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="joining_date">Joining Date</label>
+                                                <input type="date" id="joining_date" name="joining_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{ \Carbon\Carbon::parse($teacher->joning_date)->format('Y-m-d') }}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="mop_date">MOP Date</label>
+                                                <input type="date" id="mop_date" name="mop_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{ \Carbon\Carbon::parse($teacher->mpo_date)->format('Y-m-d') }}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="txtTraning">Traning</label>
+                                                <input type="text" id="txtTraning" name="txtTraning" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->traning ?? 'N/A'}}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="txtIndexNumber">Index Number</label>
+                                                <input type="text" id="txtIndexNumber" name="txtIndexNumber" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->index_no ?? 'N/A'}}">
                                             </div>
                                         </div>
                                     </div>
@@ -147,37 +167,47 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
-                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->father_name}}">
+                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->father_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_contact">Father Contact</label>
-                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->father_contact}}">
+                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->father_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
-                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->mother_name}}">
+                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->mother_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_contact">Mother Contact</label>
-                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->mother_contact}}">
+                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->mother_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
-                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_name}}">
+                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_name ?? 'N/A'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_contact">Guardian Contact</label>
-                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_contact}}">
+                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_contact ?? '0'}}">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with teacher</label>
-                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_relationship}}">
+                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$teacher->guardian_relationship ?? '0'}}">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="status">Status</label>
+                                                <select id="status" name="status" 
+                                                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option disabled selected>--Select Status--</option>
+                                                    <option value="1" {{ $teacher->status == '1' ? 'selected' : '' }}>Active</option>
+                                                    <option value="0" {{ $teacher->status == '0' ? 'selected' : '' }}>De-Active</option>
+                                                </select>
                                             </div>
                                         </div>                                       
 
@@ -196,7 +226,7 @@
                                                     <div class="flex flex-col items-center">
                                                         <img src="{{ asset("img/$type/$photo") }}" 
                                                             alt="{{ ucfirst($type) }} Photo" 
-                                                            class="w-40 h-full object-cover border rounded-lg {{ $type != 'mother' ? 'opacity-90' : '' }}" />
+                                                            class="w-60 h-60 object-cover border rounded-lg {{ $type != 'mother' ? 'opacity-90' : '' }}" />
                                                         <span class="mt-2 text-sm text-gray-600">{{ ucfirst($type) }}</span>
                                                     </div>
                                                 @endif

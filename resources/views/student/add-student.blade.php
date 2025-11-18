@@ -17,7 +17,7 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Vite (Tailwind last to avoid override) -->
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
@@ -141,6 +141,16 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Reg. No</label>
+                                                <input type="b_reg_no" id="b_reg_no" name="b_reg_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="000012">
+                                            </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Roll</label>
+                                                <input type="b_roll_no" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="92990401">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -149,6 +159,7 @@
                                         <h3 class="text-xl font-semibold mb-4 text-gray-700">Guardian / Parent Information</h3>
                                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
+                                            <!-- Father information -->
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
                                                 <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Jamsher Ali">
@@ -173,7 +184,13 @@
                                                 <label class="block text-gray-600 mb-1" for="father_nid">NID Number</label>
                                                 <input type="text" id="father_nid" name="father_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
                                             </div>
-
+                                            
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="father_income">Monthly Income</label>
+                                                <input type="number" id="father_income" name="father_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0" value="123456789">
+                                            </div>
+                                            
+                                            <!-- Mother information -->
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
                                                 <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Let-Shofiya Begum">
@@ -199,6 +216,12 @@
                                                 <input type="text" id="mother_nid" name="mother_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
                                             </div>
 
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="mother_income">Monthly Income</label>
+                                                <input type="number" id="mother_income" name="mother_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0" value="123456789">
+                                            </div>
+
+                                            <!-- Guardian information -->
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
                                                 <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Jamsher Ali">

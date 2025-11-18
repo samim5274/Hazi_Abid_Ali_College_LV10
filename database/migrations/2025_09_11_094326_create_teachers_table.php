@@ -38,6 +38,11 @@ return new class extends Migration
             $table->string('father_photo')->nullable();
             $table->string('mother_photo')->nullable();
 
+            $table->date('joning_date')->nullable();
+            $table->date('mop_date')->nullable();
+            $table->string('traning')->nullable();
+            $table->string('index_no')->nullable();
+
             $table->integer('status')->default(1);
             $table->string('remark')->nullable();
             $table->rememberToken();

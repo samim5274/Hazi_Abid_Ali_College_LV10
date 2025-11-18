@@ -37,6 +37,11 @@ class Teacher extends Authenticatable
         'father_photo',
         'mother_photo',
 
+        'joning_date',
+        'mop_date',
+        'traning',
+        'index_no',
+
         'status',
         'remark',
     ];

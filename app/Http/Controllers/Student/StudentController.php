@@ -79,12 +79,14 @@ class StudentController extends Controller
             'father_contact'     => 'nullable|numeric|digits_between:8,15',
             'father_email'       => 'nullable|email',
             'father_nid'         => 'nullable|string|max:50',
+            'father_income'      => 'nullable|string|max:50',
 
             'mother_name'        => 'nullable|string|max:100',
             'mother_profession'  => 'nullable|string|max:100',
             'mother_contact'     => 'nullable|numeric|digits_between:8,15',
             'mother_email'       => 'nullable|email',
             'mother_nid'         => 'nullable|string|max:50',
+            'mother_income'      => 'nullable|string|max:50',
 
             'guardian_name'      => 'nullable|string|max:100',
             'guardian_contact'   => 'nullable|numeric|digits_between:8,15',
@@ -94,6 +96,9 @@ class StudentController extends Controller
 
             'class_id'           => 'required|exists:rooms,id',
             'remark'             => 'nullable|string|max:255',
+
+            'b_reg_no'           => 'nullable|max:255',
+            'b_roll_no'          => 'nullable|max:255',
         ]);
 
         $findStudent = Student::where('email', $request->email)->first();
@@ -124,6 +129,7 @@ class StudentController extends Controller
         $student->father_contact    = $request->father_contact;
         $student->father_email      = $request->father_email;
         $student->father_nid        = $request->father_nid;
+        $student->father_monthly_income        = $request->father_income;
 
         // Mother Info
         $student->mother_name       = $request->mother_name;
@@ -131,6 +137,7 @@ class StudentController extends Controller
         $student->mother_contact    = $request->mother_contact;
         $student->mother_email      = $request->mother_email;
         $student->mother_nid        = $request->mother_nid;
+        $student->mother_monthly_income        = $request->mother_income;
 
         // Guardian Info
         $student->guardian_name         = $request->guardian_name;
@@ -143,6 +150,9 @@ class StudentController extends Controller
         $student->status   = 1; // default active
         $student->class_id = $request->class_id;
         $student->remark   = $request->remark;
+
+        $student->b_reg_no = $request->b_reg_no;
+        $student->b_roll_no= $request->b_roll_no;
 
         if ($request->hasFile('student_photo')) {
             $student->photo = $this->uploadPhoto(
@@ -211,18 +221,24 @@ class StudentController extends Controller
             'father_contact'    => 'nullable|string|max:20',
             'father_email'      => 'nullable|email',
             'father_nid'        => 'nullable|string|max:50',
+            'father_income'     => 'nullable|string|max:50',
 
             'mother_name'       => 'required|string|max:100',
             'mother_profession' => 'nullable|string|max:100',
             'mother_contact'    => 'nullable|string|max:20',
             'mother_email'      => 'nullable|email',
             'mother_nid'        => 'nullable|string|max:50',
+            'mother_income'     => 'nullable|string|max:50',
 
             'guardian_name'         => 'required|string|max:100',
             'guardian_contact'      => 'nullable|string|max:20',
             'guardian_email'        => 'nullable|email',
             'guardian_nid'          => 'nullable|string|max:50',
             'guardian_relationship' => 'nullable|string|max:50',
+
+            'b_reg_no'           => 'nullable|max:255',
+            'b_roll_no'          => 'nullable|max:255',
+            'status'             => 'nullable',
         ]);
 
 
@@ -248,6 +264,7 @@ class StudentController extends Controller
         $student->father_contact    = $request->father_contact;
         $student->father_email      = $request->father_email;
         $student->father_nid        = $request->father_nid;
+        $student->father_monthly_income        = $request->father_income;
 
         // Mother Info
         $student->mother_name       = $request->mother_name;
@@ -255,6 +272,7 @@ class StudentController extends Controller
         $student->mother_contact    = $request->mother_contact;
         $student->mother_email      = $request->mother_email;
         $student->mother_nid        = $request->mother_nid;
+        $student->mother_monthly_income        = $request->mother_income;
 
         // Guardian Info
         $student->guardian_name         = $request->guardian_name;
@@ -264,7 +282,11 @@ class StudentController extends Controller
         $student->guardian_relationship = $request->guardian_relationship;
 
         // Others
-        $student->class_id = $request->class_id;
+        $student->class_id      = $request->class_id;
+        $student->status        = $request->status;
+
+        $student->b_reg_no      = $request->b_reg_no;
+        $student->b_roll_no     = $request->b_roll_no;
 
         // Handle photos
         $photos = [
@@ -315,7 +337,7 @@ class StudentController extends Controller
 
             $img = asset('img/student/' . $val->photo);
             $editUrl = url('/edit-student-view/'.$val->id);
-            $address = strlen($val->address) > 22 ? substr($val->address, 0, 22).'...' : $val->address;
+            $address = strlen($val->address1) > 22 ? substr($val->address1, 0, 22).'...' : $val->address1;
             $email = $val->email;
             $contact = $val->contact_number;
             $roomName = $val->room->name ?? 'N/A';
@@ -336,7 +358,7 @@ class StudentController extends Controller
             $output .= '
                 </td>
                 <td>
-                    <h6 class="mb-1"><a href="'.$editUrl.'">'.$name.'</a></h6>
+                    <h6 class="mb-1 text-[#19b6b6]"><a href="'.$editUrl.'">'.$name.'</a></h6>
                     <p class="m-0">'.$address.'</p>
                 </td>
                 <td>

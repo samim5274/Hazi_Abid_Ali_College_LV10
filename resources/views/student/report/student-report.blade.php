@@ -47,7 +47,7 @@
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{url('/student-list')}}">Student list</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Gender wise Student List</li>
+                        <li class="breadcrumb-item" aria-current="page">Student Filter</li>
                     </ul>
                 </div>
             </div>
@@ -55,10 +55,6 @@
             <!-- search section -->
              <div class="card rounded-md border shadow-md">
                 <div class="card-body">
-                    @php
-                        $today = date('Y-m-d');
-                    @endphp
-
                     <form action="{{url('/find-gender-wise-student')}}" method="GET" class="p-4" id="filter-form">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">                           
 
@@ -119,6 +115,19 @@
                                     <option value="O-" {{ request('blood_group') == 'O-' ? 'selected' : '' }}>O-</option>
                                 </select>
                             </div>
+                            <div class="flex flex-col">
+                                <label for="Father_profession" class="text-sm font-medium text-gray-700 mb-1">Father Profession</label>
+                                <select name="Father_profession" id="Father_profession" class="border border-gray-300 rounded-lg px-3 py-2 text-md focus:ring-2 focus:ring-theme-bg-1 focus:outline-none filter-input">
+                                    <option value="">-- Select Profession --</option>                                    
+                                    @foreach($allProfessions as $profession)
+                                        <option value="{{ $profession->father_profession }}" 
+                                            {{ request('Father_profession') == $profession->father_profession ? 'selected' : '' }}>
+                                            {{ $profession->father_profession }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                         </div>   
                     </form>
 
@@ -142,7 +151,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <h6 class="mb-1"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
+                                        <h6 class="mb-1 text-[#19b6b6]"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
                                         <p class="m-0">{{$val->gender}}</p>
                                     </td>
                                     <td>

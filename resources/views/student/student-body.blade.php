@@ -49,8 +49,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <h6 class="mb-1"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
-                                        <p class="m-0">{{$val->address}}</p>
+                                        <h6 class="mb-1 text-[#19b6b6]"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
+                                        <p class="m-0">{{$val->address1}}</p>
                                     </td>
                                     <td>
                                         <h6 class="mb-1">{{$val->email}}</h6>
@@ -82,12 +82,12 @@
 
                                 {{-- Previous Button --}}
                                 @if ($student->onFirstPage())
-                                    <span class="px-4 py-2 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                        &laquo; Previous
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                        &laquo; 
                                     </span>
                                 @else
-                                    <a href="{{ $student->previousPageUrl() }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                        &laquo; Previous
+                                    <a href="{{ $student->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                        &laquo; 
                                     </a>
                                 @endif
 
@@ -99,20 +99,20 @@
 
                                 @for ($i = $start; $i <= $end; $i++)
                                     @if ($i == $student->currentPage())
-                                        <span class="px-4 py-2 text-sm md:text-base bg-theme-bg-1 text-white rounded-lg">{{ $i }}</span>
+                                        <span class="px-2 py-1 text-sm md:text-base bg-theme-bg-1 text-white rounded-lg">{{ $i }}</span>
                                     @else
-                                        <a href="{{ $student->url($i) }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                        <a href="{{ $student->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
                                     @endif
                                 @endfor
 
                                 {{-- Next Button --}}
                                 @if ($student->hasMorePages())
-                                    <a href="{{ $student->nextPageUrl() }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                        Next &raquo;
+                                    <a href="{{ $student->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                         &raquo;
                                     </a>
                                 @else
-                                    <span class="px-4 py-2 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                        Next &raquo;
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                         &raquo;
                                     </span>
                                 @endif
                             </div>

@@ -17,57 +17,48 @@ class SubjectSeeder extends Seeder
     public function run(): void
     {
         $subjects = [
-            1 => ['Bangla', 'English', 'Mathematics', 'General Knowledge', 'Religion'],
-            2 => ['Bangla', 'English', 'Mathematics', 'General Knowledge', 'Religion'],
-            3 => ['Bangla', 'English', 'Mathematics', 'Elementary Science', 'General Knowledge', 'Religion'],
-            4 => ['Bangla', 'English', 'Mathematics', 'Elementary Science', 'General Knowledge', 'Religion'],
-            5 => ['Bangla', 'English', 'Mathematics', 'Bangladesh and Global Studies', 'Science', 'Religion', 'Arts and Crafts', 'Physical Education'],
-            6 => ['Bangla', 'English', 'Mathematics', 'Science', 'Bangladesh and Global Studies', 'Religion', 'Arts and Crafts', 'Physical Education'],
-            7 => ['Bangla', 'English', 'Mathematics', 'Science', 'Bangladesh and Global Studies', 'Religion', 'Arts and Crafts', 'Physical Education'],
-            8 => ['Bangla', 'English', 'Mathematics', 'Science', 'Bangladesh and Global Studies', 'Religion', 'Arts and Crafts', 'Physical Education', 'ICT'],
-            
-            // Class 9-10 (Science, Commerce, Arts)
-            9 => [
+            // Class 11-12 (Science, Commerce, Arts)
+            1 => [
                 // Compulsory
-                'Bangla', 'English', 'Mathematics', 'Bangladesh and Global Studies', 'Religion', 'ICT', 'Physical Education',
+                'Bangla', 'English', 'ICT', 'Physical Education',
                 // Science Group
                 'Physics', 'Chemistry', 'Biology', 'Higher Mathematics',
                 // Commerce Group
-                'Accounting', 'Business Entrepreneurship', 'Finance & Banking',
+                'Accounting', 'Business Organization & Management', 'Finance, Banking & Insurance', 'Production Management & Marketing',
                 // Arts Group
-                'History of Bangladesh & World Civilization', 'Civics & Citizenship', 'Geography & Environment', 'Economics'
+                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography'
             ],
-            10 => [
+            2 => [
                 // Compulsory
-                'Bangla', 'English', 'Mathematics', 'Bangladesh and Global Studies', 'Religion', 'ICT', 'Physical Education',
+                'Bangla', 'English', 'ICT', 'Physical Education',
                 // Science Group
                 'Physics', 'Chemistry', 'Biology', 'Higher Mathematics',
                 // Commerce Group
-                'Accounting', 'Business Entrepreneurship', 'Finance & Banking',
+                'Accounting', 'Business Organization & Management', 'Finance, Banking & Insurance', 'Production Management & Marketing',
                 // Arts Group
-                'History of Bangladesh & World Civilization', 'Civics & Citizenship', 'Geography & Environment', 'Economics'
+                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography'
             ],
 
-            // Class 11-12 (Science, Commerce, Arts)
-            11 => [
-                // Compulsory
+            // Degree level subjects
+            3 => [
                 'Bangla', 'English', 'ICT', 'Physical Education',
-                // Science Group
                 'Physics', 'Chemistry', 'Biology', 'Higher Mathematics',
-                // Commerce Group
                 'Accounting', 'Business Organization & Management', 'Finance, Banking & Insurance', 'Production Management & Marketing',
-                // Arts Group
-                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography'
+                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography',
             ],
-            12 => [
-                // Compulsory
+
+            4 => [
                 'Bangla', 'English', 'ICT', 'Physical Education',
-                // Science Group
                 'Physics', 'Chemistry', 'Biology', 'Higher Mathematics',
-                // Commerce Group
                 'Accounting', 'Business Organization & Management', 'Finance, Banking & Insurance', 'Production Management & Marketing',
-                // Arts Group
-                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography'
+                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography',
+            ],
+
+            5 => [
+                'Bangla', 'English', 'ICT', 'Physical Education',
+                'Physics', 'Chemistry', 'Biology', 'Higher Mathematics',
+                'Accounting', 'Business Organization & Management', 'Finance, Banking & Insurance', 'Production Management & Marketing',
+                'Logic', 'History', 'Civics', 'Economics', 'Islamic Studies', 'Sociology', 'Social Work', 'Geography',
             ],
         ];
 

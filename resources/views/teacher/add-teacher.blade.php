@@ -46,8 +46,8 @@
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{url('/teacher-list')}}">Teacher List</a></li>
-                            <li class="breadcrumb-item"><a href="{{url('/add-teacher-view')}}">Add Teacher</a></li>
-                            <li class="breadcrumb-item" aria-current="page">List</li>
+                            <li class="breadcrumb-item"><a href="{{url('/add-teacher-view')}}">Create Teacher</a></li>
+                            <li class="breadcrumb-item" aria-current="page">info</li>
                         </ul>
                     </div>
                 </div>
@@ -70,8 +70,8 @@
                 <div class="gap-x-6">
                     <div class="col-span-12">
                         <div class="card rounded-lg border">
-                            <div class="card-header">
-                                <h5>Personal Information</h5>
+                            <div class="card-header bg-gray-700">
+                                <h5 class="text-white">Personal Information</h5>
                             </div>
                             <div class="card-body">
                                 <form action="{{url('/add-new-teacher')}}" method="POST" class="space-y-6" enctype="multipart/form-data">
@@ -135,6 +135,26 @@
                                                 <label class="block text-gray-600 mb-1" for="address">Address (Present & Permanent)</label>
                                                 <textarea id="address" name="address" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">Dhaka</textarea>
                                             </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="joining_date">Joining Date</label>
+                                                <input type="date" id="joining_date" name="joining_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="2023-12-31">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="mop_date">MOP Date</label>
+                                                <input type="date" id="mop_date" name="mop_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="2024-12-31">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="txtTraning">Traning</label>
+                                                <input type="text" id="txtTraning" name="txtTraning" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="N/A">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="txtIndexNumber">Index Number</label>
+                                                <input type="text" id="txtIndexNumber" name="txtIndexNumber" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="D65498765">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -176,6 +196,16 @@
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with Student</label>
                                                 <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Father">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="status">Status</label>
+                                                <select id="status" name="status" 
+                                                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option disabled selected>--Select Status--</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">De-Active</option>
+                                                </select>
                                             </div>
 
                                         </div>

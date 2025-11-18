@@ -20,7 +20,7 @@
         <div class="col-span-12">
             <div class="card table-card">
                 <div class="card-header">
-                    <h5>Add new Teacher</h5>
+                    <h5>Search Teacher</h5>
                 </div>
                 <div class="card">
                     <div class="bg-white rounded shadow-md p-4">
@@ -45,7 +45,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <h6 class="mb-1"><a href="{{url('/edit-teacher-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
+                                        <h6 class="mb-1 text-[#19b6b6]"><a href="{{url('/edit-teacher-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
                                         <p class="m-0">{{$val->designation}}</p>
                                     </td>
                                     <td>
@@ -67,6 +67,47 @@
                                 <tr class="row resultData"></tr>
                             </tbody>
                         </table>
+                        <!-- paginatior -->
+                        @if ($teacher->hasPages())
+                            <div class="flex flex-wrap items-center justify-center mt-4 space-x-2">
+
+                                {{-- Previous Button --}}
+                                @if ($teacher->onFirstPage())
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                        &laquo; 
+                                    </span>
+                                @else
+                                    <a href="{{ $teacher->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                        &laquo; 
+                                    </a>
+                                @endif
+
+                                {{-- Page Numbers --}}
+                                @php
+                                    $start = max(2, $teacher->currentPage() - 2);
+                                    $end = min($teacher->lastPage(), $teacher->currentPage() + 2);
+                                @endphp
+
+                                @for ($i = $start; $i <= $end; $i++)
+                                    @if ($i == $teacher->currentPage())
+                                        <span class="px-2 py-1 text-sm md:text-base bg-theme-bg-1 text-white rounded-lg">{{ $i }}</span>
+                                    @else
+                                        <a href="{{ $teacher->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                    @endif
+                                @endfor
+
+                                {{-- Next Button --}}
+                                @if ($teacher->hasMorePages())
+                                    <a href="{{ $teacher->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                         &raquo;
+                                    </a>
+                                @else
+                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                         &raquo;
+                                    </span>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
