@@ -68,4 +68,9 @@ class Teacher extends Authenticatable
     {
         return $this->hasMany(Notice::class, 'user_id');
     }
+
+    public function attendance()
+    {
+        return $this->hasMany(TeacherAttendance::class, 'teacher_id', 'id');
+    }
 }

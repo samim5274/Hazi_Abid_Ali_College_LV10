@@ -8,6 +8,7 @@ use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\PromoteController;
 use App\Http\Controllers\Student\StudentReportController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\AttendTeacherController;
 use App\Http\Controllers\Teacher\TeacherReportController;
 use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Subject\SubjectController;
@@ -63,6 +64,8 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/teacher-report', [TeacherReportController::class, 'teacherReport'])->name('teacher-report');
 
+    Route::get('/teacher-attendance', [AttendTeacherController::class, 'index'])->name('teacher-attendance-view');
+    Route::post('/teacher-attendance/store', [AttendTeacherController::class, 'store'])->name('teacher.attendance.store');
 
 
 
@@ -183,7 +186,7 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 
-
+    // ======================================================= Notice Board Route =======================================================
     Route::get('/notice', [NoticeController::class, 'index'])->name('notice-create-view');
     Route::post('/create-notice', [NoticeController::class, 'create'])->name('create-new-notice');
     Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');

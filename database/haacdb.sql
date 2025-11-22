@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2025 at 11:42 AM
+-- Generation Time: Nov 22, 2025 at 02:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -384,7 +384,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (70, '2025_09_22_185453_create_fee_payments_table', 1),
 (71, '2025_09_28_183808_create_exam_names_table', 1),
 (72, '2025_10_03_153733_create_class_schedules_table', 1),
-(77, '2025_11_20_122825_create_notices_table', 2);
+(77, '2025_11_20_122825_create_notices_table', 2),
+(79, '2025_11_22_173329_create_teacher_attendances_table', 3);
 
 -- --------------------------------------------------------
 
@@ -404,14 +405,6 @@ CREATE TABLE `notices` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `notices`
---
-
-INSERT INTO `notices` (`id`, `title`, `description`, `publish_date`, `user_id`, `attachment`, `notice_type`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Sports Competition Notice', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '2025-11-22', 1, '2025-11-22_1763807818_472768562_1610480719553796_3253961327262953984_n.jpg', 'Student', 1, '2025-11-22 10:36:58', '2025-11-22 10:36:58'),
-(2, 'Annual Examination Notice 2025', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '2025-11-22', 1, '2025-11-22_1763807837_528602967_1759254244676442_3295926526924150387_n.jpg', 'Public', 1, '2025-11-22 10:37:17', '2025-11-22 10:37:17');
 
 -- --------------------------------------------------------
 
@@ -771,8 +764,8 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `national_id`, `contact_number`, `email`, `password`, `designation`, `address`, `father_name`, `father_contact`, `mother_name`, `mother_contact`, `guardian_name`, `guardian_contact`, `guardian_relationship`, `photo`, `father_photo`, `mother_photo`, `joning_date`, `mop_date`, `traning`, `index_no`, `status`, `remark`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Genesis', 'Feeney', '1974-05-05', 'Other', 'AB-', '0', '(628) 212-0625', 'teacher1@example.com', '$2y$12$vhX1L3fK.KqV/a1sdcd7dep7Cx8o1L/A4CgRAs8sHl8xQc6ytKzFO', 'Assistant Professor', '79965 Tatyana Drive\nLelahburgh, NH 33827-4116', 'Santos Mertz', '585-231-8614', 'Kelly Kuvalis', '+1-651-466-8370', 'Emile Stehr', '+1.585.540.4495', 'Brother', NULL, NULL, NULL, '1999-12-30', '1973-02-03', 'N/A', 'D001', 1, 'N/A', '7iv1YKlwZHgLn9H39lcByIJKgk49MO7WYSghvpq0eAp1GiN36Zsl9siVoq9F', '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
-(2, 'Judy', 'Rowe', '1981-09-21', 'Male', 'O+', '2', '+1-980-408-3413', 'teacher2@example.com', '$2y$12$7utLRR24Husv1YBpvB1ht.kQbzpm9345emYiT7S4hMGl1X.VMt3SO', 'Senior Teacher', '44635 Irma Summit\nBuckridgeside, SC 54322-3309', 'Mr. Thad Parisian', '1-520-581-3374', 'Kianna Bode', '458-694-0821', 'Dr. Sean Zboncak I', '(469) 772-7440', 'Uncle', NULL, NULL, NULL, '1993-07-30', '2004-12-29', 'N/A', 'D003', 1, 'N/A', NULL, '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
+(1, 'Genesis', 'Feeney', '1974-05-05', 'Other', 'AB-', '0', '(628) 212-0625', 'teacher1@example.com', '$2y$12$vhX1L3fK.KqV/a1sdcd7dep7Cx8o1L/A4CgRAs8sHl8xQc6ytKzFO', 'Assistant Professor', '79965 Tatyana Drive\r\nLelahburgh, NH 33827-4116', 'Santos Mertz', '585-231-8614', 'Kelly Kuvalis', '+1-651-466-8370', 'Emile Stehr', '+1.585.540.4495', 'Brother', 'tch-Genesis-1763814753.jpg', NULL, NULL, '1999-12-30', '2025-11-22', 'N/A', 'D001', 1, 'N/A', '7iv1YKlwZHgLn9H39lcByIJKgk49MO7WYSghvpq0eAp1GiN36Zsl9siVoq9F', '2025-11-18 10:09:22', '2025-11-22 12:32:33'),
+(2, 'Judy', 'Rowe', '1981-09-21', 'Male', 'O+', '2', '+1-980-408-3413', 'teacher2@example.com', '$2y$12$7utLRR24Husv1YBpvB1ht.kQbzpm9345emYiT7S4hMGl1X.VMt3SO', 'Senior Teacher', '44635 Irma Summit\nBuckridgeside, SC 54322-3309', 'Mr. Thad Parisian', '1-520-581-3374', 'Kianna Bode', '458-694-0821', 'Dr. Sean Zboncak I', '(469) 772-7440', 'Uncle', NULL, NULL, NULL, '1993-07-30', '2004-12-29', 'N/A', 'D003', 1, 'N/A', 'Q8o3JS1YHFgbRfO22v8b5lZz0tEaSmEslcPiNmUqmeNMApI4qPy21G6cIVMy', '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
 (3, 'Nelda', 'Collier', '1984-04-09', 'Female', 'B-', '4', '+1 (657) 331-7133', 'teacher3@example.com', '$2y$12$wrus13paoX7gFHSEuQX38.5ZWxACIrFRTEONx0Gkg6rvLeB6ixb3K', 'Head of Department', '3252 Lemke Island Apt. 999\nRoweshire, MI 79563-8432', 'Jacques Auer', '(364) 359-8419', 'Amara Friesen', '1-763-772-4520', 'Herbert D\'Amore', '(906) 447-9242', 'Sister', NULL, NULL, NULL, '1980-04-21', '1985-09-01', 'N/A', 'D005', 1, 'N/A', NULL, '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
 (4, 'Amber', 'Borer', '1985-12-12', 'Other', 'B-', '6', '1-567-969-4007', 'teacher4@example.com', '$2y$12$T1yKcbjxo0wFOeq16SlGt.Ph66yqGtYwGdHAFoeWrH9jvK/Iqel/G', 'Senior Teacher', '4813 Zieme Cliffs\nEast Rafaelahaven, OR 96235', 'Mr. Logan Swaniawski MD', '1-678-829-3920', 'Andreane Altenwerth', '505.959.2790', 'Felicity Oberbrunner', '+1-463-700-8291', 'Uncle', NULL, NULL, NULL, '1987-10-18', '1993-05-19', 'N/A', 'D007', 1, 'N/A', NULL, '2025-11-18 10:09:23', '2025-11-18 10:09:23'),
 (5, 'Alycia', 'Armstrong', '1972-08-07', 'Male', 'B+', '8', '+1-234-393-1919', 'teacher5@example.com', '$2y$12$zToW3lfmkHNUvmhfKIe7R.8w0WedLFOPVsu.kj9Dh5zBHWTlCyg8a', 'Lecturer', '270 Kohler Rue\nNorth Jenashire, OR 14434', 'Leonel Mueller II', '854.956.5477', 'Gudrun Cremin', '430.275.1144', 'Prof. Nora Nitzsche II', '+1.785.515.4656', 'Grandparent', NULL, NULL, NULL, '1977-06-18', '2016-10-11', 'N/A', 'D009', 1, 'N/A', NULL, '2025-11-18 10:09:23', '2025-11-18 10:09:23'),
@@ -786,6 +779,34 @@ INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood
 (13, 'Aurelie', 'Bergstrom', '1986-04-02', 'Male', 'B-', '24', '1-754-843-4829', 'teacher13@example.com', '$2y$12$nkYGrcY80/qYv8QnC3hA5u6dpRXkfiIqn/dL9nhDnALa5nEQOH27G', 'Senior Teacher', '6059 Bayer Causeway\nRashawnhaven, WI 69196-9814', 'Fred Spencer', '+1-870-624-3805', 'Amie Bailey', '505.449.3147', 'Talia Vandervort', '929.654.0936', 'Grandparent', NULL, NULL, NULL, '1974-03-12', '2015-08-17', 'N/A', 'D0025', 1, 'N/A', NULL, '2025-11-18 10:09:24', '2025-11-18 10:09:24'),
 (14, 'Randal', 'Bergnaum', '1976-11-27', 'Male', 'AB+', '26', '+1-785-697-6742', 'teacher14@example.com', '$2y$12$uZi2TXyMXgqYxaunngMr7eERfH8mtIs91RrqGtYr/FJ/O3Zl6ieAi', 'Head of Department', '8184 Ortiz Trail\nGusikowskiside, FL 59209', 'Dr. Granville Botsford Jr.', '+1-385-625-5813', 'Alayna Tillman', '+1 (863) 710-1550', 'Christopher Shanahan', '+1-626-713-9004', 'Brother', NULL, NULL, NULL, '2004-11-09', '1992-07-02', 'N/A', 'D0027', 1, 'N/A', NULL, '2025-11-18 10:09:24', '2025-11-18 10:09:24'),
 (15, 'Dax', 'Stoltenberg', '1978-08-30', 'Male', 'O-', '28', '+1 (859) 749-0952', 'teacher15@example.com', '$2y$12$ISX4h./ZD7vNOSfRLBIN5etsaGVYsV9GHoz7DTu326CBJOyNwY7W2', 'Assistant Professor', '1019 Korbin Branch\nStacymouth, OK 77650-5503', 'Darryl Greenholt', '434.893.4293', 'Prof. Teagan Hintz V', '1-480-226-4152', 'Alejandrin Gleason', '1-603-840-7480', 'Uncle', NULL, NULL, NULL, '1970-05-06', '1982-10-28', 'N/A', 'D0029', 1, 'N/A', NULL, '2025-11-18 10:09:25', '2025-11-18 10:09:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_attendances`
+--
+
+CREATE TABLE `teacher_attendances` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `attendance_date` date NOT NULL,
+  `attendance_time` time NOT NULL,
+  `status` enum('present','absent') NOT NULL DEFAULT 'present',
+  `ip_address` varchar(45) DEFAULT NULL,
+  `browser` varchar(255) DEFAULT NULL,
+  `device` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `teacher_attendances`
+--
+
+INSERT INTO `teacher_attendances` (`id`, `teacher_id`, `attendance_date`, `attendance_time`, `status`, `ip_address`, `browser`, `device`, `location`, `created_at`, `updated_at`) VALUES
+(4, 1, '2025-11-22', '19:03:49', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-22 13:03:49', '2025-11-22 13:03:49'),
+(5, 2, '2025-11-22', '19:10:24', 'absent', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-22 13:10:24', '2025-11-22 13:10:24');
 
 -- --------------------------------------------------------
 
@@ -952,6 +973,13 @@ ALTER TABLE `teachers`
   ADD UNIQUE KEY `teachers_email_unique` (`email`);
 
 --
+-- Indexes for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `teacher_attendances_teacher_id_attendance_date_unique` (`teacher_id`,`attendance_date`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1020,13 +1048,13 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1063,6 +1091,12 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `teachers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1149,6 +1183,12 @@ ALTER TABLE `student_subjects`
 --
 ALTER TABLE `subjects`
   ADD CONSTRAINT `subjects_class_id_foreign` FOREIGN KEY (`class_id`) REFERENCES `rooms` (`id`);
+
+--
+-- Constraints for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+  ADD CONSTRAINT `teacher_attendances_teacher_id_foreign` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
