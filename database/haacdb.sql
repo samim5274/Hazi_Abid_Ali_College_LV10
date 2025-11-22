@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 18, 2025 at 01:46 PM
+-- Generation Time: Nov 22, 2025 at 11:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -118,7 +118,67 @@ INSERT INTO `attendances` (`id`, `student_id`, `class_id`, `subject_id`, `attend
 (72, 27, 2, 23, '2025-11-18', 'Present', 'N/A', '2025-11-18 11:18:45', '2025-11-18 11:18:45'),
 (73, 30, 2, 23, '2025-11-18', 'Present', 'N/A', '2025-11-18 11:18:46', '2025-11-18 11:18:46'),
 (74, 32, 2, 23, '2025-11-18', 'Absent', 'N/A', '2025-11-18 11:18:47', '2025-11-18 11:18:47'),
-(75, 17, 2, 23, '2025-11-18', 'Present', 'N/A', '2025-11-18 11:19:22', '2025-11-18 11:19:22');
+(75, 17, 2, 23, '2025-11-18', 'Present', 'N/A', '2025-11-18 11:19:22', '2025-11-18 11:19:22'),
+(76, 2, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:53', '2025-11-20 05:10:53'),
+(77, 3, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:54', '2025-11-20 05:10:54'),
+(78, 5, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:56', '2025-11-20 05:10:56'),
+(79, 7, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:57', '2025-11-20 05:10:57'),
+(80, 8, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:58', '2025-11-20 05:10:58'),
+(81, 10, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:10:59', '2025-11-20 05:10:59'),
+(82, 15, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:01', '2025-11-20 05:11:01'),
+(83, 24, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:03', '2025-11-20 05:11:03'),
+(84, 25, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:04', '2025-11-20 05:11:04'),
+(85, 37, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:06', '2025-11-20 05:11:06'),
+(86, 38, 1, 1, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:08', '2025-11-20 05:11:08'),
+(87, 42, 1, 1, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:10', '2025-11-20 05:11:10'),
+(88, 2, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:18', '2025-11-20 05:11:18'),
+(89, 3, 1, 2, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:19', '2025-11-20 05:11:19'),
+(90, 5, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:20', '2025-11-20 05:11:20'),
+(91, 7, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:21', '2025-11-20 05:11:21'),
+(92, 8, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:22', '2025-11-20 05:11:22'),
+(93, 10, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:23', '2025-11-20 05:11:23'),
+(94, 15, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:24', '2025-11-20 05:11:24'),
+(95, 24, 1, 2, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:25', '2025-11-20 05:11:25'),
+(96, 25, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:27', '2025-11-20 05:11:27'),
+(97, 37, 1, 2, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:28', '2025-11-20 05:11:28'),
+(98, 38, 1, 2, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:29', '2025-11-20 05:11:29'),
+(99, 42, 1, 2, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:32', '2025-11-20 05:11:32'),
+(100, 2, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:38', '2025-11-20 05:11:38'),
+(101, 3, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:40', '2025-11-20 05:11:40'),
+(102, 5, 1, 3, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:41', '2025-11-20 05:11:41'),
+(103, 7, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:42', '2025-11-20 05:11:42'),
+(104, 8, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:43', '2025-11-20 05:11:43'),
+(105, 10, 1, 3, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:44', '2025-11-20 05:11:44'),
+(106, 15, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:45', '2025-11-20 05:11:45'),
+(107, 24, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:46', '2025-11-20 05:11:46'),
+(108, 25, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:47', '2025-11-20 05:11:47'),
+(109, 37, 1, 3, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:49', '2025-11-20 05:11:49'),
+(110, 38, 1, 3, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:11:50', '2025-11-20 05:11:50'),
+(111, 42, 1, 3, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:11:51', '2025-11-20 05:11:51'),
+(112, 2, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:14', '2025-11-20 05:22:14'),
+(113, 3, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:16', '2025-11-20 05:22:16'),
+(114, 5, 1, 4, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:22:17', '2025-11-20 05:22:17'),
+(115, 7, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:18', '2025-11-20 05:22:18'),
+(116, 8, 1, 4, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:22:19', '2025-11-20 05:22:19'),
+(117, 10, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:20', '2025-11-20 05:22:20'),
+(118, 15, 1, 4, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:22:22', '2025-11-20 05:22:22'),
+(119, 24, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:23', '2025-11-20 05:22:23'),
+(120, 25, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:24', '2025-11-20 05:22:24'),
+(121, 37, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:26', '2025-11-20 05:22:26'),
+(122, 38, 1, 4, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:22:27', '2025-11-20 05:22:27'),
+(123, 42, 1, 4, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:22:28', '2025-11-20 05:22:28'),
+(124, 2, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:41', '2025-11-20 05:38:41'),
+(125, 3, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:42', '2025-11-20 05:38:42'),
+(126, 5, 1, 5, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:38:43', '2025-11-20 05:38:43'),
+(127, 7, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:44', '2025-11-20 05:38:44'),
+(128, 8, 1, 5, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:38:45', '2025-11-20 05:38:45'),
+(129, 10, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:47', '2025-11-20 05:38:47'),
+(130, 15, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:48', '2025-11-20 05:38:48'),
+(131, 24, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:50', '2025-11-20 05:38:50'),
+(132, 25, 1, 5, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:38:51', '2025-11-20 05:38:51'),
+(133, 37, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:52', '2025-11-20 05:38:52'),
+(134, 38, 1, 5, '2025-11-20', 'Absent', 'N/A', '2025-11-20 05:38:54', '2025-11-20 05:38:54'),
+(135, 42, 1, 5, '2025-11-20', 'Present', 'N/A', '2025-11-20 05:38:55', '2025-11-20 05:38:55');
 
 -- --------------------------------------------------------
 
@@ -156,6 +216,14 @@ CREATE TABLE `exams` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `exams`
+--
+
+INSERT INTO `exams` (`id`, `name`, `date`, `class_id`, `subject_id`, `max_marks`, `created_at`, `updated_at`) VALUES
+(1, 'Midterm', '2025-11-27', 1, 3, 100, '2025-11-20 06:56:39', '2025-11-20 06:56:39'),
+(2, 'Final', '2025-11-29', 2, 40, 100, '2025-11-20 06:56:48', '2025-11-20 06:56:48');
+
 -- --------------------------------------------------------
 
 --
@@ -168,6 +236,14 @@ CREATE TABLE `exam_names` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exam_names`
+--
+
+INSERT INTO `exam_names` (`id`, `exam_name`, `created_at`, `updated_at`) VALUES
+(1, 'Midterm', '2025-11-20 06:56:21', '2025-11-20 06:56:21'),
+(2, 'Final', '2025-11-20 06:56:26', '2025-11-20 06:56:26');
 
 -- --------------------------------------------------------
 
@@ -307,7 +383,35 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (69, '2025_09_22_185444_create_fee_structures_table', 1),
 (70, '2025_09_22_185453_create_fee_payments_table', 1),
 (71, '2025_09_28_183808_create_exam_names_table', 1),
-(72, '2025_10_03_153733_create_class_schedules_table', 1);
+(72, '2025_10_03_153733_create_class_schedules_table', 1),
+(77, '2025_11_20_122825_create_notices_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices`
+--
+
+CREATE TABLE `notices` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `publish_date` date NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `attachment` varchar(255) DEFAULT NULL,
+  `notice_type` varchar(255) NOT NULL DEFAULT 'public',
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`id`, `title`, `description`, `publish_date`, `user_id`, `attachment`, `notice_type`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Sports Competition Notice', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '2025-11-22', 1, '2025-11-22_1763807818_472768562_1610480719553796_3253961327262953984_n.jpg', 'Student', 1, '2025-11-22 10:36:58', '2025-11-22 10:36:58'),
+(2, 'Annual Examination Notice 2025', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '2025-11-22', 1, '2025-11-22_1763807837_528602967_1759254244676442_3295926526924150387_n.jpg', 'Public', 1, '2025-11-22 10:37:17', '2025-11-22 10:37:17');
 
 -- --------------------------------------------------------
 
@@ -495,6 +599,13 @@ CREATE TABLE `student_subjects` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `student_subjects`
+--
+
+INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, '2025-11-20 06:57:04', '2025-11-20 06:57:04');
+
 -- --------------------------------------------------------
 
 --
@@ -660,7 +771,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `national_id`, `contact_number`, `email`, `password`, `designation`, `address`, `father_name`, `father_contact`, `mother_name`, `mother_contact`, `guardian_name`, `guardian_contact`, `guardian_relationship`, `photo`, `father_photo`, `mother_photo`, `joning_date`, `mop_date`, `traning`, `index_no`, `status`, `remark`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Genesis', 'Feeney', '1974-05-05', 'Other', 'AB-', '0', '(628) 212-0625', 'teacher1@example.com', '$2y$12$vhX1L3fK.KqV/a1sdcd7dep7Cx8o1L/A4CgRAs8sHl8xQc6ytKzFO', 'Assistant Professor', '79965 Tatyana Drive\nLelahburgh, NH 33827-4116', 'Santos Mertz', '585-231-8614', 'Kelly Kuvalis', '+1-651-466-8370', 'Emile Stehr', '+1.585.540.4495', 'Brother', NULL, NULL, NULL, '1999-12-30', '1973-02-03', 'N/A', 'D001', 1, 'N/A', NULL, '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
+(1, 'Genesis', 'Feeney', '1974-05-05', 'Other', 'AB-', '0', '(628) 212-0625', 'teacher1@example.com', '$2y$12$vhX1L3fK.KqV/a1sdcd7dep7Cx8o1L/A4CgRAs8sHl8xQc6ytKzFO', 'Assistant Professor', '79965 Tatyana Drive\nLelahburgh, NH 33827-4116', 'Santos Mertz', '585-231-8614', 'Kelly Kuvalis', '+1-651-466-8370', 'Emile Stehr', '+1.585.540.4495', 'Brother', NULL, NULL, NULL, '1999-12-30', '1973-02-03', 'N/A', 'D001', 1, 'N/A', '7iv1YKlwZHgLn9H39lcByIJKgk49MO7WYSghvpq0eAp1GiN36Zsl9siVoq9F', '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
 (2, 'Judy', 'Rowe', '1981-09-21', 'Male', 'O+', '2', '+1-980-408-3413', 'teacher2@example.com', '$2y$12$7utLRR24Husv1YBpvB1ht.kQbzpm9345emYiT7S4hMGl1X.VMt3SO', 'Senior Teacher', '44635 Irma Summit\nBuckridgeside, SC 54322-3309', 'Mr. Thad Parisian', '1-520-581-3374', 'Kianna Bode', '458-694-0821', 'Dr. Sean Zboncak I', '(469) 772-7440', 'Uncle', NULL, NULL, NULL, '1993-07-30', '2004-12-29', 'N/A', 'D003', 1, 'N/A', NULL, '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
 (3, 'Nelda', 'Collier', '1984-04-09', 'Female', 'B-', '4', '+1 (657) 331-7133', 'teacher3@example.com', '$2y$12$wrus13paoX7gFHSEuQX38.5ZWxACIrFRTEONx0Gkg6rvLeB6ixb3K', 'Head of Department', '3252 Lemke Island Apt. 999\nRoweshire, MI 79563-8432', 'Jacques Auer', '(364) 359-8419', 'Amara Friesen', '1-763-772-4520', 'Herbert D\'Amore', '(906) 447-9242', 'Sister', NULL, NULL, NULL, '1980-04-21', '1985-09-01', 'N/A', 'D005', 1, 'N/A', NULL, '2025-11-18 10:09:22', '2025-11-18 10:09:22'),
 (4, 'Amber', 'Borer', '1985-12-12', 'Other', 'B-', '6', '1-567-969-4007', 'teacher4@example.com', '$2y$12$T1yKcbjxo0wFOeq16SlGt.Ph66yqGtYwGdHAFoeWrH9jvK/Iqel/G', 'Senior Teacher', '4813 Zieme Cliffs\nEast Rafaelahaven, OR 96235', 'Mr. Logan Swaniawski MD', '1-678-829-3920', 'Andreane Altenwerth', '505.959.2790', 'Felicity Oberbrunner', '+1-463-700-8291', 'Uncle', NULL, NULL, NULL, '1987-10-18', '1993-05-19', 'N/A', 'D007', 1, 'N/A', NULL, '2025-11-18 10:09:23', '2025-11-18 10:09:23'),
@@ -774,6 +885,13 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notices`
+--
+ALTER TABLE `notices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notices_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -848,7 +966,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT for table `class_schedules`
@@ -860,13 +978,13 @@ ALTER TABLE `class_schedules`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `exam_names`
 --
 ALTER TABLE `exam_names`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -902,7 +1020,13 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- AUTO_INCREMENT for table `notices`
+--
+ALTER TABLE `notices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -926,7 +1050,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `student_subjects`
 --
 ALTER TABLE `student_subjects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -994,6 +1118,12 @@ ALTER TABLE `marks`
   ADD CONSTRAINT `marks_exam_id_foreign` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`),
   ADD CONSTRAINT `marks_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `marks_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+
+--
+-- Constraints for table `notices`
+--
+ALTER TABLE `notices`
+  ADD CONSTRAINT `notices_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `rooms`

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance - (SMS)</title>
+    <title>Attendance (SMS)</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -53,15 +53,15 @@
             </div>
 
             <!-- search section -->
-             <div class="card rounded-md border shadow-md">
+            <div class="card rounded-md border shadow-md">
                 <div class="card-body">
                     @php
                         $today = date('Y-m-d');
                     @endphp
 
-                    <form action="{{url('/search-date-and-class-attend-student')}}" method="GET" class="p-4">
+                    <form action="{{url('/find-subject-attendace')}}" method="GET" class="p-4">
                         @csrf
-                        <div class="grid md:grid-cols-3 gap-6">
+                        <div class="grid md:grid-cols-2 gap-6">
 
                             {{-- Start Date --}}
                             <div class="flex flex-col">
@@ -87,7 +87,7 @@
                             </div>
 
                             <div class="flex flex-col">
-                                <label for="class" class="text-sm font-medium text-gray-700 mb-1">Class</label>
+                                <label for="class_id" class="text-sm font-medium text-gray-700 mb-1">Class</label>
                                 <select name="class_id" id="class_id" class="border border-gray-300 rounded-lg px-3 py-2 text-md focus:ring-2 focus:ring-theme-bg-1 focus:outline-none">
                                     <option selected disabled>-- Select class --</option>
                                     @foreach($classes as $val)
@@ -96,11 +96,26 @@
                                     @endif
                                     @endforeach
                                 </select>
-                            </div>                           
+                            </div>  
 
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="subject_id" class="text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <select name="subject_id" id="subject_id" class="border border-gray-300 rounded-lg px-3 py-2 text-md focus:ring-2 focus:ring-theme-bg-1 focus:outline-none">
+                                    <option selected disabled>-- Select Subject --</option>
+                                </select>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <label for="student_id" class="text-sm font-medium text-gray-700 mb-1">Student</label>
+                                <select name="student_id" id="student_id" class="border border-gray-300 rounded-lg px-3 py-2 text-md focus:ring-2 focus:ring-theme-bg-1 focus:outline-none">
+                                    <option selected disabled>-- Select Student --</option>
+                                </select>
+                            </div>
+
+                        </div>   
+                        
                         {{-- Submit Button --}}
-                        <div class="flex items-end mt-4">
+                        <div class="flex items-end mt-6">
                             <button type="submit" 
                                 class="bg-[#3F4D67] text-white px-4 py-2 rounded-lg text-md font-medium shadow hover:bg-[#3F4D67] transition w-full">
                                 Search
@@ -112,18 +127,17 @@
                 </div>
              </div>
 
-            <!-- Card -->
+            
+             <!-- Card -->
             <div class="card rounded-lg border shadow-sm">             
-                <div class="card-body">  
-
-                    
+                <div class="card-body">                     
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-sm text-left text-gray-600 border border-gray-200 rounded-lg">
                             <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
                                 <tr>
                                     <th class="px-4 py-3 border text-center" style="width: 50px">#</th>
                                     <th class="px-4 py-3 border">Student Name</th>
-                                    <th class="px-4 py-3 border">Subject</th>
+                                    <th class="px-4 py-3 border text-center">Subject</th>
                                     <th class="px-4 py-3 border text-center" style="width: 150px">Date</th>
                                     <th class="px-4 py-3 border text-center" style="width: 150px">Class</th>
                                     <th class="px-4 py-3 border text-center" style="width: 100px">Status</th>
@@ -138,10 +152,10 @@
                                     </td>
                                     <!-- Student Name -->
                                     <td class="px-4 py-3 border"> {{ $val->student->first_name }} {{ $val->student->last_name }}</td>
-                                    <!-- Student Name -->
-                                    <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
                                     <!-- Subject Name -->
                                     <td class="px-4 py-3 border text-center"> {{ $val->subject->name }}</td>
+                                    <!-- Student Name -->
+                                    <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
                                     <!-- Attendance Date -->
                                     <td class="px-4 py-3 border text-center"> {{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>
                                     <!-- Attendance Status -->
@@ -157,6 +171,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <!-- paginatior -->
                     @if ($findData->hasPages())
                         <div class="flex flex-wrap items-center justify-between mt-4 w-full">
@@ -254,6 +269,60 @@
     <script> layout_rtl_change('false'); </script>
     <script> preset_change('preset-1'); </script>
     <script> main_layout_change('vertical'); </script>
+
+    <script>
+        document.getElementById('class_id').addEventListener('change', function() {
+
+            let classId = this.value;
+
+            let subjectSelect = document.getElementById('subject_id');
+            let studentSelect = document.getElementById('student_id');
+
+            subjectSelect.innerHTML = '<option selected disabled>Loading...</option>';
+            studentSelect.innerHTML = '<option selected disabled>-- Select Student --</option>';
+
+            if (classId) {
+                fetch('/subjects/' + classId)
+                    .then(res => res.json())
+                    .then(data => {
+                        subjectSelect.innerHTML = '<option selected disabled>-- Select Subject --</option>';
+                        data.forEach(subject => {
+                            let option = document.createElement('option');
+                            option.value = subject.id;
+                            option.text = subject.name;
+                            subjectSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('subject_id').addEventListener('change', function() {
+
+            let subjectId = this.value;
+            let studentSelect = document.getElementById('student_id');
+
+            studentSelect.innerHTML = '<option selected disabled>Loading...</option>';
+
+            if (subjectId) {
+                fetch('/students-by-subject/' + subjectId)
+                    .then(res => res.json())
+                    .then(data => {
+                        studentSelect.innerHTML = '<option selected disabled>-- Select Student --</option>';
+
+                        data.forEach(student => {
+                            let option = document.createElement('option');
+                            option.value = student.id;
+                            option.text = student.first_name + ' ' + student.last_name;
+                            studentSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
+
+
 
 </body>
 </html>

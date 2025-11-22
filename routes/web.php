@@ -17,6 +17,7 @@ use App\Http\Controllers\StudentPortal\StudentPortalController;
 use App\Http\Controllers\Room\ClassController;
 use App\Http\Controllers\Finance\FinanceController;
 use App\Http\Controllers\Finance\FinanceReportController;
+use App\Http\Controllers\Notice\NoticeController;
 
 Auth::routes();
 
@@ -81,6 +82,11 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/search-date-and-class-attend-student', [AttendanceController::class, 'findClassAttend']);
     Route::get('/student-wise-attendance', [AttendanceController::class, 'studentAttend'])->name('student-wise-attendance');
     Route::get('/find-student-attendace', [AttendanceController::class, 'findStudentAttend']);
+    Route::get('/subject-wise-attendance', [AttendanceController::class, 'subjectAttend'])->name('subject-wise-attendance');
+    Route::get('/subjects/{class_id}', [AttendanceController::class, 'getSubjectsByClass']);
+    Route::get('/students-by-subject/{subject_id}', [AttendanceController::class, 'getStudentsBySubject']);
+    Route::get('/find-subject-attendace', [AttendanceController::class, 'findSubjectAttent']);
+
 
 
 
@@ -172,5 +178,16 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/student-results', [StudentPortalController::class, 'results'])->name('student-result');
     Route::get('/student-fee-details', [StudentPortalController::class, 'feeDetails'])->name('student-fee-details');
     Route::get('/student-payment-history', [StudentPortalController::class, 'feeHistory'])->name('payment-history');
+
+
+
+
+
+
+    Route::get('/notice', [NoticeController::class, 'index'])->name('notice-create-view');
+    Route::post('/create-notice', [NoticeController::class, 'create'])->name('create-new-notice');
+    Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');
+    Route::get('/delete/notice/{id}', [NoticeController::class, 'delete'])->name('delete-notice');
+    Route::get('/view/notice/{id}', [NoticeController::class, 'viewNotice'])->name('view-notice');
 
 });

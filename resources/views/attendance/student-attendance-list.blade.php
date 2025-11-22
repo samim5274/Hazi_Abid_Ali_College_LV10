@@ -109,9 +109,14 @@
                                     <td class="px-4 py-3 whitespace-nowrap text-right">
 
                                         @if(in_array($val->id, $attendanceCheck))
+                                            @php
+                                                $status = $attendanceData[$val->id]->status ?? '';
+                                                $bgColor  = $status === 'Present' ? 'bg-green-100' : 'bg-red-100';
+                                                $textColor = $status === 'Present' ? 'text-green-700' : 'text-red-700';
+                                            @endphp
                                             <!-- Already attended -->
-                                            <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                                                Already Marked
+                                            <span class="px-3 py-1 text-xs rounded-full {{ $bgColor }} {{ $textColor }}">
+                                                {{ $status }}
                                             </span>
                                         @else
                                             <div class="flex gap-2 justify-end">

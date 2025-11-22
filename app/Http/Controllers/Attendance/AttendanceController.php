@@ -61,8 +61,14 @@ class AttendanceController extends Controller
                             ->pluck('student_id')
                             ->toArray();
 
+        $attendanceData = Attendance::where('class_id', $class_id)
+                    ->where('subject_id', $subject_id)
+                    ->where('attendance_date', $date)
+                    ->get()
+                    ->keyBy('student_id'); // student_id কে Key করা
+
         return view('attendance.student-attendance-list', compact(
-            'student', 'totalStudent', 'attend', 'present', 'absent', 'subject', 'attendanceCheck'
+            'student', 'totalStudent', 'attend', 'present', 'absent', 'subject', 'attendanceCheck', 'attendanceData'
         ));
     }
 
@@ -203,6 +209,56 @@ class AttendanceController extends Controller
             ->paginate(45);
 
         return view('attendance.find-student-attendance', compact('findData','classes','students'));
+    }
+
+    public function subjectAttend(){
+        $start = $this->date;
+        $end = $this->date;
+        $classes = Room::all();
+        $students = Student::all();
+        $subjects = Subject::all();
+        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        return view('attendance.find-subject-attendance', compact('findData','classes','students','subjects'));
+    }
+
+    public function getSubjectsByClass($class_id){
+        $subjects = Subject::where('class_id', $class_id)->get();
+        return response()->json($subjects);
+    }
+
+    public function getStudentsBySubject($subject_id){
+        $subject = Subject::findOrFail($subject_id);
+        $students = Student::where('class_id', $subject->class_id)
+                        ->orderBy('roll_number', 'ASC')
+                        ->get();
+        return response()->json($students);
+    }
+
+    public function findSubjectAttent(Request $request){
+        $request->validate([
+            'class_id' => ['required'],
+            'student_id' => ['required'],
+            'subject_id' => ['required'],
+        ]);
+
+        $start = $request->input('start_date', '');
+        $end = $request->input('end_date', '');
+        $class_id = $request->input('class_id', '');
+        $student_id = $request->input('student_id', '');
+        $subject_id = $request->input('subject_id', '');
+
+        $classes = Room::all();
+        $students = Student::all();
+        $subjects = Subject::all();
+
+        $findData = Attendance::with('student')
+            ->where('class_id', $class_id)
+            ->where('student_id', $student_id)
+            ->where('subject_id', $subject_id)
+            ->whereBetween('attendance_date', [$start, $end])
+            ->paginate(45);
+        
+        return view('attendance.find-subject-attendance', compact('findData','classes','students','subjects'));
     }
 
 }
