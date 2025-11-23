@@ -66,6 +66,10 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/teacher-attendance', [AttendTeacherController::class, 'index'])->name('teacher-attendance-view');
     Route::post('/teacher-attendance/store', [AttendTeacherController::class, 'store'])->name('teacher.attendance.store');
+    Route::get('/teacher-attendance/report', [AttendTeacherController::class, 'attendanceReport'])->name('teacher-attendance-report');
+    Route::get('/filter-teacher-attendace', [AttendTeacherController::class, 'filterTeacherAttendace'])->name('filter-teacher-attendace');  
+    Route::get('/teacher/attend/edit/{id}', [AttendTeacherController::class, 'editTeacherAttend'])->name('edit-teacher-attendance');
+    Route::post('/teacher/attend/update/{id}', [AttendTeacherController::class, 'updateTeacherAttend'])->name('edit-teacher-attendance-update');
 
 
 
@@ -181,7 +185,10 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/student-results', [StudentPortalController::class, 'results'])->name('student-result');
     Route::get('/student-fee-details', [StudentPortalController::class, 'feeDetails'])->name('student-fee-details');
     Route::get('/student-payment-history', [StudentPortalController::class, 'feeHistory'])->name('payment-history');
-
+    Route::get('/my-daily-report', [StudentPortalController::class, 'dailyReport'])->name('my-daily-report');
+    Route::post('/student-daily-report', [StudentPortalController::class, 'dailyReportStore'])->name('student-daily-routine.store');
+    Route::get('/edit-student-daily-routine/{id}', [StudentPortalController::class, 'editStudentDailyRoutine'])->name('edit-student-daily-routine');
+    Route::post('/edit-student-daily-report', [StudentPortalController::class, 'dailyReportEdit'])->name('student-daily-routine.edit');
 
 
 

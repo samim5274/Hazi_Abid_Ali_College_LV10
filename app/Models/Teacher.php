@@ -43,6 +43,7 @@ class Teacher extends Authenticatable
         'index_no',
 
         'status',
+        'role',
         'remark',
     ];
 

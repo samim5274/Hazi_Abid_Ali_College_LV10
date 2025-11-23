@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('index_no')->nullable();
 
             $table->integer('status')->default(1);
+            $table->string('role')->default('Admin');
             $table->string('remark')->nullable();
             $table->rememberToken();
             $table->timestamps();

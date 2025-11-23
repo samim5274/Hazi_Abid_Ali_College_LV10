@@ -55,6 +55,12 @@
                         <span class="pc-mtext">Class Schedule</span>
                     </a>
                 </li>
+                <li class="pc-item">
+                    <a href="{{url('/my-daily-report')}}" class="pc-link">
+                        <span class="pc-micon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <span class="pc-mtext">Daily Report</span>
+                    </a>
+                </li>
 
                 <!-- Attendance -->
                 <li class="pc-item pc-caption">

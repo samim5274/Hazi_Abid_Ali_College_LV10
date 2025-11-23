@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Models\TeacherAttendance;
+use App\Models\Teacher;
 
 class AttendTeacherController extends Controller
 {
@@ -91,6 +92,72 @@ class AttendTeacherController extends Controller
         }
 
         return 'Unknown';
+    }
+
+    public function attendanceReport()
+    {
+        $data = TeacherAttendance::whereBetween('attendance_date', [
+                                    $this->date->copy()->subDays(30)->format('Y-m-d'),
+                                    $this->date->format('Y-m-d')
+                                ])->with('teacher')->get();
+        $total   = $data->count();
+        $present = $data->where('status', 'present')->count();
+        $absent  = $data->where('status', 'absent')->count();
+        $teachers = Teacher::all();
+        return view('teacher.attendance.teacher-attendance-report', compact('data','total', 'present', 'absent','teachers'));
+    }
+
+    public function filterTeacherAttendace(Request $request)
+    {
+        $query = TeacherAttendance::with('teacher');
+
+        // If teacher is selected → filter by teacher
+        if ($request->filled('teacher_id')) {
+            $query->where('teacher_id', $request->teacher_id);
+        }
+
+        // If date range is selected → apply date filter (for both single or all teacher)
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('attendance_date', [$request->start_date, $request->end_date]);
+        }
+
+        // Get filtered data
+        $data = $query->get();
+
+        // Summary
+        $total   = $data->count();
+        $present = $data->where('status', 'present')->count();
+        $absent  = $data->where('status', 'absent')->count();
+
+        // For dropdown
+        $teachers = Teacher::all();
+
+        if ($request->input('print')) {
+            return view('teacher.attendance.teacher-attendance-report-print', compact(
+                'data', 'teachers'
+            ));
+        }
+
+        return view('teacher.attendance.teacher-attendance-report', compact(
+            'data', 'total', 'present', 'absent', 'teachers'
+        ));
+    }
+
+    public function editTeacherAttend($id)
+    {
+        $attendance = TeacherAttendance::with('teacher')->findOrFail($id);
+        return view('teacher.attendance.edit-teacher-attendance', compact('attendance'));
+    }
+
+    public function updateTeacherAttend(Request $request, $id)
+    {
+        $attendance = TeacherAttendance::findOrFail($id);
+        $attendance->attendance_date = $request->attendance_date;
+        $attendance->attendance_time = $request->attendance_time;
+        $attendance->status = $request->status;
+        $attendance->save();
+
+        return redirect()->route('teacher-attendance-report')->with('success', 'Teacher attendance updated successfully.');
     }
 
 }

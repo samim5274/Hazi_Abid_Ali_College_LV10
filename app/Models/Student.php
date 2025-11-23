@@ -90,4 +90,9 @@ class Student extends Authenticatable
         return $this->hasMany(Mark::class, 'student_id');
     }
 
+    public function rotine()
+    {
+        return $this->hasMany(StudentDailyRoutine::class, 'student_id');
+    }
+
 }

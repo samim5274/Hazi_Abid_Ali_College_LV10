@@ -14,6 +14,7 @@ use App\Models\Attendance;
 use App\Models\FeeStructure;
 use App\Models\FeePayment;
 use App\Models\ClassSchedule;
+use App\Models\StudentDailyRoutine;
 use Auth;
 
 class StudentPortalController extends Controller
@@ -97,5 +98,91 @@ class StudentPortalController extends Controller
         $discount = FeePayment::where('student_id', $student->id)->sum('discount');
         $due = FeePayment::where('student_id', $student->id)->sum('due_amount');
         return view('studentPortal.fee.student-fee-history', compact('student','payment','paid','discount','due'));
+    }
+
+    public function dailyReport(){
+        $student = Auth::guard('student')->user();
+        $date = Carbon::today()->format('Y-m-d');
+        $routine = StudentDailyRoutine::where('student_id', $student->id)->get();
+        return view('studentPortal.daily-report.my-daily-report', compact('routine'));
+    }
+
+    public function dailyReportStore(Request $request){
+        $student = Auth::guard('student')->user();
+        $date = Carbon::today()->format('Y-m-d');
+
+        $data = StudentDailyRoutine::where('student_id', $student->id)->where('date', $date)->first();
+
+        if($data){
+            return redirect()->back()->with('error', 'Daily report for today has already been submitted.');
+        }
+
+        $request->validate([
+            'time_to_awake' => 'required',
+            'attendance_in_college' => 'required|in:0,1',
+            'arrival_in_residence' => 'required',
+            'prayer' => 'nullable|string|max:255',
+            'morning_activity' => 'nullable|string|max:255',
+            'evening_activity' => 'nullable|string|max:255',
+            'night_activity' => 'nullable|string|max:255',
+            'time_to_bed' => 'required',
+            'total_hours' => 'required|numeric|min:0',
+            'remark' => 'nullable|string|max:500',
+        ]);
+
+        $routine = new StudentDailyRoutine();
+        $routine->student_id = $student->id;
+        $routine->date = $date;
+        $routine->time_to_awake = $request->time_to_awake;
+        $routine->attendance_in_college = $request->attendance_in_college;
+        $routine->arrival_in_residence = $request->arrival_in_residence;
+        $routine->prayer = $request->prayer;
+        $routine->morning_activity = $request->morning_activity;
+        $routine->evening_activity = $request->evening_activity;
+        $routine->night_activity = $request->night_activity;
+        $routine->time_to_bed = $request->time_to_bed;
+        $routine->total_hours = $request->total_hours;
+        $routine->remark = $request->remark ?? 'N/A';
+        $routine->save();
+        
+        return redirect()->back()->with('success', 'Daily report submitted successfully.');
+    }
+
+    public function editStudentDailyRoutine($id){
+        $student = Auth::guard('student')->user();
+        $routine = StudentDailyRoutine::where('id', $id)->where('student_id', $student->id)->firstOrFail();
+        return view('studentPortal.daily-report.edit-daily-report', compact('routine'));
+    }
+
+    public function dailyReportEdit(Request $request){
+        $student = Auth::guard('student')->user();
+
+        $request->validate([
+            'time_to_awake' => 'required',
+            'attendance_in_college' => 'required|in:0,1',
+            'arrival_in_residence' => 'required',
+            'prayer' => 'nullable|string|max:255',
+            'morning_activity' => 'nullable|string|max:255',
+            'evening_activity' => 'nullable|string|max:255',
+            'night_activity' => 'nullable|string|max:255',
+            'time_to_bed' => 'required',
+            'total_hours' => 'required|numeric|min:0',
+            'remark' => 'nullable|string|max:500',
+        ]);
+
+        $routine = StudentDailyRoutine::where('id', $request->id)->where('student_id', $student->id)->firstOrFail();
+        $routine->time_to_awake = $request->time_to_awake;
+        $routine->attendance_in_college = $request->attendance_in_college;
+        $routine->arrival_in_residence = $request->arrival_in_residence;
+        $routine->prayer = $request->prayer;
+        $routine->morning_activity = $request->morning_activity;
+        $routine->evening_activity = $request->evening_activity;
+        $routine->night_activity = $request->night_activity;
+        $routine->time_to_bed = $request->time_to_bed;
+        $routine->total_hours = $request->total_hours;
+        $routine->remark = $request->remark ?? 'N/A';
+        $routine->update();
+        
+        return redirect()->route('my-daily-report')->with('success', 'Daily report updated successfully.');
     }
 }
