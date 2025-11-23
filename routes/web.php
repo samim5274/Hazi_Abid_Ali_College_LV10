@@ -50,7 +50,9 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/student-report', [StudentReportController::class, 'genderReport'])->name('gender-wise-student-report-view');
     Route::get('/find-gender-wise-student', [StudentReportController::class, 'findGenderReport']);
-
+    Route::get('/student-daily-report-view', [StudentReportController::class, 'studentDailyReport'])->name('student-daily-report-view');
+    Route::get('/get-students/{class_id}', [StudentReportController::class, 'getStudents'])->name('get.students');
+    Route::get('/filter-student-daily-report', [StudentReportController::class, 'findStudentDailyReport'])->name('filter-student-daily-report');
 
 
 

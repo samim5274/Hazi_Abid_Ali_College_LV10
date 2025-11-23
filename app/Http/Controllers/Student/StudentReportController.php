@@ -12,6 +12,7 @@ use App\Models\Student;
 use App\Models\Room;
 use App\Models\Subject;
 use App\Models\Mark;
+use App\Models\StudentDailyRoutine;
 
 class StudentReportController extends Controller
 {
@@ -57,5 +58,43 @@ class StudentReportController extends Controller
         $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
 
         return view('student.report.student-report', compact('findData', 'classes', 'students','allProfessions'));
+    }
+
+    public function studentDailyReport(){
+        $routine = StudentDailyRoutine::get();
+        $classes = Room::all();
+        return view('student.report.student-daily-report', compact('routine','classes'));
+    }
+
+    public function getStudents($class_id){
+        $students = Student::where('class_id', $class_id)->select('id', 'first_name', 'last_name')->get();
+        return response()->json($students);
+    }
+
+    public function findStudentDailyReport(Request $request){
+        $classes = Room::all();
+
+        $query = StudentDailyRoutine::query();
+
+        if ($request->filled('student_id')) {
+            $query->where('student_id', $request->student_id);
+        }
+
+        if ($request->filled('from_date') && $request->filled('to_date')) {
+
+            $query->whereBetween('date', [
+                $request->from_date,
+                $request->to_date
+            ]);
+
+        } elseif ($request->filled('from_date')) {
+            $query->where('date', '>=', $request->from_date);
+        } elseif ($request->filled('to_date')) {
+            $query->where('date', '<=', $request->to_date);
+        }
+
+        $routine = $query->orderBy('date', 'desc')->get();
+
+        return view('student.report.student-daily-report', compact('routine','classes'));
     }
 }

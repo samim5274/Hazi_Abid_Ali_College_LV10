@@ -57,6 +57,7 @@
                     class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
                     <ul class="pc-submenu">
                         <li class="pc-item"><a class="pc-link" href="{{ url('/student-report') }}">Student Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/student-daily-report-view') }}">Student Daily Report's</a></li>
                         <!-- <li class="pc-item"><a class="pc-link" href="#!">Class Report's</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Section Report's</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Status</a></li> -->
