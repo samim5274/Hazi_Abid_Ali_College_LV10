@@ -110,7 +110,7 @@
                                 <tr>
                                     <th class="px-4 py-3 border text-center" style="width: 50px">#</th>
                                     <th class="px-4 py-3 border">Student Name</th>
-                                    <th class="px-4 py-3 border">Subject</th>
+                                    <th class="px-4 py-3 border text-center" style="width: 150px">Subject</th>
                                     <th class="px-4 py-3 border text-center" style="width: 150px">Date</th>
                                     <th class="px-4 py-3 border text-center" style="width: 150px">Class</th>
                                     <th class="px-4 py-3 border text-center" style="width: 100px">Status</th>
@@ -125,10 +125,10 @@
                                     </td>
                                     <!-- Student Name -->
                                     <td class="px-4 py-3 border"> {{ $val->student->first_name }} {{ $val->student->last_name }}</td>
-                                    <!-- Student Name -->
-                                    <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
                                     <!-- Subject Name -->
                                     <td class="px-4 py-3 border text-center"> {{ $val->subject->name }}</td>
+                                    <!-- Class Name -->
+                                    <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
                                     <!-- Attendance Date -->
                                     <td class="px-4 py-3 border text-center"> {{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>
                                     <!-- Attendance Status -->
