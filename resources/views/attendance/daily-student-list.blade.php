@@ -184,9 +184,9 @@
                                         <td class="px-4 py-3 border text-center">{{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>
                                         <td class="px-4 py-3 border text-center">
                                             @if($val->status == 'Present')
-                                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Present</span>
+                                                <span onclick="openModal({{ $val->id }})" class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Present</span>
                                             @else
-                                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Absent</span>
+                                                <span onclick="openModal({{ $val->id }})" class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Absent</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -198,8 +198,75 @@
 
                 </div>
             </div>
-
             <!-- Card End -->
+
+
+            @foreach($subject as $subjectId => $attendList)
+                @foreach($attendList as $val)
+                <div id="examModal{{ $val->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+
+                        <div class="flex items-center justify-between border-b pb-3 mb-4">
+                            <h5 class="text-lg font-semibold text-gray-700"><strong>Edit Attendance of </strong> - {{ $val->student->first_name }} {{ $val->student->last_name }}</h5>
+                            <button onclick="closeModal({{ $val->id }})" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+                        </div>
+
+                        <form action="{{url('/edit-attendance/'.$val->id)}}" method="POST" class="space-y-6" enctype="multipart/form-data">
+                            @csrf
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-4 shadow-sm">
+
+                                <!-- Class + Date -->
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="text-base font-semibold text-gray-800 flex items-center gap-2">
+                                        <span class="text-green-600">&#x1F393;</span>
+                                        {{ $val->class->name }} ({{ $val->class->section }})
+                                    </h5>
+
+                                    <h5 class="text-base font-semibold text-gray-700 flex items-center gap-2">
+                                        <span class="text-blue-600">&#128197;</span>
+                                        <strong>Date:</strong> {{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}
+                                    </h5>
+                                </div>
+
+                                <!-- Course -->
+                                <div>
+                                    <h5 class="text-base font-semibold text-gray-800 flex items-center gap-2">
+                                        <span class="text-purple-600">&#128218;</span>
+                                        Subject: {{ $val->subject->name }}
+                                    </h5>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <label class="font-medium mb-2 block">Attendance Status</label>
+                                <div class="flex gap-6 mt-2">
+                                    <!-- Present -->
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="attendanceStatus" value="Present"
+                                            class="h-5 w-5 border-gray-400"
+                                            {{ $val->status == 'Present' ? 'checked' : '' }} required>
+                                        <span class="text-gray-700 font-medium">Present</span>
+                                    </label>
+                                    <!-- Absent -->
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="attendanceStatus" value="Absent"
+                                            class="h-5 w-5 border-gray-400"
+                                            {{ $val->status == 'Absent' ? 'checked' : '' }}>
+                                        <span class="text-gray-700 font-medium">Absent</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-full rounded-md py-2 px-6">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
+            @endforeach
+
+
         </div>
     </div>
     <!-- [ Main Content ] end -->
@@ -231,6 +298,16 @@
                 }, 3000);
             }
         });
+
+        function openModal(id) {
+            document.getElementById('examModal'+ id).classList.remove('hidden');
+            document.getElementById('examModal'+ id).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById('examModal'+ id).classList.remove('flex');
+            document.getElementById('examModal'+ id).classList.add('hidden');
+        }
     </script>
 
     <script> layout_change('false'); </script>

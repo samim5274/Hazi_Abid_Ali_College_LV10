@@ -95,6 +95,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/subjects/{class_id}', [AttendanceController::class, 'getSubjectsByClass']);
     Route::get('/students-by-subject/{subject_id}', [AttendanceController::class, 'getStudentsBySubject']);
     Route::get('/find-subject-attendace', [AttendanceController::class, 'findSubjectAttent']);
+    Route::post('/edit-attendance/{id}', [AttendanceController::class, 'editStudentAttendance']);
 
 
 

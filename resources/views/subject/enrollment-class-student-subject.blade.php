@@ -103,7 +103,13 @@
                                     </div>
 
                                     <div class="flex-shrink-0 ml-4 self-center ">
+                                        @if($enrollmented->contains('subject_id', $val->id))
+                                            <button type="submit" name="delete" value="1" class="p-2">
+                                                <i class="fas fa-xmark text-gray-400 text-2xl group-hover:text-blue-600 transition duration-300"></i>
+                                            </button>
+                                        @else
                                         <button type="submit"><i class="fas fa-plus-circle text-gray-400 text-2xl group-hover:text-blue-600 transition duration-300"></i></button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

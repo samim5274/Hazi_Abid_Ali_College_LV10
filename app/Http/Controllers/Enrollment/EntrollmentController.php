@@ -43,6 +43,15 @@ class EntrollmentController extends Controller
         $studnetId = $request->input('studentId', '');
         $subjectId = $request->input('subjectId', '');
 
+        // un-enrollment code here
+        if ($request->has('delete')) {
+            $findData = StudentSubject::where('student_id', $studnetId)->where('subject_id', $subjectId)->first();
+            if($findData){
+                $findData->delete();
+                return redirect()->back()->with('success', 'Student un-enrollment successfully!');
+            }
+        }
+
         $findData = StudentSubject::where('student_id', $studnetId)->where('subject_id', $subjectId)->first();
         if($findData){
             return redirect()->back()->with('warning', 'Student already enrolled in the subject!');

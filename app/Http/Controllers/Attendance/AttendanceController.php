@@ -261,4 +261,14 @@ class AttendanceController extends Controller
         return view('attendance.find-subject-attendance', compact('findData','classes','students','subjects'));
     }
 
+    public function editStudentAttendance(Request $request, $id){
+        $data = Attendance::find($id);
+        if(!$data){
+            return redirect()->back()->with('warning','Attendance not found. Please try another. Thank You!');
+        }
+        $data->status = $request->attendanceStatus;
+        $data->update();
+        return redirect()->back()->with('success','Student attendance update successfully.');
+    }
+
 }
