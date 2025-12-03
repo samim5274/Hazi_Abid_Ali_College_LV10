@@ -67,7 +67,7 @@ class StudentReportController extends Controller
     }
 
     public function getStudents($class_id){
-        $students = Student::where('class_id', $class_id)->select('id', 'first_name', 'last_name')->get();
+        $students = Student::where('class_id', $class_id)->where('status', 1)->select('id', 'first_name', 'last_name')->get();
         return response()->json($students);
     }
 

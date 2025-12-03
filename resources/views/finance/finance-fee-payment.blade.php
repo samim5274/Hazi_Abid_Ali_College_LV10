@@ -74,9 +74,7 @@
                                 <option disabled selected>-- Select Class --</option>
                                 <!-- Populate dynamically -->
                                 @foreach($classes as $val)
-                                @if($val->id != 13)
                                 <option value="{{$val->id}}">{{$val->name}}</option>
-                                @endif
                                 @endforeach
                             </select>
                         </div>    

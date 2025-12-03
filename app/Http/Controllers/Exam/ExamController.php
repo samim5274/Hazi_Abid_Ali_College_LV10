@@ -125,7 +125,7 @@ class ExamController extends Controller
     }
 
     public function classExam($class, $subject , $exam){
-        $students = Student::where('class_id', $class)
+        $students = Student::where('class_id', $class)->where('status', 1)
             ->whereHas('subjects', function ($query) use ($subject) {
                 $query->where('subjects.id', $subject);
             })->get();
@@ -202,7 +202,7 @@ class ExamController extends Controller
     }
 
     public function resultReportClass($class){
-        $students = Student::where('class_id', $class)->get();
+        $students = Student::where('class_id', $class)->where('status', 1)->get();
         return view('exam.report.student-list', compact('class','students'));
     }
 
@@ -217,7 +217,7 @@ class ExamController extends Controller
     }
 
     public function totalResult($class){
-        $students = Student::where('class_id', $class)->with('results.subject')->get();
+        $students = Student::where('class_id', $class)->where('status', 1)->with('results.subject')->get();
         $subjects = Subject::where('class_id', $class)->get();
 
         $studentResults = [];

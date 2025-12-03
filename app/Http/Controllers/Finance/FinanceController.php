@@ -96,7 +96,7 @@ class FinanceController extends Controller
 
     public function financeFeePayment(){
         $category = FeeCategory::all();
-        $student = Student::all();
+        $student = Student::where('status', 1)->get();
         $classes = Room::all();
         $feeStructure = FeeStructure::all();
         $feePayment = FeePayment::where('payment_date', now()->toDateString())->paginate(10);
@@ -105,7 +105,7 @@ class FinanceController extends Controller
 
     public function getStudentsByClass($class_id)
     {
-        $students = Student::where('class_id', $class_id)->get();
+        $students = Student::where('class_id', $class_id)->where('status', 1)->get();
         return response()->json($students);
     }
 

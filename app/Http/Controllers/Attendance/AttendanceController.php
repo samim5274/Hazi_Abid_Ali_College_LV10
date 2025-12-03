@@ -38,6 +38,7 @@ class AttendanceController extends Controller
         // All students of the class
         $student = Student::with('room')
                     ->where('class_id', $class_id)
+                    ->where('status', 1)
                     ->orderBy('roll_number', 'ASC')
                     ->get();
 
@@ -215,7 +216,7 @@ class AttendanceController extends Controller
         $start = $this->date;
         $end = $this->date;
         $classes = Room::all();
-        $students = Student::all();
+        $students = Student::where('status',1)->get();
         $subjects = Subject::all();
         $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-subject-attendance', compact('findData','classes','students','subjects'));
@@ -229,6 +230,7 @@ class AttendanceController extends Controller
     public function getStudentsBySubject($subject_id){
         $subject = Subject::findOrFail($subject_id);
         $students = Student::where('class_id', $subject->class_id)
+                        ->where('status',1)
                         ->orderBy('roll_number', 'ASC')
                         ->get();
         return response()->json($students);

@@ -75,7 +75,7 @@ class FinanceReportController extends Controller
         $total = FeePayment::sum('amount_paid');
         $discount = FeePayment::sum('discount');
         $due = FeePayment::sum('due_amount');
-        $student = Student::all();
+        $student = Student::where('status', 1)->get();
         return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student'));
     }
 
@@ -84,7 +84,7 @@ class FinanceReportController extends Controller
         $end = $request->input('end_date', '');
 
         $studentId = $request->input('Student_id', '');
-        $student = Student::all();
+        $student = Student::where('status', 1)->get();
 
         $query = FeePayment::query();
 
