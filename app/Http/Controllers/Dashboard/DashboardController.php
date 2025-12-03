@@ -46,7 +46,18 @@ class DashboardController extends Controller
         $totalTeacher = Teacher::count();
         $maleTeacher = Teacher::where('gender', 'Male')->count();
         $femaleTeacher = Teacher::where('gender', 'Female')->count();
-        return view('welcome', compact('totalStudent','maleStudent','femaleStudent','otherStudent','totalAttendance', 'totalAbsent','class','totalTeacher','maleTeacher','femaleTeacher')); 
+        return view('welcome', compact(
+            'totalStudent',
+            'maleStudent',
+            'femaleStudent',
+            'otherStudent',
+            'totalAttendance',
+            'totalAbsent',
+            'class',
+            'totalTeacher',
+            'maleTeacher',
+            'femaleTeacher'
+        )); 
     }
 
     public function dbBackup(){

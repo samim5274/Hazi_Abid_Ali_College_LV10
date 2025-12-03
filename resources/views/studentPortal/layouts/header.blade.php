@@ -181,8 +181,8 @@
                                         <img src="{{ asset('img/student/'. Auth::guard('student')->user()->photo ) }}" alt="user-image" class="w-10 rounded-full" />
                                     </div>
                                     <div class="grow ms-3">
-                                        <h6 class="mb-1 text-white">{{ Auth::guard('student')->user()->first_name }} {{ Auth::guard('student')->user()->last_name }}</h6>
-                                        <span class="text-white">{{ Auth::guard('student')->user()->email }}</span>
+                                        <h6 class="mb-1 text-white">{{ Auth::guard('student')->user()->first_name ?? 'N/A' }} {{ Auth::guard('student')->user()->last_name ?? 'N/A' }}</h6>
+                                        <span class="text-white">{{ Auth::guard('student')->user()->email ?? 'N/A' }}</span>
                                     </div>
                                 </div>
                             </div>

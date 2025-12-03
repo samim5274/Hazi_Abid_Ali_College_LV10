@@ -17,7 +17,8 @@ use App\Models\Teacher;
 class AdminController extends Controller
 {
     public function loginView(){
-        Auth::logout();
+        Auth::guard('teacher')->logout();
+        Auth::guard('student')->logout();
         session()->invalidate();
         session()->regenerateToken();
         return view('admin.login');
