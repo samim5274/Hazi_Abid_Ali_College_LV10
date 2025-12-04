@@ -200,6 +200,8 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('/student-daily-report', [StudentPortalController::class, 'dailyReportStore'])->name('student-daily-routine.store');
     Route::get('/edit-student-daily-routine/{id}', [StudentPortalController::class, 'editStudentDailyRoutine'])->name('edit-student-daily-routine');
     Route::post('/edit-student-daily-report', [StudentPortalController::class, 'dailyReportEdit'])->name('student-daily-routine.edit');
+    Route::get('/student-enrollment', [StudentPortalController::class, 'enrollment'])->name('student-enrollment');
+    Route::post('/student-subject-enrollment', [StudentPortalController::class, 'enrollmentStore']);
 
 
 

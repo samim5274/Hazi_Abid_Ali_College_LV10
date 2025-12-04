@@ -63,7 +63,7 @@
                             (<span class="text-gray-700">{{ $students[0]->room->section ?? 'N/A' }}</span>)
                         </h2>
                         @if($students->isNotEmpty())
-                        <a href="{{url('/promote-class/'.$students[0]->class_id ?? 'N/A')}}" class="px-4 py-3 text-md border border-gray-400 rounded-md bg-[#3F4D67] text-white hover:bg-[#54668a] transition-all duration-300">Update Student</a>
+                        <a href="{{url('/promote-class/'.$students[0]->class_id ?? 'N/A')}}" class="px-4 py-3 text-md border border-gray-400 rounded-md bg-[#3F4D67] text-white hover:bg-[#54668a] transition-all duration-300">Migrate <i class="fa-solid fa-angles-up"></i></a>
                         @else
                             <p class="text-red-500">No students found for promotion.</p>
                         @endif

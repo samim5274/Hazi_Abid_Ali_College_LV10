@@ -78,6 +78,12 @@
                     <label>Exam & Results</label>
                 </li>
                 <li class="pc-item">
+                    <a href="{{url('/student-enrollment')}}" class="pc-link">
+                        <span class="pc-micon"><i class="fa-solid fa-book-medical"></i></span>
+                        <span class="pc-mtext">Enrollment</span>
+                    </a>
+                </li>
+                <li class="pc-item">
                     <a href="{{url('/student-exam-list')}}" class="pc-link">
                         <span class="pc-micon"><i class="fa-solid fa-book-open"></i></span>
                         <span class="pc-mtext">Exam List</span>

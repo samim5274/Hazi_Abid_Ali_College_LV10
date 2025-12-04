@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 
 use App\Models\Room;
 use App\Models\Student;
+use App\Models\Subject;
+use App\Models\StudentSubject;
 use App\Models\Exam;
 use App\Models\Mark;
 use App\Models\Attendance;
@@ -184,5 +186,41 @@ class StudentPortalController extends Controller
         $routine->update();
         
         return redirect()->route('my-daily-report')->with('success', 'Daily report updated successfully.');
+    }
+
+    public function enrollment(){
+        $student = Auth::guard('student')->user(); 
+        $subjects = Subject::where('class_id', $student->class_id)->get();
+        $enrollmented = StudentSubject::where('student_id', $student->id)->get(); 
+        return view('studentPortal.enrollment.student-enrollment', compact('subjects','student','enrollmented'));
+    }
+
+    public function enrollmentStore(Request $request){
+        $validatedData = $request->validate([
+            'subjectId' => ['required', 'integer', 'exists:subjects,id'],
+        ]);
+
+        $studnetId = Auth::guard('student')->user()->id;
+        $subjectId = $request->input('subjectId', '');
+        
+        // un-enrollment code here
+        if ($request->has('delete')) {
+            $findData = StudentSubject::where('student_id', $studnetId)->where('subject_id', $subjectId)->first();
+            if($findData){
+                $findData->delete();
+                return redirect()->back()->with('success', 'Student un-enrollment successfully!');
+            }
+        }
+
+        $findData = StudentSubject::where('student_id', $studnetId)->where('subject_id', $subjectId)->first();
+        if($findData){
+            return redirect()->back()->with('warning', 'Student already enrolled in the subject!');
+        }
+
+        $subStd = new StudentSubject();
+        $subStd->student_id = $studnetId;
+        $subStd->subject_id = $subjectId;
+        $subStd->save();
+        return redirect()->back()->with('success', 'Student successfully enrolled in the subject!');
     }
 }
