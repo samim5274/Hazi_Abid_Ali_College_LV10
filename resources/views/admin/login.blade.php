@@ -67,18 +67,13 @@
                     <label class="form-check-label text-muted" for="rememberMe">Remember me?</label>
                   </div>
                   <h6 class="font-normal text-primary-500 mb-0">
-                    <a href="#">Forgot Password?</a>
+                    <a href="{{ url('/forteget-password') }}">Forgot Password?</a>
                   </h6>
                 </div>
                 <div class="mt-4 text-center">
                   <button type="submit" class="btn btn-primary mx-auto shadow-2xl w-full">Login</button>
                 </div>
               </form>
-
-              <div class="flex justify-between items-end flex-wrap mt-4">
-                <h6 class="font-medium mb-0">Don't have an Account?</h6>
-                <a href="register-v1.html" class="text-primary-500">Create Account</a>
-              </div>
             </div>
           </div>
 

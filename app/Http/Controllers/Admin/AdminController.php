@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 use Auth;
 use Session;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Mail\OtpMail;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -111,5 +114,99 @@ class AdminController extends Controller
 
     public function support(){
         return view('profile.support');
+    }
+
+    public function forgetPass(){
+        return view('admin.auth.forget-password');
+    }
+
+    public function findAccount(Request $request){
+        $request->validate([
+            'txtEmail' => 'required|email',
+        ]);
+
+        $data = Teacher::where('email', $request->txtEmail)->first();
+
+        if (!$data) {
+            $data = Student::where('email', $request->txtEmail)->first();
+        }
+
+        if(!$data){
+            return redirect()->back()->with('error','User account not found. Please try again.');
+        }
+
+        $otp = rand(100000, 999999);
+        $data->otp = $otp;
+        $data->otp_expires_at = Carbon::now()->addMinutes(10);
+        $data->save();
+
+        Mail::to($data->email)->send(new OtpMail($otp));
+
+        session(['reset_email' => $data->email]);
+
+        return redirect()->route('otp.form')->with('success', 'OTP sent to your email!');
+    }
+
+    public function otpConfirm(){
+        return view('admin.auth.otp');
+    }
+
+    public function otpVarify(Request $request){
+        $request->validate([
+            'txtOTP' => 'required|digits:6',
+        ]);
+
+        $email = session('reset_email');
+
+        $data = Teacher::where('email', $email)->first();
+
+        if (!$data) {
+            $data = Student::where('email', $email)->first();
+        }
+
+        if(!$data){
+            return redirect()->back()->with('error', 'Invalid request!');
+        }
+
+        if ($data->otp != $request->txtOTP) {
+            return redirect()->back()->with('error', 'Invalid OTP!');
+        }
+
+        if (now()->gt($data->otp_expires_at)) {
+            return redirect()->back()->with('error', '⏰ OTP Expired!');
+        }
+
+        return redirect()->route('new.password.form');
+    }
+
+    public function createNewPass(){
+        return view('admin.auth.new-password-form');
+    }
+
+    public function createPassword(Request $request){
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $email = session('reset_email');
+
+        $data = Teacher::where('email', $email)->first();
+
+        if (!$data) {
+            $data = Student::where('email', $email)->first();
+        }
+
+        if(!$data){
+            return redirect()->back()->with('error', 'Invalid request!');
+        }
+
+        $data->password = Hash::make($request->password);
+        $data->otp = null;
+        $data->otp_expires_at = null;
+        $data->save();
+
+        session()->forget('reset_email');
+
+        return redirect()->route('login-view')->with('success', 'Password reset successful!');
     }
 }

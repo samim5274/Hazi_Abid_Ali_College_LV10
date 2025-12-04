@@ -22,8 +22,16 @@ use App\Http\Controllers\Notice\NoticeController;
 
 Auth::routes();
 
-Route::get('/login', [AdminController::class, 'loginView']);
+Route::get('/login', [AdminController::class, 'loginView'])->name('login-view');
 Route::post('/user-login', [AdminController::class, 'userLogin']);
+
+// forget password route
+Route::get('/forteget-password', [AdminController::class, 'forgetPass']);
+Route::post('/find-account', [AdminController::class, 'findAccount']);
+Route::get('/otp-confirm', [AdminController::class, 'otpConfirm'])->name('otp.form');
+Route::post('/otp-verify', [AdminController::class, 'otpVarify']);
+Route::get('/create-new-password', [AdminController::class, 'createNewPass'])->name('new.password.form');
+Route::post('/create-password', [AdminController::class, 'createPassword']);
 
 Route::group(['middleware' => ['admin']], function(){
 

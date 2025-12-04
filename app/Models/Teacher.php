@@ -45,6 +45,8 @@ class Teacher extends Authenticatable
         'status',
         'role',
         'remark',
+        'otp',
+        'otp_expires_at',
     ];
 
     protected $hidden = [

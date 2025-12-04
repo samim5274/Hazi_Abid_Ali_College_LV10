@@ -59,6 +59,9 @@ class Student extends Authenticatable
         'photo',
         'father_photo',
         'mother_photo',
+
+        'otp',
+        'otp_expires_at',
     ];
 
     protected $hidden = [

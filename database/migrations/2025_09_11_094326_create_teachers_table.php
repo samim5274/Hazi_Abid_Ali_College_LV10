@@ -46,6 +46,10 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->string('role')->default('Admin');
             $table->string('remark')->nullable();
+
+            $table->string('otp')->nullable();
+            $table->timestamp('otp_expires_at')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });
