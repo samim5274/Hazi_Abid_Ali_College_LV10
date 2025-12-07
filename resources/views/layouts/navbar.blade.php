@@ -356,6 +356,28 @@
                         <li class="pc-item"><a class="pc-link" href="{{url('/student-wise-payment-report')}}">Student Wise Report's</a></li>
                     </ul>
                 </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-money-bill-wave"></i> </span><span
+                    class="pc-mtext">Expenses</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item pc-hasmenu">
+                            <a href="{{url('/expense')}}" class="pc-link">
+                                <span class="pc-micon"><i class="fa-solid fa-money-bill-transfer"></i></span>
+                                <span class="pc-mtext">Expenses</span>
+                            </a>                            
+                        </li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-filter-circle-dollar"></i> </span><span
+                    class="pc-mtext">Expenses Report</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="#">Date Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#">Category Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#">Sub Category Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#">User Report's</a></li>
+                    </ul>
+                </li>
                 <!-- Account End -->
 
 

@@ -14,23 +14,23 @@
                         <i data-feather="menu"></i>
                     </a>
                     </li>
-                    <li class="dropdown pc-h-item">
-                    <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="false" aria-expanded="false">
-                        <i data-feather="search"></i>
-                    </a>
-                    <div class="dropdown-menu pc-h-dropdown drp-search">
-                        <form class="px-2 py-1">
-                            <input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ." />
-                        </form>
-                    </div>
-                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="false" aria-expanded="false">
+                            <i data-feather="search"></i>
+                        </a>
+                        <div class="dropdown-menu pc-h-dropdown drp-search">
+                            <form class="px-2 py-1">
+                                <input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ." />
+                            </form>
+                        </div>
+                    </li> -->
                 </ul>
             </div>
             <!-- [Mobile Media Block end] -->
             <div class="ms-auto">
                 <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
-                    <li class="dropdown pc-h-item">
+                    <!-- <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i data-feather="sun"></i>
@@ -49,7 +49,7 @@
                                 <span>Default</span>
                             </a>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
@@ -78,7 +78,7 @@
                             </a>
                         </div>
                     </li>
-                    <li class="dropdown pc-h-item">
+                    <!-- <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i data-feather="bell"></i>
@@ -168,7 +168,7 @@
                                 </a>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="dropdown pc-h-item header-user-profile">
                         <a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false">

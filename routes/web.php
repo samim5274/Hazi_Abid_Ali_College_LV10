@@ -19,6 +19,7 @@ use App\Http\Controllers\Room\ClassController;
 use App\Http\Controllers\Finance\FinanceController;
 use App\Http\Controllers\Finance\FinanceReportController;
 use App\Http\Controllers\Notice\NoticeController;
+use App\Http\Controllers\Expenses\ExpensesController;
 
 Auth::routes();
 
@@ -212,5 +213,16 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');
     Route::get('/delete/notice/{id}', [NoticeController::class, 'delete'])->name('delete-notice');
     Route::get('/view/notice/{id}', [NoticeController::class, 'viewNotice'])->name('view-notice');
+
+
+    // ======================================================= expense Board Route =======================================================
+    Route::get('/expense', [ExpensesController::class, 'index'])->name('expenses-view');
+    Route::get('/get-subcategories/{id}', [ExpensesController::class, 'getSubCategory']);
+    Route::post('/create-expenses', [ExpensesController::class, 'store']);
+    Route::get('/delete/Expense/{id}', [ExpensesController::class, 'delete']);
+    Route::get('/expenses-view/{id}', [ExpensesController::class, 'expensesView']);
+    Route::get('/expenses-edit/{id}', [ExpensesController::class, 'edit']);
+    Route::post('/modify-expenses/{id}', [ExpensesController::class, 'update']);
+    Route::get('/expenses-print/{id}', [ExpensesController::class, 'print']);
 
 });

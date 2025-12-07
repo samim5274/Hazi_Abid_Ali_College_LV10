@@ -76,4 +76,9 @@ class Teacher extends Authenticatable
     {
         return $this->hasMany(TeacherAttendance::class, 'teacher_id', 'id');
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expenses::class, 'userId', 'id');
+    }
 }

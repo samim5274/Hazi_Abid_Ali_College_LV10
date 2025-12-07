@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2025 at 11:26 AM
+-- Generation Time: Dec 07, 2025 at 07:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,6 +163,100 @@ INSERT INTO `exam_names` (`id`, `exam_name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `excategories`
+--
+
+CREATE TABLE `excategories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `excategories`
+--
+
+INSERT INTO `excategories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Salary', '2025-12-07 04:38:44', '2025-12-07 04:38:44'),
+(2, 'Utility', '2025-12-07 04:38:44', '2025-12-07 04:38:44'),
+(3, 'Maintenance', '2025-12-07 04:38:44', '2025-12-07 04:38:44'),
+(4, 'Academic', '2025-12-07 04:38:44', '2025-12-07 04:38:44'),
+(5, 'Transport', '2025-12-07 04:38:44', '2025-12-07 04:38:44'),
+(6, 'Event', '2025-12-07 04:38:44', '2025-12-07 04:38:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `catId` bigint(20) UNSIGNED NOT NULL,
+  `subcatId` bigint(20) UNSIGNED NOT NULL,
+  `userId` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `amount` decimal(12,2) NOT NULL,
+  `remark` text NOT NULL DEFAULT 'N/A',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `catId`, `subcatId`, `userId`, `title`, `date`, `amount`, `remark`, `created_at`, `updated_at`) VALUES
+(2, 3, 7, 2, 'Repair', '2025-12-07', 1000.00, 'N/A', '2025-12-07 04:41:05', '2025-12-07 05:49:23'),
+(4, 5, 13, 2, 'Bus Fuel', '2025-12-07', 4500.00, 'N/A', '2025-12-07 04:46:21', '2025-12-07 04:46:21'),
+(5, 6, 16, 2, 'Annual 2025', '2025-12-07', 5000.00, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, possimus. Aliquam necessitatibus fugiat reiciendis ipsum, vero dolorum exercitationem ipsam, nihil cumque, labore voluptate? Ducimus odio veniam incidunt. Eligendi, laudantium distinctio.', '2025-12-07 05:11:15', '2025-12-07 05:11:15'),
+(6, 1, 1, 2, 'Salary', '2025-12-07', 12000.00, 'N/A', '2025-12-07 06:36:01', '2025-12-07 06:36:01'),
+(7, 2, 5, 2, 'Water Bill', '2025-12-07', 450.00, 'N/A', '2025-12-07 06:36:14', '2025-12-07 06:36:14'),
+(8, 2, 6, 2, 'Internet Bill', '2025-12-07', 1200.00, 'N/A', '2025-12-07 06:36:27', '2025-12-07 06:36:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exsubcategories`
+--
+
+CREATE TABLE `exsubcategories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cat_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exsubcategories`
+--
+
+INSERT INTO `exsubcategories` (`id`, `cat_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Teacher Salary', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(2, 1, 'Staff Salary', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(3, 1, 'Guest Teacher Salary', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(4, 2, 'Electricity Bill', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(5, 2, 'Water Bill', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(6, 2, 'Internet Bill', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(7, 3, 'Furniture Repair', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(8, 3, 'Building Repair', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(9, 3, 'Painting', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(10, 4, 'Books Purchase', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(11, 4, 'Lab Equipment', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(12, 4, 'Classroom Materials', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(13, 5, 'Bus Fuel', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(14, 5, 'Driver Salary', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(15, 5, 'Vehicle Repair', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(16, 6, 'Annual Program', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(17, 6, 'Sports Day', '2025-12-07 04:39:39', '2025-12-07 04:39:39'),
+(18, 6, 'Prize Giving Ceremony', '2025-12-07 04:39:39', '2025-12-07 04:39:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -308,7 +402,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2025_10_03_153733_create_class_schedules_table', 1),
 (19, '2025_11_20_122825_create_notices_table', 1),
 (20, '2025_11_22_173329_create_teacher_attendances_table', 1),
-(21, '2025_11_23_131009_create_student_daily_routines_table', 1);
+(21, '2025_11_23_131009_create_student_daily_routines_table', 1),
+(22, '2025_12_07_102826_create_excategories_table', 2),
+(23, '2025_12_07_102839_create_exsubcategories_table', 2),
+(24, '2025_12_07_102853_create_expenses_table', 2);
 
 -- --------------------------------------------------------
 
@@ -466,7 +563,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `religion`, `nationality`, `national_id`, `contact_number`, `email`, `password`, `address1`, `address2`, `father_name`, `father_profession`, `father_contact`, `father_email`, `father_nid`, `father_monthly_income`, `mother_name`, `mother_profession`, `mother_contact`, `mother_email`, `mother_nid`, `mother_monthly_income`, `guardian_name`, `guardian_contact`, `guardian_email`, `guardian_nid`, `guardian_relationship`, `status`, `roll_number`, `class_id`, `attend_date`, `remark`, `b_reg_no`, `b_roll_no`, `photo`, `father_photo`, `mother_photo`, `otp`, `otp_expires_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'SAMIM', 'HosseN', '1995-11-02', 'Other', 'AB+', 'Buddhist', 'Bangladeshi', '1', '(706) 746-3533', 'student2@example.com', '$2y$12$7fQ6NExOnV57x2A7KUuvuO3VC3CyBC4wYi58d2KR4G0owVWybsNby', '5574 Waelchi Stream Suite 410\nMackenziechester, ND 07983-4563', 'Suite 767', 'Ross Conn IV', 'Farmer', '+19203219194', 'student2@example.com', '2', '3', 'Mrs. Aliza Ankunding DVM', 'Housewife', '1-380-347-5192', 'student4@example.com', '4', '5', 'Ahmad Bartell', '+1 (551) 790-3596', 'student6@example.com', '6', 'Brother', 1, 1, 4, '2025-11-18', 'N/A', 7, 9299047, NULL, NULL, NULL, NULL, NULL, 'Ti9RcQkbMIZTsord7B2IK3zlUDQbRdm7wcrRi2cL27EWdz6VX9gM6NarmS8u', '2025-12-04 07:30:43', '2025-12-04 07:30:43'),
+(1, 'SAMIM', 'HosseN', '1995-11-02', 'Other', 'AB+', 'Buddhist', 'Bangladeshi', '1', '(706) 746-3533', 'student2@example.com', '$2y$12$7fQ6NExOnV57x2A7KUuvuO3VC3CyBC4wYi58d2KR4G0owVWybsNby', '5574 Waelchi Stream Suite 410\nMackenziechester, ND 07983-4563', 'Suite 767', 'Ross Conn IV', 'Farmer', '+19203219194', 'student2@example.com', '2', '3', 'Mrs. Aliza Ankunding DVM', 'Housewife', '1-380-347-5192', 'student4@example.com', '4', '5', 'Ahmad Bartell', '+1 (551) 790-3596', 'student6@example.com', '6', 'Brother', 1, 1, 4, '2025-11-18', 'N/A', 7, 9299047, NULL, NULL, NULL, NULL, NULL, 'bc0Eg45HWVxOh7dTaaDhvNxYTc3UWYRpiLXM2AaaWuOiX08phAiJRyYcSNqU', '2025-12-04 07:30:43', '2025-12-04 07:30:43'),
 (2, 'Kaylie', 'Swaniawski', '2022-08-07', 'Female', 'O-', 'Other', 'Bangladeshi', '8', '+1-484-833-4133', 'student9@example.com', '$2y$12$8MvkqIKVOfoWKMCeqHOjw.lVhFQjSYzz1djZs1ETRKSRVFKJmsI4u', '7842 Thad Corners Suite 337\nPort Tessie, MN 31891-0186', 'Suite 940', 'Mr. Dillan Paucek', 'Teacher', '724-200-8692', 'student9@example.com', '9', '10', 'Felicita Batz', 'Housewife', '580.658.5854', 'student11@example.com', '11', '12', 'Ms. Bonnie Huels', '980.734.1169', 'student13@example.com', '13', 'Aunt', 1, 1, 2, '2025-11-18', 'N/A', 14, 92990414, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-04 07:30:44', '2025-12-04 07:30:44'),
 (3, 'Jevon', 'Buckridge', '1998-05-16', 'Female', 'AB+', 'Hindu', 'Bangladeshi', '15', '914-657-8014', 'student16@example.com', '$2y$12$zzvchkTPemWUSorOO8tyi.nu9DC2CXcvkMZZPIGHpGufDMdxJtCe2', '131 Corwin Fords Suite 825\nMcLaughlinton, SD 85598', 'Apt. 786', 'Jose Blick', 'Businessman', '(857) 891-3722', 'student16@example.com', '16', '17', 'Miss Santina Bogisich', 'Teacher', '412.466.1672', 'student18@example.com', '18', '19', 'Haylie Gutmann', '1-360-782-7088', 'student20@example.com', '20', 'Grandparent', 1, 1, 1, '2025-11-18', 'N/A', 21, 92990421, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-04 07:30:44', '2025-12-04 07:30:44'),
 (4, 'Brionna', 'Schaefer', '2008-04-15', 'Female', 'B-', 'Buddhist', 'Bangladeshi', '22', '1-361-482-1122', 'student23@example.com', '$2y$12$Ef6POb4gqGRlgj6gan185eVutp/kG/ugcjIKlvtizYsbnw9pSo4gy', '843 Ruecker Road Apt. 866\nPort Rosendo, MD 53294', 'Suite 223', 'Antwon Dare', 'Farmer', '+1-412-521-9634', 'student23@example.com', '23', '24', 'Marcella Quigley', 'Businesswoman', '1-575-724-4579', 'student25@example.com', '25', '26', 'Dr. Cloyd Kilback II', '1-434-898-5474', 'student27@example.com', '27', 'Aunt', 1, 2, 2, '2025-11-18', 'N/A', 28, 92990428, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-04 07:30:44', '2025-12-04 07:30:44'),
@@ -750,7 +847,7 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `national_id`, `contact_number`, `email`, `password`, `designation`, `address`, `father_name`, `father_contact`, `mother_name`, `mother_contact`, `guardian_name`, `guardian_contact`, `guardian_relationship`, `photo`, `father_photo`, `mother_photo`, `joning_date`, `mop_date`, `traning`, `index_no`, `status`, `role`, `remark`, `otp`, `otp_expires_at`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Mohammad', 'Rice', '1973-10-11', 'Female', 'B+', '0', '423.893.5284', 'teacher1@example.com', '$2y$12$Is7Nw8i0iIR7CLVB1JB.0ODzvQmSsknyNAyxpswifXOhhAy8IUTHm', 'Assistant Professor', '4608 Marquis Keys Apt. 369\r\nPort Oswald, AL 68207', 'Colt Rutherford', '+15209813166', 'Prof. Deborah Stamm II', '+1-364-368-4192', 'Emiliano Borer', '+1 (667) 907-1605', 'Uncle', 'tch-Mohammad-1764838002.jpg', NULL, NULL, '2003-06-29', '2025-12-04', 'N/A', 'D001', 1, 'Admin', 'N/A', NULL, NULL, 'rF1FUsPxwfdzgQyRcbxBoIdmv2JJIIUZfwfaUHQXlIWbUAvTT4NBBSrbHiAp', '2025-12-04 07:30:40', '2025-12-04 08:46:42'),
-(2, 'Eldred', 'Ryan', '1977-11-11', 'Female', 'AB-', '2', '+1-678-443-4666', 'teacher2@example.com', '$2y$12$.rRaWoA9kVMX9Y467b5Ua.XjGO979NyfRKRUkmHDqR5P82E0V7lF.', 'Assistant Professor', '7980 Mante Neck\nRobertaview, AL 69237', 'Hunter Wehner', '1-856-435-6473', 'Sophie Ritchie', '(731) 906-7649', 'Hortense Ward', '+16897138692', 'Brother', NULL, NULL, NULL, '1997-02-14', '1972-03-04', 'N/A', 'D003', 1, 'Admin', 'N/A', NULL, NULL, '3YaUGvZsu9cjT4bnGaANlekhTzf9gSQ0OaBJ3NqS5vLTO5rl1SKmahRMcanr', '2025-12-04 07:30:41', '2025-12-04 07:30:41'),
+(2, 'Aminur', 'Islam', '1977-11-11', 'Female', 'AB-', '2', '+1-678-443-4666', 'teacher2@example.com', '$2y$12$.rRaWoA9kVMX9Y467b5Ua.XjGO979NyfRKRUkmHDqR5P82E0V7lF.', 'Assistant Professor', '7980 Mante Neck\nRobertaview, AL 69237', 'Hunter Wehner', '1-856-435-6473', 'Sophie Ritchie', '(731) 906-7649', 'Hortense Ward', '+16897138692', 'Brother', NULL, NULL, NULL, '1997-02-14', '1972-03-04', 'N/A', 'D003', 1, 'Admin', 'N/A', NULL, NULL, 'wfXTXlIhVVQX0TUc7NFcuHc9VcchdhEGEzuhiKvHSIZZo0TjHrV4GnFwu40K', '2025-12-04 07:30:41', '2025-12-04 07:30:41'),
 (3, 'Annetta', 'Rogahn', '1977-12-03', 'Other', 'A-', '4', '215-625-3239', 'teacher3@example.com', '$2y$12$IXhl3uoII8mjViv0QMhzpOeicGlGHRY88TGj5uFUH.ozuFoRAsBRW', 'Assistant Professor', '84487 Lynch Camp Apt. 291\nGarrychester, NC 54227', 'Adrain Powlowski', '+1-252-942-1526', 'Miss Shaina Walsh I', '747-357-2195', 'Marcelino Hettinger', '847.946.2695', 'Grandparent', NULL, NULL, NULL, '1982-09-14', '1989-12-25', 'N/A', 'D005', 1, 'Admin', 'N/A', NULL, NULL, NULL, '2025-12-04 07:30:41', '2025-12-04 07:30:41'),
 (4, 'Hailee', 'Becker', '1988-06-15', 'Other', 'O-', '6', '+1-743-539-9526', 'teacher4@example.com', '$2y$12$KCrd80dBs0LCyih7.DvZ3uzP5qt4OSCdrVLfkyF9WiilaN7A96Lu2', 'Lecturer', '75524 Bruen Turnpike\nGrimesmouth, CO 40694', 'Mr. Deshawn Toy V', '+1-331-665-4668', 'Retha Macejkovic', '+1 (281) 212-7892', 'Dr. Janis Herman', '+12489292831', 'Uncle', NULL, NULL, NULL, '1981-11-17', '1972-12-28', 'N/A', 'D007', 1, 'Admin', 'N/A', NULL, NULL, NULL, '2025-12-04 07:30:41', '2025-12-04 07:30:41'),
 (5, 'Lafayette', 'Quitzon', '1976-03-07', 'Male', 'AB+', '8', '+1-717-794-4822', 'teacher5@example.com', '$2y$12$5jmIbfYnLCXZNemtT9FQuu4aBIPfOTIjOMBA3EnUV5QRtRP78Qr.O', 'Lecturer', '36644 Bogan Brooks Suite 166\nHartmannview, NC 45904-3620', 'Mekhi Nitzsche', '847-814-3555', 'Mrs. Frederique Kohler', '+1.516.509.0173', 'Fannie Cole Jr.', '563.547.7690', 'Uncle', NULL, NULL, NULL, '2010-10-17', '1978-03-16', 'N/A', 'D009', 1, 'Admin', 'N/A', NULL, NULL, NULL, '2025-12-04 07:30:41', '2025-12-04 07:30:41'),
@@ -797,7 +894,8 @@ INSERT INTO `teacher_attendances` (`id`, `teacher_id`, `attendance_date`, `atten
 (5, 2, '2025-11-21', '12:17:08', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:17:09', '2025-11-23 00:17:20'),
 (6, 2, '2025-11-23', '12:17:24', 'absent', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:17:24', '2025-11-23 00:17:24'),
 (7, 1, '2025-12-02', '16:40:52', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-02 04:40:52', '2025-12-02 04:40:52'),
-(8, 1, '2025-11-22', '12:14:50', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:14:51', '2025-11-23 00:15:01');
+(8, 1, '2025-11-22', '12:14:50', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:14:51', '2025-11-23 00:15:01'),
+(9, 2, '2025-12-06', '12:58:35', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-06 06:58:36', '2025-12-06 06:58:36');
 
 -- --------------------------------------------------------
 
@@ -851,6 +949,28 @@ ALTER TABLE `exams`
 --
 ALTER TABLE `exam_names`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `excategories`
+--
+ALTER TABLE `excategories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expenses_catid_foreign` (`catId`),
+  ADD KEY `expenses_subcatid_foreign` (`subcatId`),
+  ADD KEY `expenses_userid_foreign` (`userId`);
+
+--
+-- Indexes for table `exsubcategories`
+--
+ALTER TABLE `exsubcategories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `exsubcategories_cat_id_foreign` (`cat_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -1013,6 +1133,24 @@ ALTER TABLE `exam_names`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `excategories`
+--
+ALTER TABLE `excategories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `exsubcategories`
+--
+ALTER TABLE `exsubcategories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1046,7 +1184,7 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -1082,7 +1220,7 @@ ALTER TABLE `student_daily_routines`
 -- AUTO_INCREMENT for table `student_subjects`
 --
 ALTER TABLE `student_subjects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -1100,7 +1238,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teacher_attendances`
 --
 ALTER TABLE `teacher_attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1134,6 +1272,20 @@ ALTER TABLE `class_schedules`
 ALTER TABLE `exams`
   ADD CONSTRAINT `exams_class_id_foreign` FOREIGN KEY (`class_id`) REFERENCES `rooms` (`id`),
   ADD CONSTRAINT `exams_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+
+--
+-- Constraints for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD CONSTRAINT `expenses_catid_foreign` FOREIGN KEY (`catId`) REFERENCES `excategories` (`id`),
+  ADD CONSTRAINT `expenses_subcatid_foreign` FOREIGN KEY (`subcatId`) REFERENCES `exsubcategories` (`id`),
+  ADD CONSTRAINT `expenses_userid_foreign` FOREIGN KEY (`userId`) REFERENCES `teachers` (`id`);
+
+--
+-- Constraints for table `exsubcategories`
+--
+ALTER TABLE `exsubcategories`
+  ADD CONSTRAINT `exsubcategories_cat_id_foreign` FOREIGN KEY (`cat_id`) REFERENCES `excategories` (`id`);
 
 --
 -- Constraints for table `fee_payments`
