@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
+use Auth;
 use App\Models\Room;
 use App\Models\Student;
 use App\Models\Subject;
@@ -244,5 +245,11 @@ class ClassController extends Controller
         $schedule->update();
 
         return redirect()->route('class-schedule-modify-view')->with('success', 'Class schedule updated successfully!');
+    }
+
+    public function mySchedule(){
+        $user = Auth::guard('teacher')->user()->id;
+        $schedules = ClassSchedule::with(['subject', 'teacher', 'classRoom'])->where('teacher_id', $user)->get();
+        return view('room.schedule.my-schedule', compact('schedules'));
     }
 }

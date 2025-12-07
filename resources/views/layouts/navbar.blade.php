@@ -10,7 +10,8 @@
         <div class="m-header flex items-center py-4 px-6 h-header-height">
             <a href="{{url('/')}}" class="b-brand flex items-center gap-3">
                 <!-- ========   Change your logo from here   ============ -->
-                <img src="{{asset('assets/images/logo-white.svg')}}" class="img-fluid logo logo-lg" alt="logo" />
+                <!-- <img src="{{asset('assets/images/logo-white.svg')}}" class="img-fluid logo logo-lg" alt="logo" /> -->
+                <h4 class="text-white font-semibold">Hazi Abed Ali College</h4>
                 <img src="{{asset('assets/images/favicon.svg')}}" class="img-fluid logo logo-sm" alt="logo" />
             </a>
         </div>
@@ -27,142 +28,6 @@
                         <span class="pc-mtext">Dashboard</span>
                     </a>
                 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- Student section start -->
-                <li class="pc-item pc-caption">
-                    <label>Students</label>
-                    <i data-feather="feather"></i>
-                </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-graduation-cap"></i> </span><span
-                    class="pc-mtext">Student Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{url('/student-list')}}"> <span class="pc-micon"> <i class="fa-solid fa-user-tie"></i></span><span class="pc-mtext">Student List</span></a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{url('/add-student-view')}}"> <span class="pc-micon"> <i data-feather="edit"></i></span><span class="pc-mtext">Admission Student</span></a></li>
-                    </ul>
-                </li>                
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
-                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{ url('/student-report') }}">Student Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{ url('/student-daily-report-view') }}">Student Daily Report's</a></li>
-                        <!-- <li class="pc-item"><a class="pc-link" href="#!">Class Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Section Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Status</a></li> -->
-                    </ul>
-                </li>
-                <!-- Student section End -->
-
-
-
-
-
-
-
-
-                <!-- Teachers section start -->
-                <li class="pc-item pc-caption">
-                    <label>Teachers</label>
-                    <i data-feather="feather"></i>
-                </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-user-tie"></i> </span><span
-                    class="pc-mtext">Teacher Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{url('/teacher-list')}}"> <span class="pc-micon"> <i class="fa-solid fa-user-tie"></i></span><span class="pc-mtext">Teacher List</span></a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{url('add-teacher-view')}}"> <span class="pc-micon"> <i data-feather="edit"></i>  </span><span class="pc-mtext">New Teacher</span></a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{ url('/teacher-attendance') }}"> <span class="pc-micon"> <i class="fa-solid fa-business-time"></i>  </span><span class="pc-mtext">Teacher Attendance</span></a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{ url('/teacher-attendance/report') }}"> <span class="pc-micon"> <i class="fa-solid fa-chart-column"></i>  </span><span class="pc-mtext">Teacher Report</span></a></li>
-                    </ul>
-                </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
-                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{url('/teacher-report')}}">Teacher Report's</a></li>
-                    </ul>
-                </li>
-                <!-- Teachers section End -->
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- Classes & Sections start  -->
-                <li class="pc-item pc-caption">
-                    <label>Classes & Sections</label>
-                    <i data-feather="feather"></i>
-                </li>
-
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-list-check"></i> </span><span
-                    class="pc-mtext">Classes Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{url('/add-class')}}"> 
-                                <span class="pc-micon"> <i data-feather="edit"></i></span>
-                                <span class="pc-mtext">Add New Class</span>
-                            </a>
-                        </li>
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{url('/class-details')}}"> 
-                                <span class="pc-micon"> <i class="fa-solid fa-address-card"></i> </span>
-                                <span class="pc-mtext">Class List</span>
-                            </a>
-                        </li>
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{url('/class-schedule')}}"> 
-                                <span class="pc-micon"> <i class="fa-solid fa-business-time"></i>  </span>
-                                <span class="pc-mtext">Class Schedule</span>
-                            </a>
-                        </li>  
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{url('/modify-class-schedule')}}"> 
-                                <span class="pc-micon"> <i class="fa-solid fa-calendar-days"></i>  </span>
-                                <span class="pc-mtext">Modify Schedule</span>
-                            </a>
-                        </li>                      
-                        <li class="pc-item pc-hasmenu">
-                            <a href="{{url('/assign-teacher-list')}}" class="pc-link">
-                                <span class="pc-micon"> <i class="fa-solid fa-user-plus"></i></span>
-                                <span class="pc-mtext">Assign Teachers</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
-                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#!">Daily</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Monthly</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Yearly</a></li>
-                    </ul>
-                </li> -->
-                <!-- Classes & Sections start  -->
-
-
-
-
 
 
 
@@ -221,24 +86,70 @@
 
 
 
-                <!-- Notice start -->
+
+
+                <!-- Classes & Sections start  -->
                 <li class="pc-item pc-caption">
-                    <label>Notice</label>
+                    <label>Classes & Sections</label>
                     <i data-feather="feather"></i>
                 </li>
+
                 <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-bell"></i> </span><span
-                    class="pc-mtext">Notice</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-list-check"></i> </span><span
+                    class="pc-mtext">Classes Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
                     <ul class="pc-submenu">
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{url('/add-class')}}"> 
+                                <span class="pc-micon"> <i data-feather="edit"></i></span>
+                                <span class="pc-mtext">Add New Class</span>
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{url('/class-details')}}"> 
+                                <span class="pc-micon"> <i class="fa-solid fa-address-card"></i> </span>
+                                <span class="pc-mtext">Class List</span>
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{url('/class-schedule')}}"> 
+                                <span class="pc-micon"> <i class="fa-solid fa-business-time"></i>  </span>
+                                <span class="pc-mtext">Class Schedule</span>
+                            </a>
+                        </li>  
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{url('/my-class-schedule')}}"> 
+                                <span class="pc-micon"> <i class="fa-solid fa-calendar-days"></i>  </span>
+                                <span class="pc-mtext">My Class Schedule</span>
+                            </a>
+                        </li>   
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{url('/modify-class-schedule')}}"> 
+                                <span class="pc-micon"> <i class="fa-solid fa-calendar-days"></i>  </span>
+                                <span class="pc-mtext">Modify Schedule</span>
+                            </a>
+                        </li>                      
                         <li class="pc-item pc-hasmenu">
-                            <a href="{{url('/notice')}}" class="pc-link">
-                                <span class="pc-micon"><i class="fa-regular fa-bell"></i></span>
-                                <span class="pc-mtext">Notice Records</span>
+                            <a href="{{url('/assign-teacher-list')}}" class="pc-link">
+                                <span class="pc-micon"> <i class="fa-solid fa-user-plus"></i></span>
+                                <span class="pc-mtext">Assign Teachers</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <!-- Attendance end -->
+                <!-- <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
+                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="#!">Daily</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Monthly</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Yearly</a></li>
+                    </ul>
+                </li> -->
+                <!-- Classes & Sections start  -->
+
+
+                
+
 
 
 
@@ -372,10 +283,9 @@
                     <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-filter-circle-dollar"></i> </span><span
                     class="pc-mtext">Expenses Report</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#">Date Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#">Category Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#">Sub Category Report's</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#">User Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/date-wise-expenses') }}">Date Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/category-wise-expenses') }}">Category Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/sub-category-wise-expenses') }}">Sub Category Report's</a></li>
                     </ul>
                 </li>
                 <!-- Account End -->
@@ -387,6 +297,60 @@
 
 
 
+                <!-- setting -->
+                <li class="pc-item pc-caption">
+                    <label>Setting</label>
+                    <i data-feather="monitor"></i>
+                </li>
+                 <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-graduation-cap"></i> </span><span
+                    class="pc-mtext">Student Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{url('/student-list')}}"> <span class="pc-micon"> <i class="fa-solid fa-user-tie"></i></span><span class="pc-mtext">Student List</span></a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{url('/add-student-view')}}"> <span class="pc-micon"> <i data-feather="edit"></i></span><span class="pc-mtext">Admission Student</span></a></li>
+                    </ul>
+                </li>                
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
+                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/student-report') }}">Student Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/student-daily-report-view') }}">Student Daily Report's</a></li>
+                        <!-- <li class="pc-item"><a class="pc-link" href="#!">Class Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Section Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Status</a></li> -->
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-user-tie"></i> </span><span
+                    class="pc-mtext">Teacher Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{url('/teacher-list')}}"> <span class="pc-micon"> <i class="fa-solid fa-user-tie"></i></span><span class="pc-mtext">Teacher List</span></a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{url('add-teacher-view')}}"> <span class="pc-micon"> <i data-feather="edit"></i>  </span><span class="pc-mtext">New Teacher</span></a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/teacher-attendance') }}"> <span class="pc-micon"> <i class="fa-solid fa-business-time"></i>  </span><span class="pc-mtext">Teacher Attendance</span></a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/teacher-attendance/report') }}"> <span class="pc-micon"> <i class="fa-solid fa-chart-column"></i>  </span><span class="pc-mtext">Teacher Report</span></a></li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i data-feather="align-right"></i> </span><span
+                    class="pc-mtext">Report's</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{url('/teacher-report')}}">Teacher Report's</a></li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-bell"></i> </span><span
+                    class="pc-mtext">Notice</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item pc-hasmenu">
+                            <a href="{{url('/notice')}}" class="pc-link">
+                                <span class="pc-micon"><i class="fa-regular fa-bell"></i></span>
+                                <span class="pc-mtext">Notice Records</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- setting -->
 
 
 

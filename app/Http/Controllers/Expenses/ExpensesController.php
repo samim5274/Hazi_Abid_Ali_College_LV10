@@ -113,4 +113,141 @@ class ExpensesController extends Controller
 
         return redirect()->back()->with('success', 'Expense added successfully!');
     }
+
+    public function dateExpenses(){
+        $date = Carbon::today();
+        $expenses = Expenses::where('date', $date)->get();
+        return view('expenses.report.expenses-report', compact('expenses'));
+    }
+
+    public function filterExpenses(Request $request){
+        $request->validate([
+            'from_date' => 'required|date',
+            'to_date'   => 'required|date|after_or_equal:from_date',
+        ]);
+
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
+
+        $query = Expenses::query();
+
+        if ($request->filled('from_date') && $request->filled('to_date')) {
+            $query->whereBetween('date', [
+                Carbon::parse($from_date)->startOfDay(),
+                Carbon::parse($to_date)->endOfDay()
+            ]);
+        } 
+        elseif ($request->filled('from_date')) {
+            $query->whereDate('date', '>=', $from_date);
+        } 
+        elseif ($request->filled('to_date')) {
+            $query->whereDate('date', '<=', $to_date);
+        }
+
+        $expenses = $query->latest()->get();
+
+        if($request->has('print')){
+            return view('expenses.report.print.print-expenses-report', compact('expenses','from_date','to_date'));
+        }
+
+        return view('expenses.report.expenses-report', compact('expenses'));
+    }
+
+    public function categroyExpenses(){
+        $date = Carbon::today();
+        $categories = Excategory::all();
+        $expenses = Expenses::where('date', $date)->get();
+        return view('expenses.report.category-expenses-report', compact('expenses','categories'));
+    }
+
+    public function filterCatExpen(Request $request){
+        $request->validate([
+            'from_date'   => 'required|date',
+            'to_date'     => 'required|date|after_or_equal:from_date',
+            'category_id' => 'required|exists:excategories,id',
+        ]);
+
+        $from_date = $request->from_date;
+        $to_date   = $request->to_date;
+        $category_id = $request->category_id;
+
+        $categories = Excategory::all();
+
+        $query = Expenses::where('catId', $category_id);
+
+        $query->whereBetween('date', [
+            Carbon::parse($from_date)->startOfDay(),
+            Carbon::parse($to_date)->endOfDay(),
+        ]);
+
+        $expenses = $query->latest()->get();
+
+        if($request->has('print')){
+            return view('expenses.report.print.print-category-expenses-report', compact(
+                'expenses',
+                'categories',
+                'from_date',
+                'to_date',
+                'category_id'
+            ));
+        }
+
+        return view('expenses.report.category-expenses-report', compact(
+            'expenses',
+            'categories',
+            'from_date',
+            'to_date',
+            'category_id'
+        ));
+    }
+
+    public function subCategoyExpenses(){
+        $date = Carbon::today();
+        $categories = Excategory::all();
+        $expenses = Expenses::where('date', $date)->get();
+        return view('expenses.report.sub-category-expenses-report', compact('expenses','categories'));
+    }
+
+    public function filterSubCatExpen(Request $request){
+        $request->validate([
+            'from_date'   => 'required|date',
+            'to_date'     => 'required|date|after_or_equal:from_date',
+            'category_id' => 'required|exists:excategories,id',
+            'subcategory_id' => 'required|exists:exsubcategories,id',
+        ]);
+
+        $from_date = $request->from_date;
+        $to_date   = $request->to_date;
+        $category_id = $request->category_id;
+        $sub_category_id = $request->subcategory_id;
+
+        $categories = Excategory::all();
+
+        $expenses = Expenses::where('catId', $category_id)
+                        ->where('subcatId', $sub_category_id)
+                        ->whereBetween('date', [
+                            Carbon::parse($from_date)->startOfDay(),
+                            Carbon::parse($to_date)->endOfDay(),
+                        ])->latest()->get();
+
+        if($request->has('print')){
+            return view('expenses.report.print.print-sub-category-expenses-report', compact(
+                'expenses',
+                'categories',
+                'from_date',
+                'to_date',
+                'category_id',
+                'sub_category_id'
+            ));
+        }
+
+        return view('expenses.report.sub-category-expenses-report', compact(
+            'expenses',
+            'categories',
+            'from_date',
+            'to_date',
+            'category_id',
+            'sub_category_id'
+        ));
+    }
 }

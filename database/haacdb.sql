@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2025 at 07:41 AM
+-- Generation Time: Dec 07, 2025 at 12:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,7 +71,21 @@ INSERT INTO `attendances` (`id`, `student_id`, `class_id`, `subject_id`, `attend
 (25, 30, 5, 84, '2025-12-04', 'Present', 'N/A', '2025-12-04 10:01:50', '2025-12-04 10:01:50'),
 (26, 32, 5, 84, '2025-12-04', 'Present', 'N/A', '2025-12-04 10:01:51', '2025-12-04 10:01:51'),
 (27, 43, 5, 84, '2025-12-04', 'Present', 'N/A', '2025-12-04 10:01:52', '2025-12-04 10:01:52'),
-(28, 29, 5, 84, '2025-12-04', 'Present', 'N/A', '2025-12-04 10:01:53', '2025-12-04 10:01:53');
+(28, 29, 5, 84, '2025-12-04', 'Present', 'N/A', '2025-12-04 10:01:53', '2025-12-04 10:01:53'),
+(29, 15, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:28', '2025-12-07 07:01:28'),
+(30, 19, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:29', '2025-12-07 07:01:29'),
+(31, 23, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:31', '2025-12-07 07:01:31'),
+(32, 29, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:31', '2025-12-07 07:01:31'),
+(33, 30, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:33', '2025-12-07 07:01:33'),
+(34, 32, 5, 81, '2025-12-07', 'Absent', 'N/A', '2025-12-07 07:01:35', '2025-12-07 07:01:35'),
+(35, 43, 5, 81, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:01:36', '2025-12-07 07:01:36'),
+(36, 15, 5, 82, '2025-12-07', 'Absent', 'N/A', '2025-12-07 07:02:18', '2025-12-07 07:02:18'),
+(37, 19, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:19', '2025-12-07 07:02:19'),
+(38, 23, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:20', '2025-12-07 07:02:20'),
+(39, 29, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:21', '2025-12-07 07:02:21'),
+(40, 30, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:22', '2025-12-07 07:02:22'),
+(41, 32, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:23', '2025-12-07 07:02:23'),
+(42, 43, 5, 82, '2025-12-07', 'Present', 'N/A', '2025-12-07 07:02:24', '2025-12-07 07:02:24');
 
 -- --------------------------------------------------------
 
@@ -209,12 +223,13 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`id`, `catId`, `subcatId`, `userId`, `title`, `date`, `amount`, `remark`, `created_at`, `updated_at`) VALUES
-(2, 3, 7, 2, 'Repair', '2025-12-07', 1000.00, 'N/A', '2025-12-07 04:41:05', '2025-12-07 05:49:23'),
-(4, 5, 13, 2, 'Bus Fuel', '2025-12-07', 4500.00, 'N/A', '2025-12-07 04:46:21', '2025-12-07 04:46:21'),
-(5, 6, 16, 2, 'Annual 2025', '2025-12-07', 5000.00, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, possimus. Aliquam necessitatibus fugiat reiciendis ipsum, vero dolorum exercitationem ipsam, nihil cumque, labore voluptate? Ducimus odio veniam incidunt. Eligendi, laudantium distinctio.', '2025-12-07 05:11:15', '2025-12-07 05:11:15'),
-(6, 1, 1, 2, 'Salary', '2025-12-07', 12000.00, 'N/A', '2025-12-07 06:36:01', '2025-12-07 06:36:01'),
-(7, 2, 5, 2, 'Water Bill', '2025-12-07', 450.00, 'N/A', '2025-12-07 06:36:14', '2025-12-07 06:36:14'),
-(8, 2, 6, 2, 'Internet Bill', '2025-12-07', 1200.00, 'N/A', '2025-12-07 06:36:27', '2025-12-07 06:36:27');
+(2, 3, 7, 2, 'Repair', '2025-12-01', 1000.00, 'N/A', '2025-12-07 04:41:05', '2025-12-07 05:49:23'),
+(4, 5, 13, 2, 'Bus Fuel', '2025-12-02', 4500.00, 'N/A', '2025-12-07 04:46:21', '2025-12-07 04:46:21'),
+(5, 6, 16, 2, 'Annual 2025', '2025-12-03', 5000.00, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, possimus. Aliquam necessitatibus fugiat reiciendis ipsum, vero dolorum exercitationem ipsam, nihil cumque, labore voluptate? Ducimus odio veniam incidunt. Eligendi, laudantium distinctio.', '2025-12-07 05:11:15', '2025-12-07 05:11:15'),
+(6, 1, 1, 2, 'Salary', '2025-12-04', 12000.00, 'N/A', '2025-12-07 06:36:01', '2025-12-07 06:36:01'),
+(7, 2, 5, 2, 'Water Bill', '2025-12-05', 450.00, 'N/A', '2025-12-07 06:36:14', '2025-12-07 06:36:14'),
+(8, 2, 6, 2, 'Internet Bill', '2025-12-06', 1200.00, 'N/A', '2025-12-07 06:36:27', '2025-12-07 06:36:27'),
+(9, 6, 18, 2, 'House Rent', '2025-12-07', 2800.00, 'N/A', '2025-12-07 11:03:26', '2025-12-07 11:03:26');
 
 -- --------------------------------------------------------
 
@@ -431,7 +446,9 @@ CREATE TABLE `notices` (
 --
 
 INSERT INTO `notices` (`id`, `title`, `description`, `publish_date`, `user_id`, `attachment`, `notice_type`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Sports Competition Notice', 'Printers in the 1500s scrambled the words from Cicero\'s \"De Finibus Bonorum et Malorum\'\' after mixing the words in each sentence. The familiar \"lorem ipsum dolor sit amet\" text emerged when 16th-century printers adapted Cicero\'s original work, beginning with the phrase \"dolor sit amet consectetur.\"', '2025-12-04', 1, '2025-12-04_1764842587_Application_2210585364.pdf', 'Teacher', 1, '2025-12-04 10:03:07', '2025-12-04 10:03:07');
+(1, 'Sports Competition Notice', 'Printers in the 1500s scrambled the words from Cicero\'s \"De Finibus Bonorum et Malorum\'\' after mixing the words in each sentence. The familiar \"lorem ipsum dolor sit amet\" text emerged when 16th-century printers adapted Cicero\'s original work, beginning with the phrase \"dolor sit amet consectetur.\"', '2025-12-04', 1, '2025-12-04_1764842587_Application_2210585364.pdf', 'Teacher', 1, '2025-12-04 10:03:07', '2025-12-04 10:03:07'),
+(3, 'Sports Competition Notice', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa fugiat sint numquam minus illum ad quidem deserunt voluptates totam illo quaerat, officiis sunt exercitationem, magni voluptatibus eos. In nesciunt neque blanditiis dolorem error ut illo ducimus officiis, ipsa sit obcaecati possimus inventore optio laudantium repellendus, eligendi, minus repellat. Odit, harum!', '2025-12-07', 2, '2025-12-07_1765092393_AI Assignment.pdf', 'Public', 1, '2025-12-07 07:26:33', '2025-12-07 07:26:33'),
+(4, 'Midterm Exam Schedule', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa fugiat sint numquam minus illum ad quidem deserunt voluptates totam illo quaerat, officiis sunt exercitationem, magni voluptatibus eos. In nesciunt neque blanditiis dolorem error ut illo ducimus officiis, ipsa sit obcaecati possimus inventore optio laudantium repellendus, eligendi, minus repellat. Odit, harum!', '2025-12-07', 2, '2025-12-07_1765093671_17.pdf', 'Student', 1, '2025-12-07 07:47:51', '2025-12-07 07:47:51');
 
 -- --------------------------------------------------------
 
@@ -895,7 +912,8 @@ INSERT INTO `teacher_attendances` (`id`, `teacher_id`, `attendance_date`, `atten
 (6, 2, '2025-11-23', '12:17:24', 'absent', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:17:24', '2025-11-23 00:17:24'),
 (7, 1, '2025-12-02', '16:40:52', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-02 04:40:52', '2025-12-02 04:40:52'),
 (8, 1, '2025-11-22', '12:14:50', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-11-23 00:14:51', '2025-11-23 00:15:01'),
-(9, 2, '2025-12-06', '12:58:35', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-06 06:58:36', '2025-12-06 06:58:36');
+(9, 2, '2025-12-06', '12:58:35', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-06 06:58:36', '2025-12-06 06:58:36'),
+(10, 2, '2025-12-07', '13:06:28', 'present', '127.0.0.1', 'Firefox', 'Desktop', 'Unknown', '2025-12-07 07:06:29', '2025-12-07 07:06:29');
 
 -- --------------------------------------------------------
 
@@ -1112,7 +1130,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `class_schedules`
@@ -1142,7 +1160,7 @@ ALTER TABLE `excategories`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `exsubcategories`
@@ -1190,7 +1208,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1238,7 +1256,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teacher_attendances`
 --
 ALTER TABLE `teacher_attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`

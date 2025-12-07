@@ -23,6 +23,7 @@ use App\Models\Mark;
 use App\Models\Attendance;
 use App\Models\Room;
 use App\Models\StudentSubject;
+use App\Models\Notice;
 
 class DashboardController extends Controller
 {
@@ -46,6 +47,9 @@ class DashboardController extends Controller
         $totalTeacher = Teacher::count();
         $maleTeacher = Teacher::where('gender', 'Male')->count();
         $femaleTeacher = Teacher::where('gender', 'Female')->count();
+
+        $notices = Notice::latest()->take(3)->get();
+
         return view('welcome', compact(
             'totalStudent',
             'maleStudent',
@@ -56,7 +60,8 @@ class DashboardController extends Controller
             'class',
             'totalTeacher',
             'maleTeacher',
-            'femaleTeacher'
+            'femaleTeacher',
+            'notices',
         )); 
     }
 

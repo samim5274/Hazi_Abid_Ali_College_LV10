@@ -16,6 +16,7 @@
 
         <!-- [ Main Content ] start -->
         <div class="grid grid-cols-12 gap-x-6">
+
           <div class="col-span-12 xl:col-span-3 md:col-span-6">
             <div class="card">
               <div class="card-header !pb-0 !border-b-0">
@@ -219,6 +220,60 @@
 
 
 
+          <!-- notice section start -->
+          @foreach($notices as $notice)
+          <div class="col-span-12 xl:col-span-4 md:col-span-6">
+            <div class="card border rounded-lg shadow hover:shadow-lg transition duration-300 overflow-hidden">
+                
+                <!-- Card Header -->
+                <div class="card-body border-b border-theme-border dark:border-themedark-border p-4 flex items-center justify-between">
+                    <div class="shrink-0">
+                        <i class="fa-solid fa-bell text-yellow-500 text-[36px]"></i>
+                    </div>
+                    <div class="grow text-right">
+                        <h3 class="mb-1 text-lg font-semibold text-gray-800">{{ $notice->title ?? 'Notice Title' }}</h3>
+                        <h5 class="text-gray-500 text-sm">{{ \Carbon\Carbon::parse($notice->publish_date)->format('d M, Y') }}</h5>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4">
+                    <p class="text-sm text-gray-700 mb-4 line-clamp-4">{{ $notice->description ?? 'Notice description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.' }}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <h6 class="text-sm mb-1 text-gray-500">Priority</h6>
+                            <span class="px-3 py-1 rounded-full text-white text-xs font-medium
+                                {{ $notice->notice_type == 'Teacher' ? 'bg-red-500' : ($notice->notice_type == 'Student' ? 'bg-yellow-500' : 'bg-green-500') }}">
+                                {{ $notice->notice_type ?? 'Normal' }}
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <h6 class="text-sm mb-1 text-gray-500">Created By</h6>
+                            <span class="px-3 py-1 rounded-full text-white text-xs font-medium bg-blue-500">
+                                {{ $notice->user->first_name ?? 'All Students' }} {{ $notice->user->last_name ?? 'All Students' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer p-4 border-t border-theme-border dark:border-themedark-border text-right">
+                    <a href="{{ url('/view/notice/'.$notice->id) }}"
+                      class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition">
+                        View Details <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+            </div>
+          </div>
+          @endforeach
+          <!-- notice section End -->
+
+
+
+
+
 
           <div class="col-span-12 xl:col-span-4">
             <div class="card card-social">
@@ -313,6 +368,7 @@
               </div>
             </div>
           </div>
+
         </div>
         <!-- [ Main Content ] end -->
       </div>

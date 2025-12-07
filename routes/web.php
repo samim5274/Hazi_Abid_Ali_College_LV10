@@ -157,6 +157,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/search-modify-class-schedule', [ClassController::class, 'searchSchedule']);
     Route::get('/edit/class/schedule/{scheduleId}', [ClassController::class, 'editSchedule'])->name('edit-class-schedule');
     Route::post('/update-class-schedule/{id}', [ClassController::class, 'updateClassSchedule']);
+    Route::get('/my-class-schedule', [ClassController::class, 'mySchedule'])->name('my-class-schedule');
 
 
 
@@ -224,5 +225,12 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/expenses-edit/{id}', [ExpensesController::class, 'edit']);
     Route::post('/modify-expenses/{id}', [ExpensesController::class, 'update']);
     Route::get('/expenses-print/{id}', [ExpensesController::class, 'print']);
+    // Expenses report Route
+    Route::get('/date-wise-expenses', [ExpensesController::class, 'dateExpenses']);
+    Route::get('/expenses-data-filter', [ExpensesController::class, 'filterExpenses']);
+    Route::get('/category-wise-expenses', [ExpensesController::class, 'categroyExpenses']);
+    Route::get('/expenses-category-data-filter', [ExpensesController::class, 'filterCatExpen']);
+    Route::get('/sub-category-wise-expenses', [ExpensesController::class, 'subCategoyExpenses']);
+    Route::get('/expenses-sub-category-data-filter', [ExpensesController::class, 'filterSubCatExpen']);
 
 });
