@@ -12,6 +12,7 @@ use App\Models\Student;
 use App\Models\FeeCategory;
 use App\Models\FeeStructure;
 use App\Models\FeePayment;
+use App\Models\Company;
 
 class FinanceReportController extends Controller
 {
@@ -20,10 +21,12 @@ class FinanceReportController extends Controller
         $total = FeePayment::sum('amount_paid');
         $discount = FeePayment::sum('discount');
         $due = FeePayment::sum('due_amount');
-        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due'));
+        $company = Company::first();
+        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due','company'));
     }
 
     public function findPaymentReport(Request $request){
+        $company = Company::first();
         $start = $request->input('start_date', '');
         $end = $request->input('end_date', '');
 
@@ -37,19 +40,21 @@ class FinanceReportController extends Controller
         $total = FeePayment::whereBetween('payment_date', [$start, $end])->sum('amount_paid');
         $discount = FeePayment::whereBetween('payment_date', [$start, $end])->sum('discount');
         $due = FeePayment::whereBetween('payment_date', [$start, $end])->sum('due_amount');
-        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due'));
+        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due','company'));
     }
 
     public function categroyReport(){
+        $company = Company::first();
         $category = FeeCategory::all();
         $feePayment = FeePayment::paginate(45);
         $total = FeePayment::sum('amount_paid');
         $discount = FeePayment::sum('discount');
         $due = FeePayment::sum('due_amount');
-        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category'));
+        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category','company'));
     }
 
     public function findCategoryFeeReport(Request $request){
+        $company = Company::first();
         $category = FeeCategory::all();
         
         $start = $request->input('start_date', '');
@@ -67,19 +72,21 @@ class FinanceReportController extends Controller
         $discount = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->sum('discount');
         $due = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->sum('due_amount');
 
-        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category'));
+        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category','company'));
     }
 
     public function studentFeeReport(){
+        $company = Company::first();
         $feePayment = FeePayment::paginate(45);
         $total = FeePayment::sum('amount_paid');
         $discount = FeePayment::sum('discount');
         $due = FeePayment::sum('due_amount');
         $student = Student::where('status', 1)->get();
-        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student'));
+        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student','company'));
     }
 
     public function findStudentFeeReport(Request $request){
+        $company = Company::first();
         $start = $request->input('start_date', '');
         $end = $request->input('end_date', '');
 
@@ -100,6 +107,6 @@ class FinanceReportController extends Controller
         $discount = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->sum('discount');
         $due = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->sum('due_amount');
 
-        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student'));
+        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student','company'));
     }
 }

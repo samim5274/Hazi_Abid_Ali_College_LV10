@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject - (SMS)</title>
+    <title>Subject - {{ $company->name }}</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -88,85 +88,156 @@
                         </div>
                     </div> -->
 
-                    <!-- Modal Background -->
+                    <!-- ✅ ADD SUBJECT MODAL -->
                     <div id="subjectModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
                         <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
 
-                            <!-- Modal Header -->
+                            <!-- Header -->
                             <div class="flex items-center justify-between border-b pb-3 mb-4">
                                 <h5 class="text-lg font-semibold text-gray-700">Add New Subject</h5>
-                                <button onclick="closeModal()" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+                                <button onclick="closeAddModal()" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
                             </div>
 
-                            <!-- Modal Body (Your Form) -->
-                            <form action="{{url('/add-new-subject')}}" method="POST" class="space-y-6" enctype="multipart/form-data">
+                            <!-- Form -->
+                            <form action="{{ url('/add-new-subject') }}" method="POST" class="space-y-6">
                                 @csrf
+
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label for="name" class="font-medium">Subject Name</label>
-                                        <input type="text" name="name" id="name" required placeholder="Enter Subject Name" 
-                                            class="form-input w-full rounded-md mt-1 py-3 px-3 border border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                        <label class="font-medium">Subject Name</label>
+                                        <input type="text" name="name" required placeholder="Enter subject or book name"
+                                            class="w-full rounded-md mt-1 py-3 px-3 border border-gray-300">
                                     </div>
+
                                     <div>
-                                        <label for="class_id" class="font-medium">Class</label>
-                                        <select name="class_id" id="class_id" 
-                                                class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                        <label class="font-medium">Class</label>
+                                        <select name="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
                                             <option value="">Select Class</option>
                                             @foreach($rooms as $room)
-                                                <option value="{{$room->id}}">{{$room->name}}- {{$room->section}}</option>
+                                                <option value="{{ $room->id }}">
+                                                    {{ $room->name }} - {{ $room->section }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                                <!-- Submit Button -->
                                 <div class="text-center">
-                                    <button type="submit" 
-                                            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-md shadow-md transition duration-300" 
-                                            onclick="return confirmSubmit(event)">
+                                    <button type="submit"
+                                        class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-md shadow-md">
                                         Submit
                                     </button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
 
 
-                    <div class="col-span-1">
-                        <div class="card rounded-xl border">
-                            <div class="flex items-center justify-between bg-gray-100 px-4 py-3 rounded-t-lg border-b">
-                                <h5 class="text-lg font-semibold text-gray-700">📚 Subject List</h5>
-                                
-                                <button onclick="openModal()"  class="text-white bg-green-500 hover:bg-green-600 px-3 py-2 rounded-lg shadow flex items-center gap-2">
-                                    <i class="fa-solid fa-folder-plus"></i>
-                                    <span class="hidden sm:inline">Add Subject</span>
-                                </button>
-                            </div>
 
-                            <div class="card-body">
-                                <div class="overflow-x-auto">
-                                    <table class="min-w-full bg-white">
-                                        <thead class="bg-gray-400 text-black">
-                                            <tr>
-                                                <th class="py-3 px-4 uppercase font-semibold text-md">#</th>
-                                                <th class="py-3 px-4 uppercase font-semibold text-md">Subject Name</th>
-                                                <th class="py-3 px-4 uppercase font-semibold text-md">Class Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-gray-700 text-center">
-                                            @foreach($subjects as $subject)
+                    <div class="card rounded-xl border">
+                        <div class="flex items-center justify-between bg-gray-100 px-4 py-3 rounded-t-lg border-b">
+                            <h5 class="text-lg font-semibold text-gray-700">📚 Subject List</h5>
+
+                            <button onclick="openAddModal()"
+                                class="text-white bg-green-500 hover:bg-green-600 px-3 py-2 rounded-lg shadow flex items-center gap-2">
+                                <i class="fa-solid fa-folder-plus"></i>
+                                <span class="hidden sm:inline">Add Subject</span>
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead class="bg-gray-400 text-black">
+                                        <tr>
+                                            <th class="py-3 px-4">#</th>
+                                            <th class="py-3 px-4">Subject Name</th>
+                                            <th class="py-3 px-4">Class</th>
+                                            <th class="py-3 px-4">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="text-gray-700 text-center">
+                                        @foreach($subjects as $subject)
                                             <tr class="border hover:bg-gray-100">
-                                                <td class="py-3 px-4">{{$loop->iteration}}</td>
-                                                <td class="py-3 px-4">{{$subject->name}}</td>
-                                                <td class="py-3 px-4">{{$subject->room->name}} - {{$subject->room->section}}</td>
+                                                <td class="py-3 px-4">{{ $loop->iteration }}</td>
+                                                <td class="py-3 px-4">{{ $subject->name }}</td>
+                                                <td class="py-3 px-4">{{ $subject->room->name }} - {{ $subject->room->section }}</td>
+
+                                                <td class="py-3 px-4 text-blue-600 cursor-pointer"
+                                                    onclick="openEditModal({{ $subject->id }})">
+                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                                </td>
                                             </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>
+
+
+
+
+
+
+                    @foreach($subjects as $subject)
+                    <div id="editsubjectModal{{ $subject->id }}"
+                        class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+
+                        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+
+                            <div class="flex items-center justify-between border-b pb-3 mb-4">
+                                <h5 class="text-lg font-semibold text-gray-700">Edit Subject</h5>
+                                <button onclick="closeEditModal({{ $subject->id }})"
+                                    class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+                            </div>
+
+                            <form action="{{ url('/edit-subject/'.$subject->id) }}" method="POST" class="space-y-6">
+                                @csrf
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="font-medium">Subject Name</label>
+                                        <input type="text" name="name" value="{{ $subject->name }}" required placeholder="Enter subject or book name"
+                                            class="w-full rounded-md mt-1 py-3 px-3 border border-gray-300">
+                                    </div>
+
+                                    <div>
+                                        <label class="font-medium">Class</label>
+                                        <select name="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                            <option value="">Select Class</option>
+                                            @foreach($rooms as $room)
+                                                <option value="{{ $room->id }}"
+                                                    {{ $subject->class_id == $room->id ? 'selected' : '' }}>
+                                                    {{ $room->name }} - {{ $room->section }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit"
+                                        class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-md shadow-md">
+                                        Update Subject
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    @endforeach
+
+
+
+
+
+
+
+
                 </div>
                 <!-- [ Main Content ] end -->   
             </div>
@@ -209,14 +280,28 @@
             return true; // Proceed with form submission
         }
 
-        function openModal() {
+        // ✅ Add Modal
+        function openAddModal() {
             document.getElementById('subjectModal').classList.remove('hidden');
             document.getElementById('subjectModal').classList.add('flex');
         }
 
-        function closeModal() {
+        function closeAddModal() {
             document.getElementById('subjectModal').classList.remove('flex');
             document.getElementById('subjectModal').classList.add('hidden');
+        }
+
+        // ✅ Edit Modal
+        function openEditModal(id) {
+            let modal = document.getElementById('editsubjectModal' + id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditModal(id) {
+            let modal = document.getElementById('editsubjectModal' + id);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
     </script>
 

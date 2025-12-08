@@ -13,18 +13,22 @@ use App\Models\Room;
 use App\Models\Subject;
 use App\Models\Mark;
 use App\Models\StudentDailyRoutine;
+use App\Models\Company;
 
 class StudentReportController extends Controller
 {
     public function genderReport(){
+        $company = Company::first();
         $findData = Student::paginate(45);
         $classes = Room::all();
         $students = Student::all();
         $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
-        return view('student.report.student-report', compact('findData','classes', 'students','allProfessions'));
+        return view('student.report.student-report', compact('findData','classes', 'students','allProfessions','company'));
     }
 
     public function findGenderReport(Request $request){
+        $company = Company::first();
+
         $classes = Room::all();
         $students = Student::all();
 
@@ -57,13 +61,14 @@ class StudentReportController extends Controller
         $findData = $query->paginate(45)->appends($request->all());
         $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
 
-        return view('student.report.student-report', compact('findData', 'classes', 'students','allProfessions'));
+        return view('student.report.student-report', compact('findData', 'classes', 'students','allProfessions','company'));
     }
 
     public function studentDailyReport(){
         $routine = StudentDailyRoutine::get();
         $classes = Room::all();
-        return view('student.report.student-daily-report', compact('routine','classes'));
+        $company = Company::first();
+        return view('student.report.student-daily-report', compact('routine','classes','company'));
     }
 
     public function getStudents($class_id){
@@ -72,6 +77,8 @@ class StudentReportController extends Controller
     }
 
     public function findStudentDailyReport(Request $request){
+        $company = Company::first();
+
         $classes = Room::all();
 
         $query = StudentDailyRoutine::query();
@@ -95,6 +102,6 @@ class StudentReportController extends Controller
 
         $routine = $query->orderBy('date', 'desc')->get();
 
-        return view('student.report.student-daily-report', compact('routine','classes'));
+        return view('student.report.student-daily-report', compact('routine','classes','company'));
     }
 }

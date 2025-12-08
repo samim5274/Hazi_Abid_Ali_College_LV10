@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Teacher Attendance Report - Print</title>
+<title>Teacher Attendance Report - {{ $company->name }}</title>
 
 <style>
     @page {
@@ -122,11 +122,9 @@
     <img src="{{asset('assets/images/favicon.svg')}}" alt="Logo">
 
     <div class="school-info">
-        <h1>Hazi Abed Ali College</h1>
-        <p>Address: East Brahmandi, Narshindhi, Dhaka, Bangladesh</p>
-        <p>Code: 3010, Deg: 5424, EIIN:112717</p>
-        <p>Phone: 02-9462683 Mobaile:+88019 29-611631 | Email: haziabedalicollege@gmail.com</p>
-        <p>Website: www.haac.edu.bd</p>
+        <h1>{{ $company->name }}</h1>
+        <p>{{ $company->address }}</p>
+        <p>Email: {{ $company->email }} | Phone: {{ $company->phone }} | Website: {{ $company->website }}</p>
     </div>
 </div>
 

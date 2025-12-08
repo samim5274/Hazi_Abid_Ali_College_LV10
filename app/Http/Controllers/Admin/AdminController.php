@@ -69,7 +69,8 @@ class AdminController extends Controller
     }
 
     public function changePassView(){
-        return view('admin.change-password');
+        $company = Company::first();
+        return view('admin.change-password', compact('company'));
     }
 
     public function updateUpdate(Request $request){
@@ -107,15 +108,18 @@ class AdminController extends Controller
     }
 
     public function profile(){
-        return view('profile.my-account');
+        $company = Company::first();
+        return view('profile.my-account', compact('company'));
     }
 
     public function setting(){
-        return view('profile.setting');
+        $company = Company::first();
+        return view('profile.setting', compact('company'));
     }
 
     public function support(){
-        return view('profile.support');
+        $company = Company::first();
+        return view('profile.support', compact('company'));
     }
 
     public function forgetPass(){

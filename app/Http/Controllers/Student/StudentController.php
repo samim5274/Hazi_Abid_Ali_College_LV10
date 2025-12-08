@@ -11,6 +11,7 @@ use App\Models\Student;
 use App\Models\Room;
 use App\Models\Subject;
 use App\Models\Mark;
+use App\Models\Company;
 
 class StudentController extends Controller
 {
@@ -22,13 +23,15 @@ class StudentController extends Controller
     }
 
     public function studentList(){
+        $company = Company::first();
         $student = Student::paginate(20);
-        return view('student.student-list', compact('student'));
+        return view('student.student-list', compact('student','company'));
     }
 
     public function addStudentView(){
+        $company = Company::first();
         $room = Room::all();
-        return view('student.add-student' , compact('room'));
+        return view('student.add-student' , compact('room','company'));
     }
 
     // helper function inside your controller
@@ -185,9 +188,10 @@ class StudentController extends Controller
     }
 
     public function editStudentView($id){
+        $company = Company::first();
         $student = Student::findOrFail($id);
         $room = Room::all();
-        return view('student.edit-student', compact('student','room'));
+        return view('student.edit-student', compact('student','room','company'));
     }
 
     public function editStudent(Request $request, $id)

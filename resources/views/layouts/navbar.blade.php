@@ -350,6 +350,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class="pc-item">
+                    <a href="{{url('/subject-view')}}" class="pc-link">
+                        <span class="pc-micon">
+                        <i class="fa-solid fa-book"></i>
+                        </span>
+                        <span class="pc-mtext">Subjects</span>
+                    </a>
+                </li>
                 <!-- setting -->
 
 

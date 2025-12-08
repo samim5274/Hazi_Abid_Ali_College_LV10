@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
+use App\Models\Company;
 use App\Models\Room;
 use App\Models\Student;
 use App\Models\FeeCategory;
@@ -24,17 +25,19 @@ class FinanceController extends Controller
 
     public function FeeCollection(){
         $classes = Room::all();
-        return view('finance.finance-structure', compact('classes'));
+        $company = Company::first();
+        return view('finance.finance-structure', compact('classes','company'));
     }
 
     public function StudentList($class_id){
+        $company = Company::first();
         $student = Student::with('room')->where('class_id', $class_id)->get();
         
         if ($student->isEmpty()){
             return redirect('class-list')->with('error','This class no student available now.');
         }
 
-        return view('finance.finance-student-list', compact('class_id','student'));
+        return view('finance.finance-student-list', compact('class_id','student','company'));
     }
 
     public function feeView($class_id, $student_id){
@@ -43,7 +46,8 @@ class FinanceController extends Controller
 
     public function financeManagement(){
         $category = FeeCategory::paginate(10);
-        return view('finance.finance-management', compact('category'));
+        $company = Company::first();
+        return view('finance.finance-management', compact('category','company'));
     }
 
     public function store(Request $request)
@@ -62,10 +66,11 @@ class FinanceController extends Controller
     }
 
     public function financeFeeStructure(){
+        $company = Company::first();
         $category = FeeCategory::all();
         $classes = Room::all();
         $feeStructure = FeeStructure::paginate(10);
-        return view('finance.finance-fee-structure', compact('category','classes','feeStructure'));
+        return view('finance.finance-fee-structure', compact('category','classes','feeStructure','company'));
     }
 
     public function insertFeeStructure(Request $request){
@@ -95,12 +100,13 @@ class FinanceController extends Controller
     }
 
     public function financeFeePayment(){
+        $company = Company::first();
         $category = FeeCategory::all();
         $student = Student::where('status', 1)->get();
         $classes = Room::all();
         $feeStructure = FeeStructure::all();
         $feePayment = FeePayment::where('payment_date', now()->toDateString())->paginate(10);
-        return view('finance.finance-fee-payment', compact('category','classes','feeStructure','student','feePayment'));
+        return view('finance.finance-fee-payment', compact('category','classes','feeStructure','student','feePayment','company'));
     }
 
     public function getStudentsByClass($class_id)

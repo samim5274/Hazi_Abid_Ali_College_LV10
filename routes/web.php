@@ -114,6 +114,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/subject-view', [SubjectController::class, 'subjectView'])->name('subject-vidw');
     Route::post('/add-new-subject', [SubjectController::class, 'addSubject']);
     Route::get('/get-subjects/{classId}', [SubjectController::class, 'getSubjectsByClass']);
+    Route::post('/edit-subject/{id}', [SubjectController::class, 'modify']);
 
 
 
@@ -146,8 +147,8 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 
-    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');
     Route::get('/add-class', [ClassController::class, 'addNew'])->name('add-new-class-view');
+    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');
     Route::post('/insert-class', [ClassController::class, 'insertClass']);
     Route::get('/assign-teacher-list', [ClassController::class, 'assignTeacehr'])->name('assign-teacher-list-view');
     Route::post('/assigned-teacher-update', [ClassController::class, 'update']);

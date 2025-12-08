@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 use App\Models\TeacherAttendance;
 use App\Models\Teacher;
+use App\Models\Company;
 
 class AttendTeacherController extends Controller
 {
@@ -21,6 +22,7 @@ class AttendTeacherController extends Controller
     }
 
     public function index(){
+        $company = Company::first();
         $user = Auth::guard('teacher')->user()->id;
         $data = TeacherAttendance::where('teacher_id', $user)
                                 ->whereBetween('attendance_date', [
@@ -30,7 +32,7 @@ class AttendTeacherController extends Controller
         $total   = $data->count();
         $present = $data->where('status', 'present')->count();
         $absent  = $data->where('status', 'absent')->count();
-        return view('teacher.attendance.teacher-attendance', compact('data','total', 'present', 'absent'));
+        return view('teacher.attendance.teacher-attendance', compact('data','total', 'present', 'absent','company'));
     }
 
     public function store(Request $request)
@@ -96,6 +98,8 @@ class AttendTeacherController extends Controller
 
     public function attendanceReport()
     {
+        $company = Company::first();
+
         $data = TeacherAttendance::whereBetween('attendance_date', [
                                     $this->date->copy()->subDays(30)->format('Y-m-d'),
                                     $this->date->format('Y-m-d')
@@ -104,11 +108,13 @@ class AttendTeacherController extends Controller
         $present = $data->where('status', 'present')->count();
         $absent  = $data->where('status', 'absent')->count();
         $teachers = Teacher::all();
-        return view('teacher.attendance.teacher-attendance-report', compact('data','total', 'present', 'absent','teachers'));
+        return view('teacher.attendance.teacher-attendance-report', compact('data','total', 'present', 'absent','teachers','company'));
     }
 
     public function filterTeacherAttendace(Request $request)
     {
+        $company = Company::first();
+
         $query = TeacherAttendance::with('teacher');
 
         // If teacher is selected → filter by teacher
@@ -134,19 +140,21 @@ class AttendTeacherController extends Controller
 
         if ($request->input('print')) {
             return view('teacher.attendance.teacher-attendance-report-print', compact(
-                'data', 'teachers'
+                'data', 'teachers','company'
             ));
         }
 
         return view('teacher.attendance.teacher-attendance-report', compact(
-            'data', 'total', 'present', 'absent', 'teachers'
+            'data', 'total', 'present', 'absent', 'teachers','company'
         ));
     }
 
     public function editTeacherAttend($id)
     {
+        $company = Company::first();
+
         $attendance = TeacherAttendance::with('teacher')->findOrFail($id);
-        return view('teacher.attendance.edit-teacher-attendance', compact('attendance'));
+        return view('teacher.attendance.edit-teacher-attendance', compact('attendance','company'));
     }
 
     public function updateTeacherAttend(Request $request, $id)

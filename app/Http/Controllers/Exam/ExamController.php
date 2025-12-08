@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 use App\Models\Room;
+use App\Models\Company;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Exam;
@@ -24,11 +25,12 @@ class ExamController extends Controller
     }
 
     public function viewExam(){
+        $company = Company::first();
         $exams = Exam::with('room', 'subject')->orderBy('date', 'asc')->get();
         $subjects = Subject::all();
         $rooms = Room::all();
         $examName = ExamName::all();
-        return view('exam.exam-list', compact('subjects', 'rooms', 'exams','examName'));
+        return view('exam.exam-list', compact('subjects', 'rooms', 'exams','examName','company'));
     }
 
     public function addExam(Request $request){
@@ -115,16 +117,19 @@ class ExamController extends Controller
 
 
     public function classList(){
+        $company = Company::first();
         $classes = Room::all();
-        return view('exam.exam-class-list', compact('classes'));
+        return view('exam.exam-class-list', compact('classes','company'));
     }
 
     public function examView($class){
+        $company = Company::first();
         $exam = Exam::where('class_id', $class)->get();
-        return view('exam.class-exam-list', compact('exam','class'));
+        return view('exam.class-exam-list', compact('exam','class','company'));
     }
 
     public function classExam($class, $subject , $exam){
+        $company = Company::first();
         $students = Student::where('class_id', $class)->where('status', 1)
             ->whereHas('subjects', function ($query) use ($subject) {
                 $query->where('subjects.id', $subject);
@@ -135,7 +140,7 @@ class ExamController extends Controller
         $exam = Exam::find($exam);
         $marks = Mark::where('subject_id', $subject)->where('exam_id', $exam->id)->get();
         //dd($exam);
-        return view('exam.mark-submit', compact('students','sub','exam','room','marks'));
+        return view('exam.mark-submit', compact('students','sub','exam','room','marks','company'));
     }
     
     public function submitMark(Request $request, $id){
@@ -198,25 +203,30 @@ class ExamController extends Controller
 
     public function resultReport(){
         $classes = Room::all();
-        return view('exam.report.class-list', compact('classes'));
+        $company = Company::first();
+        return view('exam.report.class-list', compact('classes','company'));
     }
 
     public function resultReportClass($class){
         $students = Student::where('class_id', $class)->where('status', 1)->get();
-        return view('exam.report.student-list', compact('class','students'));
+        $company = Company::first();
+        return view('exam.report.student-list', compact('class','students','company'));
     }
 
     public function showResult($class, $student){
+        $company = Company::first();
         $marks = Mark::where('student_id', $student)->get();
-        return view('exam.report.result-view', compact('marks','class','student'));
+        return view('exam.report.result-view', compact('marks','class','student','company'));
     }
 
     public function totalReport(){
         $classes = Room::all();
-        return view('exam.report.class-list-2', compact('classes'));
+        $company = Company::first();
+        return view('exam.report.class-list-2', compact('classes','company'));
     }
 
     public function totalResult($class){
+        $company = Company::first();
         $students = Student::where('class_id', $class)->where('status', 1)->with('results.subject')->get();
         $subjects = Subject::where('class_id', $class)->get();
 
@@ -236,12 +246,13 @@ class ExamController extends Controller
         }
         
         //dd($studentResults);
-        return view('exam.report.student-result-view', compact('students','subjects','studentResults'));
+        return view('exam.report.student-result-view', compact('students','subjects','studentResults','company'));
     }
 
     public function createExam(){
         $exams = ExamName::all();
-        return view('exam.create-exam', compact('exams'));
+        $company = Company::first();
+        return view('exam.create-exam', compact('exams','company'));
     }
 
     public function createNewExam(Request $request){
