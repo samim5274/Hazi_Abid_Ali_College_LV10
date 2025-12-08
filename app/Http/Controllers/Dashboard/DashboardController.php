@@ -24,6 +24,7 @@ use App\Models\Attendance;
 use App\Models\Room;
 use App\Models\StudentSubject;
 use App\Models\Notice;
+use App\Models\Company;
 
 class DashboardController extends Controller
 {
@@ -35,6 +36,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
+        $company = Company::first();
         $totalStudent = Student::count();        
         $maleStudent = Student::where('gender', 'Male')->count();
         $femaleStudent = Student::where('gender', 'Female')->count();
@@ -62,6 +64,7 @@ class DashboardController extends Controller
             'maleTeacher',
             'femaleTeacher',
             'notices',
+            'company',
         )); 
     }
 

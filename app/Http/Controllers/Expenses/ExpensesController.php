@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Excategory;
 use App\Models\Exsubcategory;
 use App\Models\Expenses;
+use App\Models\Company;
 
 class ExpensesController extends Controller
 {
@@ -21,9 +22,10 @@ class ExpensesController extends Controller
     }
 
     public function index(){
+        $company = Company::first();
         $categries = Excategory::all();
         $expenses = Expenses::with('category','subcategory', 'user')->get();
-        return view('expenses.expenses', compact('categries','expenses'));
+        return view('expenses.expenses', compact('categries','expenses','company'));
     }
 
     public function getSubCategory($id) {
@@ -55,11 +57,12 @@ class ExpensesController extends Controller
     }
 
     public function print($id){
+        $company = Company::first();
         $expense = Expenses::with(['category', 'subcategory', 'user'])->find($id);
         if(!$expense){
             return redirect()->back()->with('error', 'Expenses not found. Please try again. Thank You!');
         }
-        return view('expenses.expenses-print', compact('expense'));
+        return view('expenses.expenses-print', compact('expense','company'));
     }
 
     public function delete($id){
@@ -72,21 +75,23 @@ class ExpensesController extends Controller
     }
 
     public function expensesView($id){
+        $company = Company::first();
         $expense = Expenses::find($id);
         if(!$expense){
             return redirect()->back()->with('error', 'Expenses not found. Please try again. Thank You!');
         }
-        return view('expenses.expenses-view', compact('expense'));
+        return view('expenses.expenses-view', compact('expense','company'));
     }
 
     public function edit($id){
+        $company = Company::first();
         $expense = Expenses::find($id);
         $categries = Excategory::all();
         $subcategories = Exsubcategory::all();
         if(!$expense){
             return redirect()->back()->with('error', 'Expenses not found. Please try again. Thank You!');
         }
-        return view('expenses.expenses-edit', compact('expense','categries','subcategories'));
+        return view('expenses.expenses-edit', compact('expense','categries','subcategories','company'));
     }
 
     public function update(Request $request, $id){
@@ -115,9 +120,10 @@ class ExpensesController extends Controller
     }
 
     public function dateExpenses(){
+        $company = Company::first();
         $date = Carbon::today();
         $expenses = Expenses::where('date', $date)->get();
-        return view('expenses.report.expenses-report', compact('expenses'));
+        return view('expenses.report.expenses-report', compact('expenses','company'));
     }
 
     public function filterExpenses(Request $request){
@@ -125,6 +131,8 @@ class ExpensesController extends Controller
             'from_date' => 'required|date',
             'to_date'   => 'required|date|after_or_equal:from_date',
         ]);
+
+        $company = Company::first();
 
         $from_date = $request->from_date;
         $to_date = $request->to_date;
@@ -147,17 +155,18 @@ class ExpensesController extends Controller
         $expenses = $query->latest()->get();
 
         if($request->has('print')){
-            return view('expenses.report.print.print-expenses-report', compact('expenses','from_date','to_date'));
+            return view('expenses.report.print.print-expenses-report', compact('expenses','from_date','to_date','company'));
         }
 
-        return view('expenses.report.expenses-report', compact('expenses'));
+        return view('expenses.report.expenses-report', compact('expenses','company'));
     }
 
     public function categroyExpenses(){
         $date = Carbon::today();
+        $company = Company::first();
         $categories = Excategory::all();
         $expenses = Expenses::where('date', $date)->get();
-        return view('expenses.report.category-expenses-report', compact('expenses','categories'));
+        return view('expenses.report.category-expenses-report', compact('expenses','categories','company'));
     }
 
     public function filterCatExpen(Request $request){
@@ -166,6 +175,8 @@ class ExpensesController extends Controller
             'to_date'     => 'required|date|after_or_equal:from_date',
             'category_id' => 'required|exists:excategories,id',
         ]);
+
+        $company = Company::first();
 
         $from_date = $request->from_date;
         $to_date   = $request->to_date;
@@ -188,7 +199,8 @@ class ExpensesController extends Controller
                 'categories',
                 'from_date',
                 'to_date',
-                'category_id'
+                'category_id',
+                'company'
             ));
         }
 
@@ -197,15 +209,17 @@ class ExpensesController extends Controller
             'categories',
             'from_date',
             'to_date',
-            'category_id'
+            'category_id',
+            'company'
         ));
     }
 
     public function subCategoyExpenses(){
         $date = Carbon::today();
+        $company = Company::first();
         $categories = Excategory::all();
         $expenses = Expenses::where('date', $date)->get();
-        return view('expenses.report.sub-category-expenses-report', compact('expenses','categories'));
+        return view('expenses.report.sub-category-expenses-report', compact('expenses','categories','company'));
     }
 
     public function filterSubCatExpen(Request $request){
@@ -215,6 +229,8 @@ class ExpensesController extends Controller
             'category_id' => 'required|exists:excategories,id',
             'subcategory_id' => 'required|exists:exsubcategories,id',
         ]);
+
+        $company = Company::first();
 
         $from_date = $request->from_date;
         $to_date   = $request->to_date;
@@ -237,7 +253,8 @@ class ExpensesController extends Controller
                 'from_date',
                 'to_date',
                 'category_id',
-                'sub_category_id'
+                'sub_category_id',
+                'company'
             ));
         }
 
@@ -247,7 +264,8 @@ class ExpensesController extends Controller
             'from_date',
             'to_date',
             'category_id',
-            'sub_category_id'
+            'sub_category_id',
+            'company'
         ));
     }
 }

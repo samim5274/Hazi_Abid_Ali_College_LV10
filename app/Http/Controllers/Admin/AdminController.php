@@ -16,6 +16,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Mail\OtpMail;
 use Mail;
+use App\Models\Company;
 
 class AdminController extends Controller
 {
@@ -24,7 +25,8 @@ class AdminController extends Controller
         Auth::guard('student')->logout();
         session()->invalidate();
         session()->regenerateToken();
-        return view('admin.login');
+        $company = Company::first();
+        return view('admin.login', compact('company'));
     }
 
     public function userLogin(Request $request){

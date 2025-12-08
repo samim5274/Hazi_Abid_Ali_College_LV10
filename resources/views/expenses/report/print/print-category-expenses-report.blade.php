@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Date Wise Expense Report - Hazi Abed Ali College</title>
+    <title>Date Wise Expense Report - {{ $company->name }}</title>
 
     <style>
         @page {
@@ -106,9 +106,9 @@
 
     <!--  HEADER -->
     <div class="header">
-        <h1>Hazi Abed Ali College</h1>
-        <p>123 College Road, City Name, Bangladesh</p>
-        <p>Email: info@haziabedali.edu.bd | Phone: +880123456789</p>
+        <h1>{{ $company->name }}</h1>
+        <p>{{ $company->address }}</p>
+        <p>Email: {{ $company->email }} | Phone: {{ $company->phone }}</p>
     </div>
 
     <hr>

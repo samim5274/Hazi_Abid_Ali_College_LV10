@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Expense Details - Hazi Abed Ali College</title>
+    <title>Expense Details - {{ $company->name }}</title>
     <style>
         @page {
             size: A4 landscape;
@@ -118,9 +118,9 @@
     <div class="half-page">
         <!-- Header -->
         <div class="header">
-            <h1>Hazi Abed Ali College</h1>
-            <p>123 College Road, City Name, Bangladesh</p>
-            <p>Email: info@haziabedali.edu.bd | Phone: +880123456789 | Website: www.haziabedali.edu.bd</p>
+            <h1>{{ $company->name }}</h1>
+            <p>{{ $company->address }}</p>
+            <p>{{ $company->email }} | Phone: {{ $company->phone }} | Website: {{ $company->website }}</p>
             <hr>
             <h2>Expense Details</h2>
         </div>
