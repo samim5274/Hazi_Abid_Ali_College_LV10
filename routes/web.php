@@ -168,6 +168,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/fee-collection', [FinanceController::class, 'FeeCollection'])->name('fee-collection-view');
     Route::get('/class-finance/{class_id}', [FinanceController::class, 'StudentList'])->name('class-and student-list');
     Route::get('/class/student/{class_id}/{student_id}', [FinanceController::class, 'feeView'])->name('student-class-fee-view');
+    Route::get('/due-collection', [FinanceController::class, 'dueCollection'])->name('due-collection');
 
     Route::get('/finance-management', [FinanceController::class, 'financeManagement'])->name('finance-management');
     Route::post('/add-new-finance-category', [FinanceController::class, 'store']);

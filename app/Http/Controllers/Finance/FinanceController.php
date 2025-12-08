@@ -265,4 +265,11 @@ class FinanceController extends Controller
         return redirect()->back()->with('success', 'Fee payment has been recorded successfully!');
     }
 
+    public function dueCollection(){
+        $company = Company::first();
+        $students = Student::all();
+        $classes = Room::all();
+        return view('finance.due-collection', compact('students','company','classes'));
+    }
+
 }

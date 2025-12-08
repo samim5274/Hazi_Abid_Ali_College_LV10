@@ -22,7 +22,8 @@ use Auth;
 class StudentPortalController extends Controller
 {
     public function stdDashboard(){
-        return view('studentPortal.std-dashboard');
+        // return view('studentPortal.std-dashboard');
+        return redirect()->route('student-profile-view');
     }
 
     public function profile(){
