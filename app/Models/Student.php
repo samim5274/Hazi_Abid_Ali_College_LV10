@@ -98,4 +98,14 @@ class Student extends Authenticatable
         return $this->hasMany(StudentDailyRoutine::class, 'student_id');
     }
 
+    public function payments()
+    {
+        return $this->hasMany(FeePaymentDetails::class);
+    }
+
+    public function paymentItems()
+    {
+        return $this->hasMany(FeePaymentItem::class);
+    }
+
 }

@@ -161,44 +161,57 @@
             <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
                 <h6 class="text-lg font-semibold mb-4">Recent Fee Payments</h6>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th>#</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fee Structure</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount Paid</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payment Date</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($feePayment as $val)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $val->student->first_name }} {{ $val->student->last_name }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $val->feeStructure->category->name }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ number_format($val->amount_paid, 2) }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 font-semibold">
-                                    {{ number_format($val->discount, 2) }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-semibold">
-                                    {{ number_format($val->due_amount, 2) }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ \Carbon\Carbon::parse($val->payment_date)->format('d M Y') }}
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto shadow rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <!-- Table Head -->
+                            <thead class="bg-gray-100 sticky top-0 z-10">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">#</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Student</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Payment Date</th>
+                                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Amount</th>
+                                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Discount</th>
+                                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Due</th>
+                                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Paid</th>
+                                    <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                                </tr>
+                            </thead>
+
+                            <!-- Table Body -->
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach($feePayment as $val)
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-4 py-3 text-sm text-gray-700">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700 font-medium hover:underline">
+                                        <a href="{{ url('/fee-payment-show/'.$val->id) }}">{{ $val->student->first_name }} {{ $val->student->last_name }}</a>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">
+                                        {{ \Carbon\Carbon::parse($val->payment_date)->format('d M Y') }}
+                                    </td>
+                                    <td class="px-4 py-3 text-md text-gray-700 text-right">৳{{ number_format($val->total_amount, 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-blue-600 font-semibold text-right">৳{{ number_format($val->total_discount, 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-red-600 font-semibold text-right">৳{{ number_format($val->total_due, 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-gray-700 text-right">৳{{ number_format($val->total_paid, 2) }}/-</td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <a href="{{ url('/fee-payment-show/'.$val->id) }}" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="#" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-print"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                                <!-- Totals Row -->
+                                <tr class="bg-gray-50 font-semibold">
+                                    <td colspan="3" class="px-4 py-3 text-sm text-gray-700 text-left">Total</td>
+                                    <td class="px-4 py-3 text-md text-gray-900 text-right">৳{{ number_format($feePayment->sum('total_amount'), 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-blue-600 text-right">৳{{ number_format($feePayment->sum('total_discount'), 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-red-600 text-right">৳{{ number_format($feePayment->sum('total_due'), 2) }}/-</td>
+                                    <td class="px-4 py-3 text-md text-gray-900 text-right">৳{{ number_format($feePayment->sum('total_paid'), 2) }}/-</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <!-- paginatior -->
                 @if ($feePayment->hasPages())

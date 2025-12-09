@@ -16,10 +16,10 @@ use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\Enrollment\EntrollmentController;
 use App\Http\Controllers\StudentPortal\StudentPortalController;
 use App\Http\Controllers\Room\ClassController;
-use App\Http\Controllers\Finance\FinanceController;
 use App\Http\Controllers\Finance\FinanceReportController;
 use App\Http\Controllers\Notice\NoticeController;
 use App\Http\Controllers\Expenses\ExpensesController;
+use App\Http\Controllers\Finance\FeePaymentController;
 
 Auth::routes();
 
@@ -164,22 +164,23 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 
-    Route::get('/fee-structure', [FinanceController::class, 'stuctureSetup'])->name('structure-management');
-    Route::get('/fee-collection', [FinanceController::class, 'FeeCollection'])->name('fee-collection-view');
-    Route::get('/class-finance/{class_id}', [FinanceController::class, 'StudentList'])->name('class-and student-list');
-    Route::get('/class/student/{class_id}/{student_id}', [FinanceController::class, 'feeView'])->name('student-class-fee-view');
-    Route::get('/due-collection', [FinanceController::class, 'dueCollection'])->name('due-collection');
+    Route::get('/fee-structure', [FeePaymentController::class, 'stuctureSetup'])->name('structure-management');
+    Route::get('/fee-collection', [FeePaymentController::class, 'FeeCollection'])->name('fee-collection-view');
+    Route::get('/class-finance/{class_id}', [FeePaymentController::class, 'StudentList'])->name('class-and student-list');
+    Route::get('/class/student/{class_id}/{student_id}', [FeePaymentController::class, 'feeView'])->name('student-class-fee-view');
+    Route::get('/due-collection', [FeePaymentController::class, 'dueCollection'])->name('due-collection');
 
-    Route::get('/finance-management', [FinanceController::class, 'financeManagement'])->name('finance-management');
-    Route::post('/add-new-finance-category', [FinanceController::class, 'store']);
-    Route::get('/finance-fee-structure', [FinanceController::class, 'financeFeeStructure'])->name('finance-fee-structure');
-    Route::post('/insert-fee-structure', [FinanceController::class, 'insertFeeStructure']);
-    Route::get('/finance-fee-payment', [FinanceController::class, 'financeFeePayment'])->name('finance-fee-payment');
-    Route::post('/fee-payments', [FinanceController::class, 'confirmPayment']);
+    Route::get('/finance-management', [FeePaymentController::class, 'financeManagement'])->name('finance-management');
+    Route::post('/add-new-finance-category', [FeePaymentController::class, 'store']);
+    Route::get('/finance-fee-structure', [FeePaymentController::class, 'financeFeeStructure'])->name('finance-fee-structure');
+    Route::post('/insert-fee-structure', [FeePaymentController::class, 'insertFeeStructure']);
+    Route::get('/finance-fee-payment', [FeePaymentController::class, 'financeFeePayment'])->name('finance-fee-payment');
+    Route::post('/fee-payments-2', [FeePaymentController::class, 'feePayment']);
+    Route::get('/fee-payment-show/{id}', [FeePaymentController::class, 'showPayment'])->name('show-specific-student-payment');
 
-    Route::get('/students/{class_id}', [FinanceController::class, 'getStudentsByClass']);
-    Route::get('/fee-structures/{class_id}', [FinanceController::class, 'getFeeStructuresByClass']);
-
+    Route::get('/students/{class_id}', [FeePaymentController::class, 'getStudentsByClass']);
+    Route::get('/fee-structures/{class_id}', [FeePaymentController::class, 'getFeeStructuresByClass']);
+    
     Route::get('/student-finance-report', [FinanceReportController::class, 'studentFinanceReport'])->name('student-finance-report-view');
     Route::get('/find-payment-report', [FinanceReportController::class, 'findPaymentReport']);
     Route::get('/category-class-finance-report', [FinanceReportController::class, 'categroyReport'])->name('category-finance-report');

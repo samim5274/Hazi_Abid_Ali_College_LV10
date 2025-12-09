@@ -30,4 +30,9 @@ class FeeStructure extends Model
     {
         return $this->hasMany(FeePayment::class, 'fee_structure_id'); // related payments
     }
+
+    public function paymentItems()
+    {
+        return $this->hasMany(FeePaymentItem::class, 'fee_structure_id');
+    }
 }
