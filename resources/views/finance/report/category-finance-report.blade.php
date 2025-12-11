@@ -121,78 +121,84 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fee Structure</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payment Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount Paid</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($feePayment as $val)
+                            @foreach($feePaymentItem as $val)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
                                     {{ $val->student->first_name }} {{ $val->student->last_name }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $val->feeStructure->category->name }}
-                                </td>
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ \Carbon\Carbon::parse($val->payment_date)->format('d M Y') }}
-                                </td>                                
+                                </td>  
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $val->feeStructure->category->name }}
+                                </td>                               
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 font-semibold">
-                                    ৳{{ number_format($val->discount, 2) }}
+                                    ৳{{ number_format($val->amount, 2) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-semibold">
-                                    ৳{{ number_format($val->due_amount, 2) }}
+                                    ৳{{ number_format($val->discount, 2) }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-md text-gray-900">
-                                    ৳{{ number_format($val->amount_paid, 2) }}
+                                <td class="px-6 py-4 whitespace-nowrap text-md text-green-900 font-semibold">
+                                    ৳{{ number_format($val->paid, 2) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-md text-blue-900 font-semibold">
+                                    ৳{{ number_format($val->due, 2) }}
                                 </td>
                             </tr>
                             @endforeach
                             <tr>
                                 <td colspan="4">Total:</td>
-                                <td>৳{{$discount}}/-</td>
-                                <td>৳{{$due}}/-</td>
-                                <td>৳{{$total}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$total}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$discount}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$paid}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$due}}/-</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- paginatior -->
-                @if ($feePayment->hasPages())
+                @if ($feePaymentItem->hasPages())
                     <div class="flex flex-wrap items-center justify-center mt-4 space-x-2">
 
                         {{-- Previous Button --}}
-                        @if ($feePayment->onFirstPage())
+                        @if ($feePaymentItem->onFirstPage())
                             <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
                                 &laquo;
                             </span>
                         @else
-                            <a href="{{ $feePayment->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                            <a href="{{ $feePaymentItem->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
                                 &laquo;
                             </a>
                         @endif
 
                         {{-- Page Numbers --}}
                         @php
-                            $start = max(2, $feePayment->currentPage() - 2);
-                            $end = min($feePayment->lastPage(), $feePayment->currentPage() + 2);
+                            $start = max(2, $feePaymentItem->currentPage() - 2);
+                            $end = min($feePaymentItem->lastPage(), $feePaymentItem->currentPage() + 2);
                         @endphp
 
                         @for ($i = $start; $i <= $end; $i++)
-                            @if ($i == $feePayment->currentPage())
+                            @if ($i == $feePaymentItem->currentPage())
                                 <span class="px-2 py-1 text-sm md:text-base bg-[#3F4D67] text-white rounded-lg">{{ $i }}</span>
                             @else
-                                <a href="{{ $feePayment->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                <a href="{{ $feePaymentItem->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
                             @endif
                         @endfor
 
                         {{-- Next Button --}}
-                        @if ($feePayment->hasMorePages())
-                            <a href="{{ $feePayment->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                        @if ($feePaymentItem->hasMorePages())
+                            <a href="{{ $feePaymentItem->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
                                  &raquo;
                             </a>
                         @else

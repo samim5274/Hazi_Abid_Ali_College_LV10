@@ -132,8 +132,12 @@ class FeePaymentController extends Controller
             'fee_structure.*' => 'exists:fee_structures,id',
             'amount_paid'     => 'required|numeric|min:0',
             'discount'        => 'nullable|numeric|min:0',
-            'payment_method' => 'required|in:Cash,Card,Bank Transfer,Mobile Banking',
+            'payment_method'  => 'required|in:Cash,Card,Bank Transfer,Mobile Banking',
         ]);
+
+        if ($request->amount_paid <= '0') {
+            return back()->with('error', 'Full due payment not exceed. Thank You!');
+        }
 
         $month = now()->format('m');
         $year  = now()->format('Y');
@@ -141,8 +145,16 @@ class FeePaymentController extends Controller
         $feeStructures = FeeStructure::whereIn('id', $request->fee_structure)->get();
 
         $totalAmount   = $feeStructures->sum('amount');
+        if ($totalAmount <= 0) {
+            return back()->with('error', 'Invalid fee amount configuration.');
+        }
+
         $discount      = $request->discount ?? 0;
         $netPayable    = max($totalAmount - $discount, 0);
+
+        if ($request->amount_paid > $netPayable) {
+            return back()->with('error', 'Paid amount cannot exceed payable amount.');
+        }
 
         $paidAmount    = min($request->amount_paid, $netPayable);
         $dueAmount     = $netPayable - $paidAmount;
@@ -151,12 +163,12 @@ class FeePaymentController extends Controller
         foreach ($feeStructures as $fee) {
             $exists = FeePaymentItem::where('student_id', $request->student_id)
                 ->where('fee_structure_id', $fee->id)
-                ->whereMonth('created_at', now()->month)
-                ->whereYear('created_at', now()->year)
+                ->whereMonth('payment_date', $month)
+                ->whereYear('payment_date', $year)
                 ->exists();
 
             if ($exists) {
-                return back()->with('error', $fee->name . ' already paid this month.');
+                return back()->with('error', $fee->category->name . ' already paid this month & year.');
             }
         }
 
@@ -206,7 +218,7 @@ class FeePaymentController extends Controller
                 if ($i == $count) {
                     $paid = $paidAmount - $accPaid;
                     $disc = $discount - $accDiscount;
-                    $due  = $netPayable - ($accPaid + $paid);
+                    $due = $fee->amount - ($paid + $disc);
                 }
 
                 FeePaymentItem::create([
@@ -217,6 +229,7 @@ class FeePaymentController extends Controller
                     'paid'            => $paid,
                     'discount'        => $disc,
                     'due'             => $due,
+                    'payment_date'    => $this->date,
                 ]);
 
                 $accPaid += $paid;

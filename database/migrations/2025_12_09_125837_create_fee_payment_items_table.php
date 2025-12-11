@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('paid', 10, 2);     // paid for this item
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('due', 10, 2)->default(0);
+            $table->date('payment_date');
             
             $table->timestamps();
         });

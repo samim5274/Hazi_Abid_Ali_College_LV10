@@ -16,10 +16,10 @@ use App\Http\Controllers\Exam\ExamController;
 use App\Http\Controllers\Enrollment\EntrollmentController;
 use App\Http\Controllers\StudentPortal\StudentPortalController;
 use App\Http\Controllers\Room\ClassController;
-use App\Http\Controllers\Finance\FinanceReportController;
 use App\Http\Controllers\Notice\NoticeController;
 use App\Http\Controllers\Expenses\ExpensesController;
 use App\Http\Controllers\Finance\FeePaymentController;
+use App\Http\Controllers\Finance\FinanceReportController;
 
 Auth::routes();
 

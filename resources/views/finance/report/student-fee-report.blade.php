@@ -131,32 +131,37 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($feePayment as $val)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
                                     {{ $val->student->first_name }} {{ $val->student->last_name }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $val->feeStructure->category->name }}
-                                </td>
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ \Carbon\Carbon::parse($val->payment_date)->format('d M Y') }}
-                                </td>                                
+                                </td>  
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $val->feeStructure->category->name }}
+                                </td>                               
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500 font-semibold">
-                                    ৳{{ number_format($val->discount, 2) }}
+                                    ৳{{ number_format($val->amount, 2) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-semibold">
-                                    ৳{{ number_format($val->due_amount, 2) }}
+                                    ৳{{ number_format($val->discount, 2) }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-md text-gray-900">
-                                    ৳{{ number_format($val->amount_paid, 2) }}
+                                <td class="px-6 py-4 whitespace-nowrap text-md text-green-900 font-semibold">
+                                    ৳{{ number_format($val->paid, 2) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-md text-blue-900 font-semibold">
+                                    ৳{{ number_format($val->due, 2) }}
                                 </td>
                             </tr>
                             @endforeach
                             <tr>
-                                <td colspan="4" class="text-right font-semibold">Total:</td>
-                                <td class="font-semibold">৳{{$discount}}/-</td>
-                                <td class="font-semibold">৳{{$due}}/-</td>
-                                <td class="font-semibold">৳{{$total}}/-</td>
+                                <td colspan="4">Total:</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$total}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$discount}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$paid}}/-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$due}}/-</td>
                             </tr>
                         </tbody>
                     </table>

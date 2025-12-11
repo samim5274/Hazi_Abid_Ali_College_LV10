@@ -42,41 +42,49 @@
             <div class="bg-white shadow-lg rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-xl mt-8">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-gray-800">Fee Payment History</h3>
+                        <h3 class="text-xl font-bold text-gray-800">My Fee's Details</h3>
                     </div>
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                    <!-- <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
                         <p class="text-yellow-800 font-semibold">
-                            Previous Due: ৳ {{ number_format($previousDue, 2) }}
+                            Previous Due: ৳ 00/-
                         </p>
-                    </div>
+                    </div> -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-100">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Monthly</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Yearly</th>
+                                    <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paid</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th> -->
                                 </tr>
                             </thead>
 
                             <tbody class="divide-y divide-gray-200">
+                                @php
+                                    $totalAmountYearly = 0;
+                                    $totalAmountMonthly = 0;
+                                @endphp
                                 @forelse($structures as $index => $structure)
                                     @php
                                         $payments = $groupedPayments[$structure->id] ?? collect();
                                         $totalPaid = $payments->sum('amount_paid');
                                         $totalDiscount = $payments->sum('discount');
                                         $due = ($structure->amount * 12) - ($totalPaid + $totalDiscount);
+                                        $totalAmountMonthly += ($structure->amount);
+                                        $totalAmountYearly += ($structure->amount * 12);
                                     @endphp
                                     <tr class="bg-gray-50 font-semibold">
                                         <td class="px-6 py-4">{{ $index + 1 }}</td>
-                                        <td class="px-6 py-4">{{ $structure->category->name }} - {{$structure->amount}}</td>
-                                        <td class="px-6 py-4">৳ {{ number_format($structure->amount * 12, 2) }}</td>
-                                        <td class="px-6 py-4 text-yellow-600">৳ {{ number_format($totalDiscount, 2) }}</td>
+                                        <td class="px-6 py-4">{{ $structure->category->name }} - {{$structure->amount}}/-</td>
+                                        <td class="px-6 py-4">৳ {{$structure->amount}}/-</td>
+                                        <td class="px-6 py-4">৳ {{ number_format($structure->amount * 12, 2) }}/-</td>
+                                        <!-- <td class="px-6 py-4 text-yellow-600">৳ {{ number_format($totalDiscount, 2) }}</td>
                                         <td class="px-6 py-4 text-green-600">৳ {{ number_format($totalPaid, 2) }}</td>
-                                        <td class="px-6 py-4 text-red-600">৳ {{ number_format($due, 2) }}</td>
+                                        <td class="px-6 py-4 text-red-600">৳ {{ number_format($due, 2) }}</td> -->
                                     </tr>
                                 @empty
                                     <tr>
@@ -85,6 +93,13 @@
                                         </td>
                                     </tr>
                                 @endforelse
+                                <tr>
+                                    <tr class="font-bold bg-gray-100">
+                                        <td colspan="2" class="px-6 py-4 text-right">Total Amount:</td>
+                                        <td class="px-6 py-4">৳ {{ number_format($totalAmountMonthly, 2) }}/-</td>
+                                        <td class="px-6 py-4">৳ {{ number_format($totalAmountYearly, 2) }}/-</td>
+                                    </tr>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

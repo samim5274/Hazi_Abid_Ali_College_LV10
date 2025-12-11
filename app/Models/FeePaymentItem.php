@@ -18,6 +18,7 @@ class FeePaymentItem extends Model
         'paid',
         'discount',
         'due',
+        'payment_date',
     ];
 
     public function payment()
@@ -27,11 +28,11 @@ class FeePaymentItem extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class,'student_id');
     }
 
     public function feeStructure()
     {
-        return $this->belongsTo(FeeStructure::class);
+        return $this->belongsTo(FeeStructure::class,'fee_structure_id');
     }
 }

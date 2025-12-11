@@ -11,18 +11,21 @@ use App\Models\Room;
 use App\Models\Student;
 use App\Models\FeeCategory;
 use App\Models\FeeStructure;
-use App\Models\FeePayment;
+use App\Models\feePaymentDetails;
+use App\Models\FeePaymentItem;
 use App\Models\Company;
 
 class FinanceReportController extends Controller
 {
     public function studentFinanceReport(){
-        $feePayment = FeePayment::paginate(45);
-        $total = FeePayment::sum('amount_paid');
-        $discount = FeePayment::sum('discount');
-        $due = FeePayment::sum('due_amount');
         $company = Company::first();
-        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due','company'));
+
+        $feePayment = feePaymentDetails::paginate(45);
+        $total = $feePayment->sum('total_amount');
+        $discount = $feePayment->sum('total_discount');
+        $paid = $feePayment->sum('total_paid');
+        $due = $feePayment->sum('total_due');
+        return view('finance.report.student-finance-report', compact('feePayment','total','discount','paid','due','company'));
     }
 
     public function findPaymentReport(Request $request){
@@ -30,27 +33,31 @@ class FinanceReportController extends Controller
         $start = $request->input('start_date', '');
         $end = $request->input('end_date', '');
 
-        $query = FeePayment::query();
+        $query = feePaymentDetails::query();
 
         if ($start && $end) {
             $query->whereBetween('payment_date', [$start, $end]);
         }
 
-        $feePayment = FeePayment::whereBetween('payment_date', [$start, $end])->paginate(45);
-        $total = FeePayment::whereBetween('payment_date', [$start, $end])->sum('amount_paid');
-        $discount = FeePayment::whereBetween('payment_date', [$start, $end])->sum('discount');
-        $due = FeePayment::whereBetween('payment_date', [$start, $end])->sum('due_amount');
-        return view('finance.report.student-finance-report', compact('feePayment','total','discount','due','company'));
+        $feePayment = feePaymentDetails::whereBetween('payment_date', [$start, $end])->paginate(45);
+        $total = $feePayment->sum('total_amount');
+        $discount = $feePayment->sum('total_discount');
+        $paid = $feePayment->sum('total_paid');
+        $due = $feePayment->sum('total_due');
+        return view('finance.report.student-finance-report', compact('feePayment','total','discount','paid','due','company'));
     }
 
     public function categroyReport(){
         $company = Company::first();
         $category = FeeCategory::all();
-        $feePayment = FeePayment::paginate(45);
-        $total = FeePayment::sum('amount_paid');
-        $discount = FeePayment::sum('discount');
-        $due = FeePayment::sum('due_amount');
-        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category','company'));
+
+        $feePaymentItem = FeePaymentItem::paginate(20);
+
+        $total = $feePaymentItem->sum('amount');
+        $discount = $feePaymentItem->sum('discount');
+        $paid = $feePaymentItem->sum('paid');
+        $due = $feePaymentItem->sum('due');
+        return view('finance.report.category-finance-report', compact('feePaymentItem','total','discount','paid','due','category','company'));
     }
 
     public function findCategoryFeeReport(Request $request){
@@ -61,28 +68,34 @@ class FinanceReportController extends Controller
         $end = $request->input('end_date', '');
         $stracture_Id = $request->input('Category_id', '');
 
-        $query = FeePayment::query();
+        $query = FeePaymentItem::query();
 
         if ($start && $end) {
             $query->whereBetween('payment_date', [$start, $end]);
         }
 
-        $feePayment = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->paginate(45);
-        $total = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->sum('amount_paid');
-        $discount = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->sum('discount');
-        $due = FeePayment::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->sum('due_amount');
+        $feePaymentItem = FeePaymentItem::where('fee_structure_id', $stracture_Id)->whereBetween('payment_date', [$start, $end])->paginate(20);
+        $total = $feePaymentItem->sum('amount');
+        $discount = $feePaymentItem->sum('discount');
+        $paid = $feePaymentItem->sum('paid');
+        $due = $feePaymentItem->sum('due');
 
-        return view('finance.report.category-finance-report', compact('feePayment','total','discount','due','category','company'));
+        return view('finance.report.category-finance-report', compact('feePaymentItem','total','discount','paid','due','category','company'));
     }
 
     public function studentFeeReport(){
         $company = Company::first();
-        $feePayment = FeePayment::paginate(45);
-        $total = FeePayment::sum('amount_paid');
-        $discount = FeePayment::sum('discount');
-        $due = FeePayment::sum('due_amount');
+
         $student = Student::where('status', 1)->get();
-        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student','company'));
+
+        $feePayment = FeePaymentItem::paginate(20);
+
+        $total = $feePayment->sum('amount');
+        $discount = $feePayment->sum('discount');
+        $paid = $feePayment->sum('paid');
+        $due = $feePayment->sum('due');
+
+        return view('finance.report.student-fee-report', compact('feePayment','total','discount','paid','due','student','company'));
     }
 
     public function findStudentFeeReport(Request $request){
@@ -93,7 +106,7 @@ class FinanceReportController extends Controller
         $studentId = $request->input('Student_id', '');
         $student = Student::where('status', 1)->get();
 
-        $query = FeePayment::query();
+        $query = FeePaymentItem::query();
 
         if ($studentId) {
             $query->where('student_id', $studentId);
@@ -102,11 +115,13 @@ class FinanceReportController extends Controller
             $query->whereBetween('payment_date', [$start, $end]);
         }
 
-        $feePayment = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->paginate(45);
-        $total = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->sum('amount_paid');
-        $discount = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->sum('discount');
-        $due = FeePayment::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->sum('due_amount');
+        $feePayment = FeePaymentItem::where('student_id', $studentId)->whereBetween('payment_date', [$start, $end])->paginate(20);
 
-        return view('finance.report.student-fee-report', compact('feePayment','total','discount','due','student','company'));
+        $total = $feePayment->sum('amount');
+        $discount = $feePayment->sum('discount');
+        $paid = $feePayment->sum('paid');
+        $due = $feePayment->sum('due');
+
+        return view('finance.report.student-fee-report', compact('feePayment','total','discount','paid','due','student','company'));
     }
 }
