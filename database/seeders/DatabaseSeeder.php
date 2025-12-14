@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             FeeCategroySeeder::class,
             ExpenseCategorySeeder::class,
             ExpenseSubcategorySeeder::class,
+            GroupSeeder::class,
         ]);
     }
 }

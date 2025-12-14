@@ -165,6 +165,8 @@ Route::group(['middleware' => ['admin']], function(){
 
 
     Route::get('/fee-structure', [FeePaymentController::class, 'stuctureSetup'])->name('structure-management');
+    Route::get('/fee-structure-edit/{id}', [FeePaymentController::class, 'updateStructre']);
+    Route::post('/modify-fee-structure/{id}', [FeePaymentController::class, 'editStructre']);
     Route::get('/fee-collection', [FeePaymentController::class, 'FeeCollection'])->name('fee-collection-view');
     Route::get('/class-finance/{class_id}', [FeePaymentController::class, 'StudentList'])->name('class-and student-list');
     Route::get('/class/student/{class_id}/{student_id}', [FeePaymentController::class, 'feeView'])->name('student-class-fee-view');
@@ -172,6 +174,8 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/finance-management', [FeePaymentController::class, 'financeManagement'])->name('finance-management');
     Route::post('/add-new-finance-category', [FeePaymentController::class, 'store']);
+    Route::get('/edit-finance-category/{id}', [FeePaymentController::class, 'editCategory']);
+    Route::post('/update-finance-category/{id}', [FeePaymentController::class, 'updateCategory']);
     Route::get('/finance-fee-structure', [FeePaymentController::class, 'financeFeeStructure'])->name('finance-fee-structure');
     Route::post('/insert-fee-structure', [FeePaymentController::class, 'insertFeeStructure']);
     Route::get('/finance-fee-payment', [FeePaymentController::class, 'financeFeePayment'])->name('finance-fee-payment');
@@ -207,6 +211,11 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('/edit-student-daily-report', [StudentPortalController::class, 'dailyReportEdit'])->name('student-daily-routine.edit');
     Route::get('/student-enrollment', [StudentPortalController::class, 'enrollment'])->name('student-enrollment');
     Route::post('/student-subject-enrollment', [StudentPortalController::class, 'enrollmentStore']);
+    Route::get('/student-support', [StudentPortalController::class, 'stdSupport'])->name('student-support');
+    Route::get('/edit-profile', [StudentPortalController::class, 'editProfile'])->name('student-edit-profile');
+    Route::post('/modify-student-information', [StudentPortalController::class, 'modifyProfile']);
+    Route::get('/student/change-password', [StudentPortalController::class, 'passChange'])->name('student-password-change-view');
+    Route::post('/update-password', [StudentPortalController::class, 'updatePass']);
 
 
 

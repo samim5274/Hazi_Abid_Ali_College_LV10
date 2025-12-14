@@ -151,6 +151,32 @@
                                                 <label class="block text-gray-600 mb-1" for="permanent_address">Board Roll</label>
                                                 <input type="b_roll_no" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="92990401">
                                             </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="Section">Section</label>
+                                                <select id="Section" name="cbxSection" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option selected disabled>--Select Section--</option>                                                    
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="Group">Group</label>
+                                                <select id="Group" name="cbxGroup" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option selected disabled>--Select Group--</option>
+                                                    @foreach($groups as $val)
+                                                    <option value="{{ $val->name }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="previous_school">Previous School</label>
+                                                <input type="text" id="previous_school" name="previous_school" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Jila Sadar School">
+                                            </div>
                                         </div>
                                     </div>
 

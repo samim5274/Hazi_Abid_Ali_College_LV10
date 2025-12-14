@@ -49,6 +49,11 @@ class AdminController extends Controller
             case 1: // teacher
                 if (Auth::guard('teacher')->attempt($credentials, $remember)) {
                     $request->session()->regenerate();
+                    $teacher = Auth::guard('teacher')->user();
+                    $teacher->update([
+                        'last_login_at' => now(),
+                        'last_login_ip' => $request->ip(),
+                    ]);
                     return redirect('/')->with('success', 'Login successful!');
                 } else {
                     return redirect()->back()->withErrors(['txtUsername' => 'Invalid teacher credentials.']);
@@ -57,6 +62,11 @@ class AdminController extends Controller
             case 2: // student
                 if (Auth::guard('student')->attempt($credentials, $remember)) {
                     $request->session()->regenerate();
+                    $student = Auth::guard('student')->user();
+                    $student->update([
+                        'last_login_at' => now(),
+                        'last_login_ip' => $request->ip(),
+                    ]);
                     return redirect('/student-dashboard')->with('success', 'Login successful!');
                 } else {
                     return redirect()->back()->withErrors(['txtUsername' => 'Invalid student credentials.']);

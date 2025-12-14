@@ -14,7 +14,7 @@
                         <i data-feather="menu"></i>
                     </a>
                     </li>
-                    <li class="dropdown pc-h-item">
+                    <!-- <li class="dropdown pc-h-item">
                     <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
                         <i data-feather="search"></i>
@@ -24,13 +24,13 @@
                             <input type="search" class="form-control !border-0 !shadow-none" placeholder="Search here. . ." />
                         </form>
                     </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- [Mobile Media Block end] -->
             <div class="ms-auto">
                 <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
-                    <li class="dropdown pc-h-item">
+                    <!-- <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i data-feather="sun"></i>
@@ -49,22 +49,22 @@
                                 <span>Default</span>
                             </a>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i data-feather="settings"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
-                            <a href="#!" class="dropdown-item">
+                            <a href="{{ url('/student-profile') }}" class="dropdown-item">
                                 <i class="ti ti-user"></i>
                                 <span>My Account</span>
                             </a>
-                            <a href="#!" class="dropdown-item">
+                            <a href="{{ url('/edit-profile') }}" class="dropdown-item">
                                 <i class="ti ti-settings"></i>
                                 <span>Settings</span>
                             </a>
-                            <a href="#!" class="dropdown-item">
+                            <a href="{{ url('/student-support') }}" class="dropdown-item">
                                 <i class="ti ti-headset"></i>
                                 <span>Support</span>
                             </a>
@@ -78,7 +78,7 @@
                             </a>
                         </div>
                     </li>
-                    <li class="dropdown pc-h-item">
+                    <!-- <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i data-feather="bell"></i>
@@ -168,7 +168,7 @@
                                 </a>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="dropdown pc-h-item header-user-profile">
                         <a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false">
@@ -181,14 +181,14 @@
                                         <img src="{{ asset('img/student/'. Auth::guard('student')->user()->photo ) }}" alt="user-image" class="w-10 rounded-full" />
                                     </div>
                                     <div class="grow ms-3">
-                                        <h6 class="mb-1 text-white">{{ Auth::guard('student')->user()->first_name ?? 'N/A' }} {{ Auth::guard('student')->user()->last_name ?? 'N/A' }}</h6>
-                                        <span class="text-white">{{ Auth::guard('student')->user()->email ?? 'N/A' }}</span>
+                                        <h6 class="mb-1 text-white">{{ Auth::guard('student')->user()->first_name }} {{ Auth::guard('student')->user()->last_name }}</h6>
+                                        <span class="text-white">{{ Auth::guard('student')->user()->email }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-body py-4 px-5">
                                 <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)">
-                                    <a href="#" class="dropdown-item">
+                                    <a href="{{ url('/edit-profile') }}" class="dropdown-item">
                                         <span>
                                             <svg class="pc-icon text-muted me-2 inline-block">
                                                 <use xlink:href="#custom-setting-outline"></use>
@@ -196,15 +196,15 @@
                                             <span>Settings</span>
                                         </span>
                                     </a>
-                                    <a href="#" class="dropdown-item">
+                                    <!-- <a href="#" class="dropdown-item">
                                         <span>
                                             <svg class="pc-icon text-muted me-2 inline-block">
                                             <use xlink:href="#custom-share-bold"></use>
                                             </svg>
                                             <span>Share</span>
                                         </span>
-                                    </a>
-                                    <a href="#" class="dropdown-item">
+                                    </a> -->
+                                    <a href="{{ url('/student/change-password') }}" class="dropdown-item">
                                         <span>
                                             <svg class="pc-icon text-muted me-2 inline-block">
                                             <use xlink:href="#custom-lock-outline"></use>

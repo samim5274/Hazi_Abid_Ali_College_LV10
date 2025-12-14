@@ -43,9 +43,16 @@ return new class extends Migration
             $table->string('traning')->nullable();
             $table->string('index_no')->nullable();
 
-            $table->integer('status')->default(1);
             $table->string('role')->default('Admin');
+
+            // System Info
+            $table->integer('status')->default(1); // Active by default
             $table->string('remark')->nullable();
+            
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+            $table->boolean('is_profile_completed')->default(false);
 
             $table->string('otp')->nullable();
             $table->timestamp('otp_expires_at')->nullable();

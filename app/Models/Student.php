@@ -24,8 +24,16 @@ class Student extends Authenticatable
         'contact_number',
         'email',
         'password',
+
         'address1',
         'address2',
+
+        'admission_no',
+        'admission_date',
+        'section',
+        'group',
+        'session_year',
+        'previous_school',
 
         'father_name',
         'father_profession',
@@ -62,6 +70,11 @@ class Student extends Authenticatable
 
         'otp',
         'otp_expires_at',
+
+        'email_verified_at',
+        'last_login_at',
+        'last_login_ip',
+        'is_profile_completed'
     ];
 
     protected $hidden = [

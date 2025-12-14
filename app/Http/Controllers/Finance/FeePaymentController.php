@@ -68,6 +68,32 @@ class FeePaymentController extends Controller
         return redirect()->route('finance-management')->with('success', 'Fee category created successfully.');
     }
 
+    public function editCategory($id){
+        $category = FeeCategory::find($id);
+        if(!$category){
+            return redirect()->back()->with('error', 'Finance category not found. Please try again. Thank you!');
+        }
+        $company = Company::first();
+        return view('finance.edit-finance-category', compact('category','company'));
+    }
+
+    public function updateCategory(Request $request, $id){
+        $request->validate([
+            'category_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $category = FeeCategory::find($id);
+        if(!$category){
+            return redirect()->back()->with('error', 'Finance category not found. Please try again. Thank you!');
+        }
+
+        $category->name = $request->category_name;
+        $category->description = $request->description;
+        $category->update();
+        return redirect()->route('finance-management')->with('success', 'Fee category updated successfully');
+    }
+
     public function financeFeeStructure(){
         $company = Company::first();
         $category = FeeCategory::all();
@@ -102,13 +128,56 @@ class FeePaymentController extends Controller
         return redirect()->back()->with('success', 'Fee Structure added successfully!');
     }
 
+    public function updateStructre($id){
+        $company = Company::first();
+        $category = FeeCategory::all();
+        $classes = Room::all();
+        $feeStructure = FeeStructure::find($id);
+        if(!$feeStructure){
+            return redirect()->back()->with('error', 'Finance fee structure not found. Please try again. Thank you!');
+        }
+        return view('finance.edit-finance-fee-structure', compact('category','classes','feeStructure','company'));
+    }
+
+    public function editStructre(Request $request, $id){
+        $request->validate([
+            'fee_category_id' => 'required',
+            'class_id'        => 'required',
+            'amount'          => 'required|numeric|min:1',
+        ]);
+
+        $feeStructure = FeeStructure::findOrFail($id);
+
+        // 🔹 Check if class/category actually changed
+        $isChanged = $feeStructure->class_id != $request->class_id || $feeStructure->fee_cat_id != $request->fee_category_id;
+
+        // 🔹 Only check duplicate if changed
+        if ($isChanged) {
+            $exists = FeeStructure::where('class_id', $request->class_id)
+                ->where('fee_cat_id', $request->fee_category_id)
+                ->exists();
+
+            if ($exists) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('warning', 'This class and fee category already exists.');
+            }
+        }
+
+        $feeStructure->fee_cat_id   = $request->fee_category_id;
+        $feeStructure->class_id     = $request->class_id;
+        $feeStructure->amount       = $request->amount;
+        $feeStructure->update();
+        return redirect()->back()->with('success', 'Finance fee structure updated successfully.');
+    }
+
     public function financeFeePayment(){
         $company = Company::first();
         $category = FeeCategory::all();
         $student = Student::where('status', 1)->get();
         $classes = Room::all();
-        $feeStructure = FeeStructure::all();
-        $feePayment = feePaymentDetails::where('payment_date', now()->toDateString())->paginate(10);
+        $feeStructure = FeeStructure::with('room','category','paymentItems')->get();
+        $feePayment = feePaymentDetails::with('student','teacher','items')->where('payment_date', now()->toDateString())->paginate(10);
         return view('finance.finance-fee-payment-details', compact('category','classes','feeStructure','student','feePayment','company'));
     }
 

@@ -154,6 +154,43 @@
                                                 <label class="block text-gray-600 mb-1" for="permanent_address">Board Roll</label>
                                                 <input type="b_roll_no" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{$student->b_roll_no ?? '0'}}">
                                             </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="Section">Section</label>
+                                                @php
+                                                    $sections = ['A', 'B', 'C', 'D'];
+                                                    $selectedSection = old('cbxSection', $student->section);
+                                                @endphp
+                                                <select id="Section" name="cbxSection" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option disabled {{ is_null($selectedSection) ? 'selected' : '' }}>--Select Section--</option>
+                                                    @foreach ($sections as $section)
+                                                        <option value="{{ $section }}" {{ $selectedSection == $section ? 'selected' : '' }}>
+                                                            {{ $section }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-gray-600 mb-1" for="Group">Group</label>
+                                                @php
+                                                    $selectedGroup = old('cbxGroup', $student->group);
+                                                @endphp
+                                                <select id="Group" name="cbxGroup" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option disabled {{ is_null($selectedGroup) ? 'selected' : '' }}>--Select Group--</option>
+                                                    @foreach($groups as $val)
+                                                        <option value="{{ $val->name }}" {{ $selectedGroup == $val->name ? 'selected' : '' }}>
+                                                            {{ $val->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="">
+                                                <label class="block text-gray-600 mb-1" for="previous_school">Previous School</label>
+                                                <input type="text" id="previous_school" name="previous_school" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="{{ $student->previous_school }}">
+                                            </div>
+                                            
                                         </div>
                                     </div>
 

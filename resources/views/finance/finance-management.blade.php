@@ -96,7 +96,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <h6 class="text-lg font-semibold">Fee Categories</h6>
                         <button id="open-modal" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#3F4D67] hover:bg-[#3F4D67] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3F4D67]">
-                            <i class="fa-solid fa-plus"></i>
+                            <i class="fa-solid fa-plus me-3"></i> Add
                         </button>
                     </div>
                     <div class="overflow-x-auto">
@@ -115,8 +115,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$val->name}}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$val->description}}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                        <a href="#" class="text-red-600 hover:text-red-900 ml-4">Delete</a>
+                                        <a href="{{ url('/edit-finance-category/'.$val->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                        <!-- <a href="#" class="text-red-600 hover:text-red-900 ml-4">Delete</a> -->
                                     </td>
                                 </tr>
                                 @endforeach
