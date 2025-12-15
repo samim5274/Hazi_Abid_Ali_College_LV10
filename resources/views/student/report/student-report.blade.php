@@ -53,7 +53,7 @@
             </div>
 
             <!-- search section -->
-             <div class="card rounded-md border shadow-md">
+            <div class="card rounded-md border shadow-md">
                 <div class="card-body">
                     <form action="{{url('/find-gender-wise-student')}}" method="GET" class="p-4" id="filter-form">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">                           
@@ -140,7 +140,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <tbody>
-                                @foreach($findData as $val)
+                                @foreach($students as $val)
                                 <tr class="unread">
                                     <td>{{$loop->iteration}}</td>
                                     <td>
@@ -175,46 +175,46 @@
                         </table>
                     </div>
                     <!-- paginatior -->
-                    @if ($findData->hasPages())
+                    @if ($students->hasPages())
                         <div class="flex flex-wrap items-center justify-between mt-4 w-full">
 
                             {{-- Page Info --}}
                             <div class="text-sm md:text-base text-gray-600">
-                                Page {{ $findData->currentPage() }} of {{ $findData->lastPage() }} 
-                                (Total Records: {{ $findData->total() }})
+                                Page {{ $students->currentPage() }} of {{ $students->lastPage() }} 
+                                (Total Records: {{ $students->total() }})
                             </div>
 
                             {{-- Pagination --}}
                             <div class="flex items-center space-x-2">
 
                                 {{-- Previous Button --}}
-                                @if ($findData->onFirstPage())
+                                @if ($students->onFirstPage())
                                     <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
                                         &laquo; 
                                     </span>
                                 @else
-                                    <a href="{{ $findData->appends(request()->query())->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                    <a href="{{ $students->appends(request()->query())->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
                                         &laquo; 
                                     </a>
                                 @endif
 
                                 {{-- Page Numbers --}}
                                 @php
-                                    $start = max(1, $findData->currentPage() - 2);
-                                    $end = min($findData->lastPage(), $findData->currentPage() + 2);
+                                    $start = max(1, $students->currentPage() - 2);
+                                    $end = min($students->lastPage(), $students->currentPage() + 2);
                                 @endphp
 
                                 @for ($i = $start; $i <= $end; $i++)
-                                    @if ($i == $findData->currentPage())
+                                    @if ($i == $students->currentPage())
                                         <span class="px-2 py-1 text-sm md:text-base bg-[#3F4D67] text-white rounded-lg">{{ $i }}</span>
                                     @else
-                                        <a href="{{ $findData->appends(request()->query())->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                        <a href="{{ $students->appends(request()->query())->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
                                     @endif
                                 @endfor
 
                                 {{-- Next Button --}}
-                                @if ($findData->hasMorePages())
-                                    <a href="{{ $findData->appends(request()->query())->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                @if ($students->hasMorePages())
+                                    <a href="{{ $students->appends(request()->query())->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
                                         &raquo;
                                     </a>
                                 @else

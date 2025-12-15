@@ -24,7 +24,7 @@ class EntrollmentController extends Controller
 
     public function enrollmentClassStudent($class){
         $company = Company::first();
-        $students = Student::where('class_id', $class)->where('status', 1)->get();
+        $students = Student::with('room')->where('class_id', $class)->where('status', 1)->get();
         return view('subject.enrollment-class-student', compact('students', 'class','company'));
     }
 

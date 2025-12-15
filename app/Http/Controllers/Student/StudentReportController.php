@@ -19,21 +19,35 @@ class StudentReportController extends Controller
 {
     public function genderReport(){
         $company = Company::first();
-        $findData = Student::paginate(45);
-        $classes = Room::all();
-        $students = Student::all();
-        $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
-        return view('student.report.student-report', compact('findData','classes', 'students','allProfessions','company'));
+        $classes = Room::select('id','name','section')->get();
+
+        // 🔹 Paginated students with room
+        $students = Student::with('room:id,name,section')
+            ->select('id','first_name','last_name','gender','class_id','status','religion','blood_group','father_profession')
+            ->paginate(45);
+
+        // 🔹 Distinct father professions for filter
+        $allProfessions = Student::select('father_profession')
+            ->distinct()
+            ->orderBy('father_profession')
+            ->get();
+
+        return view(
+            'student.report.student-report',
+            compact('students','classes','allProfessions','company')
+        );
+        
     }
 
     public function findGenderReport(Request $request){
         $company = Company::first();
 
-        $classes = Room::all();
-        $students = Student::all();
+        $classes = Room::select('id','name','section')->get();
 
-        $query = Student::query();
+        $query = Student::with('room:id,name,section')
+            ->select('id','first_name','last_name','gender','class_id','status','religion','blood_group','father_profession');
 
+        // 🔹 Apply filters
         if ($request->filled('gender_id')) {
             $query->where('gender', $request->gender_id);
         }
@@ -58,15 +72,24 @@ class StudentReportController extends Controller
             $query->where('father_profession', $request->Father_profession);
         }
 
-        $findData = $query->paginate(45)->appends($request->all());
-        $allProfessions = Student::select('father_profession')->distinct()->orderBy('father_profession')->get();
+        // 🔹 Paginate filtered data
+        $students = $query->paginate(45)->appends($request->all());
 
-        return view('student.report.student-report', compact('findData', 'classes', 'students','allProfessions','company'));
+        // 🔹 Distinct father professions for filter
+        $allProfessions = Student::select('father_profession')
+            ->distinct()
+            ->orderBy('father_profession')
+            ->get();
+
+        return view(
+            'student.report.student-report',
+            compact('students','classes','allProfessions','company')
+        );
     }
 
     public function studentDailyReport(){
         $routine = StudentDailyRoutine::get();
-        $classes = Room::all();
+        $classes = Room::select('id','name','section')->get();
         $company = Company::first();
         return view('student.report.student-daily-report', compact('routine','classes','company'));
     }
@@ -79,7 +102,7 @@ class StudentReportController extends Controller
     public function findStudentDailyReport(Request $request){
         $company = Company::first();
 
-        $classes = Room::all();
+        $classes = Room::select('id','name','section')->get();
 
         $query = StudentDailyRoutine::query();
 

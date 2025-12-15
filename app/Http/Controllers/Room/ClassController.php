@@ -28,14 +28,14 @@ class ClassController extends Controller
 
     public function index(){
         $company = Company::first();
-        $classes = Room::all();
+        $classes = Room::with('teachers')->get();
         return view('room.class-details', compact('classes','company'));
     }
 
     public function addNew(){
         $company = Company::first();
         $teachers = Teacher::all();
-        $classes = Room::all();
+        $classes = Room::with('teachers')->get();
         return view('room.new-class', compact('teachers','classes','company'));
     }
 
@@ -66,7 +66,7 @@ class ClassController extends Controller
     public function assignTeacehr(){
         $company = Company::first();
         $teachers = Teacher::all();
-        $classes = Room::all();
+        $classes = Room::with('teachers')->get();
         return view('room.assign-teacher', compact('teachers','classes','company'));
     }
 
@@ -96,7 +96,7 @@ class ClassController extends Controller
         $company = Company::first();
         $teachers = Teacher::all();
         $subjects = Subject::with('room:id,name,section')->get();
-        $classes  = Room::all();
+        $classes  = Room::with('teachers')->get();
         $days     = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
         $schedules = ClassSchedule::all();
         return view('room.schedule.class-schedule', compact('classes','teachers','subjects','days','schedules','company'));
@@ -167,27 +167,27 @@ class ClassController extends Controller
 
     public function modifySchedule(){
         $company = Company::first();
-        $classes  = Room::all();
+        $classes  = Room::with('teachers')->get();
         $days     = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
-        $schedules = ClassSchedule::all();
+        $schedules = ClassSchedule::with(['teacher','subject','classRoom'])->get();
         return view('room.schedule.modify-class-schedule', compact('classes','days','schedules','company'));
     }
 
     public function searchSchedule(Request $request){
         $company = Company::first();
-        $classes  = Room::all();
+        $classes  = Room::with('teachers')->get();
         $days     = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
-        $schedules = ClassSchedule::where('class_id', $request->class_id)->where('day', $request->day)->get();
+        $schedules = ClassSchedule::with(['teacher','subject','classRoom'])->where('class_id', $request->class_id)->where('day', $request->day)->get();
         return view('room.schedule.modify-class-schedule', compact('classes','days','schedules','company'));
     }
 
     public function editSchedule($scheduleId){
         $company = Company::first();
-        $schedules = classSchedule::where('id', $scheduleId)->first();
+        $schedules = classSchedule::with(['teacher','subject','classRoom'])->where('id', $scheduleId)->first();
 
         $teachers = Teacher::all();
-        $subjects = Subject::all();
-        $classes  = Room::all();
+        $subjects = Subject::where('class_id', $schedules->classRoom->id)->with('room:id,name,section')->get();
+        $classes  = Room::with('teachers')->get();
         $days     = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
 
         return view('room.schedule.class-schedule-edit', compact('classes','teachers','subjects','days','schedules','company'));

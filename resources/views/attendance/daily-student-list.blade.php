@@ -91,7 +91,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach($attend as $studentId => $subjects)
+                                @foreach($studentWise as $studentId => $subjects)
                                     @php
                                         $student = $subjects->first()->student;
                                     @endphp
@@ -103,23 +103,38 @@
                                     </tr>
 
                                     @foreach($subjects as $val)
-                                    <tr class="hover:bg-gray-50 transition">
-                                        <td class="px-4 py-3 border text-center font-medium text-gray-600">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 border">{{ $val->student->first_name }} {{ $val->student->last_name }}</td>
-                                        <td class="px-4 py-3 border text-center">{{ $val->subject->name }}</td>
-                                        <td class="px-4 py-3 border text-center">{{ $val->class->name }} - {{ $val->class->section }}</td>
-                                        <td class="px-4 py-3 border text-center">{{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>
-                                        <td class="px-4 py-3 border text-center">
-                                            @if($val->status == 'Present')
-                                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Present</span>
-                                            @else
-                                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Absent</span>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                        <tr class="hover:bg-gray-50 transition">
+                                            <td class="px-4 py-3 border text-center font-medium text-gray-600">
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td class="px-4 py-3 border">
+                                                {{ $val->student->first_name }} {{ $val->student->last_name }}
+                                            </td>
+                                            <td class="px-4 py-3 border text-center">
+                                                {{ $val->subject->name ?? '' }}
+                                            </td>
+                                            <td class="px-4 py-3 border text-center">
+                                                {{ $val->class->name ?? '' }} - {{ $val->class->section ?? '' }}
+                                            </td>
+                                            <td class="px-4 py-3 border text-center">
+                                                {{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}
+                                            </td>
+                                            <td class="px-4 py-3 border text-center">
+                                                @if($val->status === 'Present')
+                                                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                                        Present
+                                                    </span>
+                                                @else
+                                                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
+                                                        Absent
+                                                    </span>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 @endforeach
                             </tbody>
+
                         </table>
                     </div>
 
@@ -164,7 +179,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach($subject as $subjectId => $attendList)
+                                @foreach($subjectWise as $subjectId => $attendList)
                                     @php
                                         $subj = $attendList->first()->subject;
                                     @endphp
@@ -201,7 +216,7 @@
             <!-- Card End -->
 
 
-            @foreach($subject as $subjectId => $attendList)
+            @foreach($subjectWise as $subjectId => $attendList)
                 @foreach($attendList as $val)
                 <div id="examModal{{ $val->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
                     <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">

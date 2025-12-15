@@ -13,6 +13,7 @@ use App\Models\Room;
 use App\Models\Subject;
 use App\Models\StudentSubject;
 use App\Models\Mark;
+use App\Models\Company;
 
 class PromoteController extends Controller
 {
@@ -24,14 +25,16 @@ class PromoteController extends Controller
     }
 
     public function classList(){
-        $classes = Room::all();
-        return view('student.class-list', compact('classes'));
+        $company = Company::first();
+        $classes = Room::with('teachers')->get();
+        return view('student.class-list', compact('classes','company'));
     }
 
     public function stdList($class){
-        $students = Student::where('class_id', $class)->where('status', 1)->get();
-        $classes = Room::all();
-        return view('student.class-student-list', compact('students','classes'));
+        $company = Company::first();
+        $students = Student::with('room')->where('class_id', $class)->where('status', 1)->get();
+        $classes = Room::with('teachers')->get();
+        return view('student.class-student-list', compact('students','classes','company'));
     }
 
     public function updateStudent(Request $request, $student){

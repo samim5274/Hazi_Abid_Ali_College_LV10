@@ -38,7 +38,10 @@ class StudentPortalController extends Controller
     public function myClass(){
         $company = Company::first();
         $student = $student = Auth::guard('student')->user();
-        $routine = ClassSchedule::where('class_id', $student->class_id)->get();
+        $routine = ClassSchedule::with([
+                    'subject:id,name',
+                    'teacher:id,first_name,last_name'
+                ])->where('class_id', $student->class_id)->get();
         return view('studentPortal.classes.student-class', compact('student','routine','company'));
     }
 

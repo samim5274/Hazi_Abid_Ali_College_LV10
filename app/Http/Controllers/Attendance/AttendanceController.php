@@ -136,24 +136,39 @@ class AttendanceController extends Controller
     public function dailyAttendet(){
         $company = Company::first();
         $date = now()->format('Y-m-d');
-        $attend = Attendance::with('student', 'class', 'subject')->where('attendance_date', $date)->get()->groupBy('student_id'); // student wise grouping
-        $subject = Attendance::with('student', 'class', 'subject')->where('attendance_date', $date)->get()->groupBy('subject_id'); // subject wise grouping
+        $attendances = Attendance::with(['student', 'class', 'subject'])->where('attendance_date', $date)->get();
 
-        $totalStudent = Student::count(); 
-        $present = Attendance::where('status', 'Present')->where('attendance_date', $date)->count();
-        $absent = Attendance::where('status', 'Absent')->where('attendance_date', $date)->count();
+        // 🔹 Grouping (NO DB QUERY)
+        $studentWise = $attendances->groupBy('student_id');
+        $subjectWise = $attendances->groupBy('subject_id');
 
-        return view('attendance.daily-student-list', compact('attend','totalStudent','present','absent','subject','company'));
+        // 🔹 Status count (NO DB QUERY)
+        $present = $attendances->where('status', 'Present')->count();
+        $absent  = $attendances->where('status', 'Absent')->count();
+
+        // 🔹 Total student count (separate table – OK)
+        $totalStudent = Student::count();
+
+        return view('attendance.daily-student-list', compact(
+            'company',
+            'attendances',
+            'studentWise',
+            'subjectWise',
+            'present',
+            'absent',
+            'totalStudent',
+            'date'
+        ));
     }
 
     public function searchAttendView(){
         $company = Company::first();
         $start = $this->date;
         $end = $this->date;
-        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->whereBetween('attendance_date', [$start, $end])->paginate(45);
         $totalStudent = Student::count(); 
-        $present = Attendance::where('status', 'Present')->where('attendance_date', $this->date)->count();
-        $absent = Attendance::where('status', 'Absent')->where('attendance_date', $this->date)->count();
+        $present = Attendance::where('attendance_date', $this->date)->where('status', 'Present')->count();
+        $absent = Attendance::where('attendance_date', $this->date)->where('status', 'Absent')->count();
         return view('attendance.find-student-list', compact('findData','totalStudent','present','absent','company'));
     }
 
@@ -161,7 +176,7 @@ class AttendanceController extends Controller
         $company = Company::first();
         $start = $request->input('start_date', '');
         $end = $request->input('end_date', '');
-        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-student-list', compact('findData','company'));
     }
 
@@ -170,7 +185,7 @@ class AttendanceController extends Controller
         $start = $this->date;
         $end = $this->date;
         $classes = Room::all();
-        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-class-student-list', compact('findData','classes','company'));
     }
 
@@ -185,7 +200,7 @@ class AttendanceController extends Controller
         $end = $request->input('end_date', '');
         $class_id = $request->input('class_id', '');
         $classes = Room::all();
-        $findData = Attendance::with('student')->where('class_id', $class_id)->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->where('class_id', $class_id)->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-class-student-list', compact('findData','classes','company'));
     }
 
@@ -195,7 +210,7 @@ class AttendanceController extends Controller
         $end = $this->date;
         $classes = Room::all();
         $students = Student::all();
-        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-student-attendance', compact('findData','classes','students','company'));
     }
 
@@ -215,7 +230,7 @@ class AttendanceController extends Controller
         $classes = Room::all();
         $students = Student::all();
 
-        $findData = Attendance::with('student')
+        $findData = Attendance::with(['student', 'class', 'subject'])
             ->where('class_id', $class_id)
             ->where('student_id', $student_id)
             ->whereBetween('attendance_date', [$start, $end])
@@ -231,7 +246,7 @@ class AttendanceController extends Controller
         $classes = Room::all();
         $students = Student::where('status',1)->get();
         $subjects = Subject::all();
-        $findData = Attendance::with('student')->whereBetween('attendance_date', [$start, $end])->paginate(45);
+        $findData = Attendance::with(['student', 'class', 'subject'])->whereBetween('attendance_date', [$start, $end])->paginate(45);
         return view('attendance.find-subject-attendance', compact('findData','classes','students','subjects','company'));
     }
 
@@ -268,7 +283,7 @@ class AttendanceController extends Controller
         $students = Student::all();
         $subjects = Subject::all();
 
-        $findData = Attendance::with('student')
+        $findData = Attendance::with(['student', 'class', 'subject'])
             ->where('class_id', $class_id)
             ->where('student_id', $student_id)
             ->where('subject_id', $subject_id)
