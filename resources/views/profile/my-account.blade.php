@@ -41,80 +41,128 @@
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Account</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-                        <li class="breadcrumb-item">Setting</li>
-                        <li class="breadcrumb-item"><a href="#">Account</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Profile</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- [ breadcrumb ] end -->
+            <div class="max-w-full px-4">
 
-            <!-- [ Main Content ] start -->
-            <div class="flex items-center justify-center bg-gray-100 py-10 px-4">
-                <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div class="md:flex">
-                        <div class="w-full p-4">
-                            <div class="text-center mb-6">
-                                <img class="w-48 h-48 rounded-full border border-2xl shadow-md mx-auto" src="{{ asset('img/teacher/'. Auth::guard('teacher')->user()->photo ) }}" alt="Profile Picture">
-                                <h2 class="text-2xl font-semibold text-gray-800 mt-4"><a href="{{url('/edit-teacher-view/'. Auth::guard('teacher')->user()->id )}}">{{ Auth::guard('teacher')->user()->first_name }} {{ Auth::guard('teacher')->user()->last_name }}</a></h2>
-                                <p class="text-gray-600">{{ Auth::guard('teacher')->user()->email }}</p>
-                                <p class="text-gray-600 text-sm">{{ Auth::guard('teacher')->user()->designation }}</p>
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="page-header-title">
+                            <h5 class="mb-0 font-medium">Account</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                            <li class="breadcrumb-item">Setting</li>
+                            <li class="breadcrumb-item"><a href="#">Account</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Profile</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- [ breadcrumb ] end -->
+
+                <!-- [ Main Content ] start -->
+                <div class="flex items-center justify-center bg-gray-100 py-10 px-4">
+                    <div class="w-full max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+
+                        <div class="p-6 sm:p-10">
+
+                            <!-- PROFILE HEADER -->
+                            <div class="text-center mb-10">
+
+                                <!-- Profile Image -->
+                                <div class="mx-auto flex justify-center">
+                                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-200">
+                                        <img 
+                                            src="{{ asset('img/teacher/' . Auth::guard('teacher')->user()->photo) }}"
+                                            class="w-full h-full object-cover"
+                                            onerror="this.src='{{ asset('img/default-user.png') }}'">
+                                    </div>
+                                </div>
+
+
+                                <!-- Name -->
+                                <h2 class="mt-5 text-xl sm:text-2xl font-semibold text-gray-800">
+                                    <a href="{{ url('/edit-teacher-view/' . Auth::guard('teacher')->user()->id) }}" 
+                                    class="hover:underline">
+                                        {{ Auth::guard('teacher')->user()->first_name }}
+                                        {{ Auth::guard('teacher')->user()->last_name }}
+                                    </a>
+                                </h2>
+
+                                <!-- Email -->
+                                <p class="text-gray-600 text-sm sm:text-base">
+                                    {{ Auth::guard('teacher')->user()->email }}
+                                </p>
+
+                                <!-- Designation -->
+                                <p class="text-gray-500 text-xs sm:text-sm mt-1">
+                                    {{ Auth::guard('teacher')->user()->designation }}
+                                </p>
                             </div>
-                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                                <dl class="sm:divide-y sm:divide-gray-200">
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+                            <!-- PROFILE DETAILS -->
+                            <div class="border-t border-gray-200">
+                                <dl class="divide-y divide-gray-200">
+
+                                    <!-- Full Name -->
+                                    <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Full name
+                                            Full Name
                                         </dt>
-                                        <dd class="mt-1 text-md font-semibold text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {{ Auth::guard('teacher')->user()->first_name }} {{ Auth::guard('teacher')->user()->last_name }}
-                                            <p class="text-sm">({{ Auth::guard('teacher')->user()->designation }})</p>
+                                        <dd class="text-sm sm:col-span-2 text-gray-900 font-semibold">
+                                            {{ Auth::guard('teacher')->user()->first_name }}
+                                            {{ Auth::guard('teacher')->user()->last_name }}
+                                            <p class="text-xs text-gray-500">
+                                                ({{ Auth::guard('teacher')->user()->designation }})
+                                            </p>
                                         </dd>
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+                                    <!-- Email -->
+                                    <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Email address
+                                            Email Address
                                         </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        <dd class="text-sm sm:col-span-2 text-gray-900">
                                             {{ Auth::guard('teacher')->user()->email }}
                                         </dd>
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+                                    <!-- Phone -->
+                                    <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Phone number
+                                            Phone Number
                                         </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            0{{ Auth::guard('teacher')->user()->contact_number }}
+                                        <dd class="text-sm sm:col-span-2 text-gray-900">
+                                            {{ Auth::guard('teacher')->user()->contact_number }}
                                         </dd>
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+                                    <!-- Address -->
+                                    <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
                                             Address
                                         </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        <dd class="text-sm sm:col-span-2 text-gray-900">
                                             {{ Auth::guard('teacher')->user()->address }}
                                         </dd>
                                     </div>
+
                                 </dl>
                             </div>
-                            <div class="text-center mt-6">
-                                <a href="{{url('/edit-teacher-view/'. Auth::guard('teacher')->user()->id )}}" class="bg-[#3F4D67] hover:bg-[#5b6f94] text-white font-bold py-2 px-4 rounded">
-                                    Edit Profile
+
+                            <!-- EDIT BUTTON -->
+                            <div class="text-center mt-10">
+                                <a href="{{ url('/edit-teacher-view/' . Auth::guard('teacher')->user()->id) }}"
+                                class="inline-flex items-center gap-2 bg-[#3F4D67] hover:bg-[#2f3b52] transition-colors duration-300 text-white font-medium py-2.5 px-6 rounded-full shadow-md">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span>Edit Profile</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- [ Main Content ] end -->        
             </div>
-            <!-- [ Main Content ] end -->        
         </div>
     </div>
     <!-- [ Main Content ] end -->

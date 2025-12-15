@@ -193,14 +193,17 @@
                 </div>
 
                 <!-- Right: Profile Picture -->
-                <div class="lg:w-1/3">
-                    <div class="bg-white shadow-md rounded-lg">
-                        <div class="border-b px-6 py-4">
-                            <h5 class="text-lg font-semibold">Profile Picture</h5>
-                        </div>
-                        <div class="p-6 flex flex-col items-center">
-                            <img src="{{ asset('img/teacher/'. Auth::guard('teacher')->user()->photo ) }}" alt="Profile Picture" class="w-32 h-32 object-cover rounded-full mb-4 border shadow-lg">
-                            <a href="{{url('/edit-teacher-view/'. Auth::guard('teacher')->user()->id )}}" class="bg-[#3F4D67] text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition text-sm">Edit Profile</a>
+                <div class="w-full lg:w-1/3">
+                    <div class="bg-white shadow rounded-xl overflow-hidden border border-gray-200">
+                        <div class="p-6 flex flex-col items-center text-center">
+                            <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-100 shadow-lg mb-4">
+                                <img src="{{ asset('img/teacher/' . Auth::guard('teacher')->user()->photo) }}" class="w-full h-full object-cover" alt="Profile Picture">
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-1">{{ Auth::guard('teacher')->user()->first_name }} {{ Auth::guard('teacher')->user()->last_name }}</h3>
+                            <p class="text-gray-500 mb-4">{{ Auth::guard('teacher')->user()->designation }}</p>
+                            <a href="{{ url('/edit-teacher-view/' . Auth::guard('teacher')->user()->id) }}" class="bg-[#3F4D67] hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+                            </a>
                         </div>
                     </div>
                 </div>

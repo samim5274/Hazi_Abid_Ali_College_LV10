@@ -60,10 +60,10 @@
                                 <i class="ti ti-user"></i>
                                 <span>My Account</span>
                             </a>
-                            <a href="{{url('/setting')}}" class="dropdown-item">
+                            <!-- <a href="{{url('/setting')}}" class="dropdown-item">
                                 <i class="ti ti-settings"></i>
                                 <span>Settings</span>
-                            </a>
+                            </a> -->
                             <a href="{{url('/support')}}" class="dropdown-item">
                                 <i class="ti ti-headset"></i>
                                 <span>Support</span>
