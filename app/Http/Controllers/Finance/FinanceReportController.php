@@ -124,4 +124,29 @@ class FinanceReportController extends Controller
 
         return view('finance.report.student-fee-report', compact('feePayment','total','discount','paid','due','student','company'));
     }
+
+    public function paymentHistory(){
+        $company = Company::first();
+        return view('finance.report.student-fee-payment-history', compact('company'));
+    }
+
+    public function findPaymentHistory(Request $request){
+        $request->validate([
+            'txtSearch'        => 'required',
+        ]);
+
+        $company = Company::first();
+
+        $search = $request->txtSearch;
+
+        $data = feePaymentDetails::where('receipt_no', $search)->orWhere('invoice_no', $search)->first();
+        if(!$data){
+            return redirect()->back()->with('error', 'Payment history not found. Please try again. Thank You!');
+        }
+        $total = $data->sum('total_amount');
+        $discount = $data->sum('total_discount');
+        $paid = $data->sum('total_paid');
+        $due = $data->sum('total_due');
+        return view('finance.report.student-fee-payment-history', compact('data','total','discount','paid','due','company'));
+    }
 }

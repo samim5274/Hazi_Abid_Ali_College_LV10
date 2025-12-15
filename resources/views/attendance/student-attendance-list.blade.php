@@ -54,11 +54,11 @@
             </div>
 
             <!-- Card -->
-             <div class="card rounded-lg border shadow-sm">
+            <div class="card rounded-lg border shadow-sm">
                 <div class="card-header px-4 py-3 border-b bg-gray-100">
                     <h3 class="text-lg font-semibold text-gray-700">
-                        Class: {{ $student->first()->room->name ?? 'N/A' }} 
-                        ({{ $student->first()->room->section ?? 'N/A' }}) 
+                        Class: {{ $students->first()->room->name ?? 'N/A' }} 
+                        ({{ $students->first()->room->section ?? 'N/A' }}) 
                         - {{ $subject->name }}
                     </h3>
                 </div>
@@ -85,7 +85,7 @@
 
                         <table class="min-w-full table-auto border-collapse">
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($student as $val)
+                                @foreach($students as $val)
                                 <tr class="hover:bg-gray-50">
 
                                     <!-- Roll -->

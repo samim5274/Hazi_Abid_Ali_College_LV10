@@ -115,6 +115,7 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Discount</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paid</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -140,6 +141,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-md text-blue-900 font-semibold">
                                     ৳{{ number_format($val->total_due, 2) }}
                                 </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <a href="{{ url('/fee-payment-show/'.$val->id) }}" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="{{ url('/print-pay-invoice/'. $val->receipt_no) }}" target="_blank" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-print"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                             <tr>
@@ -148,6 +153,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$discount}}/-</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$paid}}/-</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">৳{{$due}}/-</td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

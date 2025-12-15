@@ -11,6 +11,7 @@ use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Attendance;
 use App\Models\Company;
+use App\Models\StudentSubject;
 
 class AttendanceController extends Controller
 {
@@ -38,41 +39,43 @@ class AttendanceController extends Controller
         $company = Company::first();  
         $subject = Subject::findOrFail($subject_id);
 
-        // All students of the class
-        $student = Student::with('room')
+        // 🔹 All students of the class who are enrolled in this subject
+        $students = $subject->students()
                     ->where('class_id', $class_id)
                     ->where('status', 1)
+                    ->with('room')
                     ->orderBy('roll_number', 'ASC')
                     ->get();
 
-        $totalStudent = $student->count();
+        $totalStudent = $students->count();
 
-        // Attendance for today
-        $attend = Attendance::with('student', 'subject', 'class')
+        // 🔹 Attendance for today
+        $attendances = Attendance::with(['student', 'subject', 'class'])
                     ->where('class_id', $class_id)
-                    ->where('attendance_date', $date)
                     ->where('subject_id', $subject_id)
+                    ->where('attendance_date', $date)
                     ->get();
 
-        // Count
-        $present = $attend->where('status', 'Present')->count();
-        $absent = $attend->where('status', 'Absent')->count();
+        // 🔹 Count
+        $present = $attendances->where('status', 'Present')->count();
+        $absent  = $attendances->where('status', 'Absent')->count();
 
-        // To check if a student already attended today for this subject
-        $attendanceCheck = Attendance::where('class_id', $class_id)
-                            ->where('subject_id', $subject_id)
-                            ->where('attendance_date', $date)
-                            ->pluck('student_id')
-                            ->toArray();
+        // 🔹 Already attended student IDs
+        $attendanceCheck = $attendances->pluck('student_id')->toArray();
 
-        $attendanceData = Attendance::where('class_id', $class_id)
-                    ->where('subject_id', $subject_id)
-                    ->where('attendance_date', $date)
-                    ->get()
-                    ->keyBy('student_id'); // student_id কে Key করা
+        // 🔹 Attendance keyed by student_id
+        $attendanceData = $attendances->keyBy('student_id');
 
         return view('attendance.student-attendance-list', compact(
-            'student', 'totalStudent', 'attend', 'present', 'absent', 'subject', 'attendanceCheck', 'attendanceData','company'
+            'students',         // renamed from $student
+            'totalStudent',
+            'attendances',      // renamed from $attend
+            'present',
+            'absent',
+            'subject',
+            'attendanceCheck',
+            'attendanceData',
+            'company'
         ));
     }
 

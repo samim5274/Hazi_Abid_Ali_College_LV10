@@ -104,7 +104,7 @@
                             <div class="fee-item bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 ease-in-out flex items-center">
                                 <input type="checkbox" name="fee_structure[]" value="{{ $fs->id }}" data-amount="{{ $fs->amount }}" class="h-5 w-5 text-green-600 border-gray-300 rounded focus:ring-green-500 fee-checkbox cursor-pointer">
                                 <label for="fee_structure_{{ $fs->id }}" class="ml-3 block text-base font-medium text-gray-800 flex-grow cursor-pointer">
-                                    <span class="text-green-700"> {{$fs->category->name}}</span> ({{$fs->room->name}}) - <span class="font-semibold">${{ number_format($fs->amount, 2) }}</span>
+                                    <span class="text-green-700"> {{$fs->category->name}}</span> ({{$fs->room->name}}) - <span class="font-semibold">৳{{ number_format($fs->amount, 2) }}</span>
                                 </label>
                             </div>
                             @endforeach
@@ -194,7 +194,7 @@
                                     <td class="px-4 py-3 text-md text-gray-700 text-right">৳{{ number_format($val->total_paid, 2) }}/-</td>
                                     <td class="px-4 py-3 text-center space-x-2">
                                         <a href="{{ url('/fee-payment-show/'.$val->id) }}" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-print"></i></a>
+                                        <a href="{{ url('/print-pay-invoice/'. $val->receipt_no) }}" target="_blank" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-print"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -332,7 +332,7 @@
                             feeStructure.innerHTML = `
                                 <input type="checkbox" name="fee_structure[]" value="${fs.id}" data-amount="${fs.amount}" class="h-5 w-5 text-green-600 border-gray-300 rounded focus:ring-green-500 fee-checkbox cursor-pointer">
                                 <label for="fee_structure_${fs.id}" class="ml-3 block text-base font-medium text-gray-800 flex-grow cursor-pointer">
-                                    <span class="text-green-700">${fs.category.name}</span> (${fs.room.name}) - <span class="font-semibold">$${parseFloat(fs.amount).toFixed(2)}</span>
+                                    <span class="text-green-700">${fs.category.name}</span> (${fs.room.name}) - <span class="font-semibold">৳${parseFloat(fs.amount).toFixed(2)}</span>
                                 </label>
                             `;
                             feeStructureContainer.appendChild(feeStructure);

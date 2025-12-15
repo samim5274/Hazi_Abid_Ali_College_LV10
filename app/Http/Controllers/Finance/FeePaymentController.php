@@ -177,7 +177,7 @@ class FeePaymentController extends Controller
         $student = Student::where('status', 1)->get();
         $classes = Room::all();
         $feeStructure = FeeStructure::with('room','category','paymentItems')->get();
-        $feePayment = feePaymentDetails::with('student','teacher','items')->where('payment_date', now()->toDateString())->paginate(10);
+        $feePayment = feePaymentDetails::with('student','teacher','items')->where('payment_date', now()->toDateString())->orderBy('id', 'desc')->paginate(10);
         return view('finance.finance-fee-payment-details', compact('category','classes','feeStructure','student','feePayment','company'));
     }
 
@@ -338,5 +338,18 @@ class FeePaymentController extends Controller
         // dd($feeStructures, $payment);
 
         return view('finance.fee-payment-structure-show', compact('feeStructures', 'payment','company'));
+    }
+
+    public function feePayPrintReceipt($receipt){
+        $company = Company::first();
+        
+        $payment = feePaymentDetails::with('student','items','teacher')->where('receipt_no', $receipt)->first();
+        if (!$payment) {
+            return redirect()->back()->with('error', 'Payment history not found. Please try again.');
+        }
+
+        $feeStructures = $payment->items;
+
+        return view('finance.print-fee-payment', compact('feeStructures', 'payment','company'));
     }
 }
