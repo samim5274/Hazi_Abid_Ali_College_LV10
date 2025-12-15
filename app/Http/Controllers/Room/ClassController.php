@@ -95,7 +95,7 @@ class ClassController extends Controller
     public function classSchedule(){  
         $company = Company::first();
         $teachers = Teacher::all();
-        $subjects = Subject::all();
+        $subjects = Subject::with('room:id,name,section')->get();
         $classes  = Room::all();
         $days     = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
         $schedules = ClassSchedule::all();
