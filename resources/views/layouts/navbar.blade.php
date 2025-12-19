@@ -256,7 +256,7 @@
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-management')}}">Fee Category</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-fee-structure')}}">Fee Structure</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-fee-payment')}}">Fee Payment</a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{url('/due-collection')}}">Due Collection</a></li>
+                        <!-- <li class="pc-item"><a class="pc-link" href="{{url('/due-collection')}}">Due Collection</a></li> -->
                     </ul>
                 </li>
                 <li class="pc-item pc-hasmenu">

@@ -83,24 +83,24 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="first_name">First Name</label>
-                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Shamim">
+                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="last_name">Last Name</label>
-                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Hossain">
+                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="dob">Date of Birth</label>
-                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="2001-12-31">
+                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="gender">Gender</label>
                                                 <select id="gender" name="gender" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                                <option  disabled>--Select Gender--</option>
-                                                <option selected value="Male">Male</option>
+                                                <option selected disabled>--Select Gender--</option>
+                                                <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option>
                                                 </select>
@@ -108,27 +108,27 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="blood_group">Blood Group</label>
-                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="A+">
+                                                <input type="text" id="blood_group" name="blood_group" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="national_id">National ID / Birth Certificate</label>
-                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
+                                                <input type="text" id="national_id" name="national_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="contact_number">Contact Number</label>
-                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
+                                                <input type="text" id="contact_number" name="contact_number" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="email">Email Address</label>
-                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="info@shamim.com">
+                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="designation">Designation</label>
-                                                <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">BSc in Math</textarea>
+                                                <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
                                             </div>
 
                                             <div>
@@ -138,22 +138,22 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="joining_date">Joining Date</label>
-                                                <input type="date" id="joining_date" name="joining_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="2023-12-31">
+                                                <input type="date" id="joining_date" name="joining_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mop_date">MOP Date</label>
-                                                <input type="date" id="mop_date" name="mop_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="2024-12-31">
+                                                <input type="date" id="mop_date" name="mop_date" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="txtTraning">Traning</label>
-                                                <input type="text" id="txtTraning" name="txtTraning" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="N/A">
+                                                <input type="text" id="txtTraning" name="txtTraning" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="txtIndexNumber">Index Number</label>
-                                                <input type="text" id="txtIndexNumber" name="txtIndexNumber" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="D65498765">
+                                                <input type="text" id="txtIndexNumber" name="txtIndexNumber" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
                                         </div>
                                     </div>
@@ -165,37 +165,37 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
-                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Jamsher Ali">
+                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="father_contact">Father Contact</label>
-                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
+                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
-                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Let-Shofiya Begum">
+                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="mother_contact">Mother Contact</label>
-                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
+                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
-                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Jamsher Ali">
+                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_contact">Guardian Contact</label>
-                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="123456789">
+                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with Student</label>
-                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" value="Father">
+                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
