@@ -33,9 +33,6 @@
     <!-- [ Header Topbar ] start -->
     @include('layouts.header')
     <!-- [ Header ] end -->
-    
-    <!-- Flash Message -->
-    @include('layouts.message')
 
 
     <!-- [ Main Content ] start -->
@@ -45,6 +42,8 @@
 
     <div class="pc-container">
         <div class="pc-content">
+            <!-- Flash Message -->
+            @include('layouts.message')
             <div class="max-w-full px-4">
 
                 <!-- [ breadcrumb ] start -->

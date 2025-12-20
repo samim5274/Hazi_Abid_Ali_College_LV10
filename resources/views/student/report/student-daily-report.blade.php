@@ -31,14 +31,12 @@
     <!-- Header -->
     @include('layouts.header')
 
-    <!-- Flash Message -->
-    @include('layouts.message')
-    <!-- [ Header ] end -->
-
 
     <!-- [ Main Content ] start -->
     <div class="pc-container min-h-screen">
         <div class="pc-content py-8 px-4 sm:px-6 lg:px-8 space-y-8">
+            <!-- Flash Message -->
+            @include('layouts.message')
             <!-- Page Header -->
             <form action="{{ route('filter-student-daily-report') }}" method="GET" class="grid md:grid-cols-2 gap-6">
 

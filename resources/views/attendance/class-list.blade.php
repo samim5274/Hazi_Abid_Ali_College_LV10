@@ -31,13 +31,13 @@
     <!-- Header -->
     @include('layouts.header')
 
-    <!-- Flash Message -->
-    @include('layouts.message')
+    
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
-            
+            <!-- Flash Message -->
+            @include('layouts.message')
             <!-- Breadcrumb -->
             <div class="page-header mb-6">
                 <div class="page-block">

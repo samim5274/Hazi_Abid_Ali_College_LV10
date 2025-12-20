@@ -34,9 +34,6 @@
     @include('layouts.header')
     <!-- [ Header ] end -->
     
-    <!-- Flash Message -->
-    @include('layouts.message')
-
 
     <!-- [ Main Content ] start -->
     @include('layouts.main')
