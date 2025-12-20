@@ -117,21 +117,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Password updated successfully');
     }
 
-    public function profile(){
-        $company = Company::first();
-        return view('profile.my-account', compact('company'));
-    }
-
-    public function setting(){
-        $company = Company::first();
-        return view('profile.setting', compact('company'));
-    }
-
-    public function support(){
-        $company = Company::first();
-        return view('profile.support', compact('company'));
-    }
-
     public function forgetPass(){
         return view('admin.auth.forget-password');
     }
@@ -156,7 +141,7 @@ class AdminController extends Controller
         $data->otp_expires_at = Carbon::now()->addMinutes(10);
         $data->save();
 
-        Mail::to($data->email)->send(new OtpMail($otp));
+        Mail::to($data->email)->send(new OtpMail($otp,$data));
 
         session(['reset_email' => $data->email]);
 

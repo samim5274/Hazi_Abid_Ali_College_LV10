@@ -63,6 +63,44 @@ class ClassController extends Controller
         return redirect()->back()->with('success', 'Class added successfully!');
     }
 
+    public function editClass($id){
+        $company = Company::first();
+        $teachers = Teacher::all();
+        $classes = Room::find($id);
+        if (!$classes) {
+            return redirect()->back()->with('error', 'Class not found!');
+        }
+        return view('room.edit-class-view', compact('teachers','classes','company'));
+    }
+
+    public function modifyClass(Request $request, $id){
+        $request->validate([
+            'name'       => 'required|string|max:100',
+            'section'    => 'required|string|max:50',
+            'capacity'   => 'required|integer|min:1',
+            'teacher_id' => 'required|exists:teachers,id',
+        ]);
+
+        $data = Room::find($id);
+        if (!$data) {
+            return redirect()->back()->with('error', 'Class not found!');
+        }
+
+        $teacherExists = Room::where('class_teacher_id', $request->teacher_id)->where('id', '!=', $id)->exists();
+        if ($teacherExists) {
+            return redirect()->back()->with('warning',
+                'This teacher is already assigned to another class. Please select a different teacher.'
+            );
+        }
+
+        $data->name       = $request->name;
+        $data->section    = $request->section;
+        $data->capacity   = $request->capacity;
+        $data->class_teacher_id = $request->teacher_id;
+        $data->update();
+        return redirect()->back()->with('success', 'Class updated successfully!');
+    }
+
     public function assignTeacehr(){
         $company = Company::first();
         $teachers = Teacher::all();

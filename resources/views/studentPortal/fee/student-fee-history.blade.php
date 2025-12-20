@@ -80,6 +80,10 @@
                                             {{ $fee->feeStructure->category->name }}
                                         </td>
 
+                                        <td class="px-6 py-4 text-sm text-gray-600">
+                                            {{ \Carbon\Carbon::parse($fee->payment_date)->format('d M, Y') }}
+                                        </td>
+
                                         <td class="px-6 py-4 text-sm font-semibold text-gray-600 text-right">
                                             ৳ {{ number_format($fee->amount, 2) }}
                                         </td>
@@ -102,7 +106,7 @@
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                                                     Paid
                                                 </span>
-                                            @elseif($fee->status >= '0')
+                                            @elseif($fee->due >= '0')
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-200 text-yellow-800">
                                                     Partial
                                                 </span>
@@ -123,7 +127,7 @@
 
                                 <!-- Total Row -->
                                 <tr class="bg-gray-100 font-bold text-gray-800 border-t">
-                                    <td colspan="2" class="px-6 py-4 text-right">Total:</td>
+                                    <td colspan="3" class="px-6 py-4 text-right">Total:</td>
 
                                     <td class="px-6 py-4 text-right">
                                         ৳ {{ number_format($totalAmount, 2) }}

@@ -215,7 +215,7 @@ class ExamController extends Controller
 
     public function showResult($class, $student){
         $company = Company::first();
-        $marks = Mark::where('student_id', $student)->get();
+        $marks = Mark::with(['student','subject','exam'])->where('student_id', $student)->get();
         return view('exam.report.result-view', compact('marks','class','student','company'));
     }
 
@@ -235,8 +235,10 @@ class ExamController extends Controller
         foreach ($students as $student) {
             $totalMarks = 0;
             foreach ($subjects as $subject) {
-                $result = $student->results->firstWhere('subject_id', $subject->id);
-                $totalMarks += $result ? $result->marks_obtained : 0;
+                $subjectResults = $student->results->where('subject_id', $subject->id);
+                foreach ($subjectResults as $result) {
+                    $totalMarks += $result->marks_obtained;
+                }
             }
 
             $studentResults[] = [

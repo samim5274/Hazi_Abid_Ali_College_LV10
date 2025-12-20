@@ -60,8 +60,8 @@
                         <!-- Student Info -->
                         <h2 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
                             <span class="text-blue-500 text-xl">📌</span>
-                            Student: <span class="text-gray-700">{{ $marks[0]->student->first_name ?? 'N/A' }} {{ $marks[0]->student->first_name ?? 'N/A' }}</span> 
-                            (<span class="text-gray-700">{{ $marks[0]->exam->name ?? 'N/A' }}</span>)
+                            <strong><span class="text-gray-700">Result Analysis of <i class="fa-solid fa-arrow-right-long"></i></span></strong>
+                            <span class="text-gray-700">{{ $marks[0]->student->first_name ?? 'N/A' }} {{ $marks[0]->student->first_name ?? 'N/A' }}</span> 
                         </h2>
                     </div>
                 </div>
@@ -84,19 +84,9 @@
                                 <td class="px-6 py-4 text-md text-gray-900 font-semibold hover:text-blue-600 transition">
                                     {{ $val->subject->name }}
                                 </td>
-                                @if($val->exam->name == 'Midterm')
-                                <td class="px-6 py-4 text-md text-blue-500 font-medium flex items-center gap-1">
+                                <td class="px-6 py-4 text-md text-teal-500 font-medium flex items-center gap-1">
                                     <i class="fa fa-comments"></i> {{ $val->exam->name }}
                                 </td>
-                                @elseif($val->exam->name == 'Final')
-                                <td class="px-6 py-4 text-md text-green-500 font-medium flex items-center gap-1">
-                                    <i class="fa fa-comments"></i> {{ $val->exam->name }}
-                                </td>
-                                @else 
-                                <td class="px-6 py-4 text-md text-green-500 font-medium flex items-center gap-1">
-                                    <i class="fa fa-comments"></i> No Exam
-                                </td>
-                                @endif
                                 <td class="px-6 py-4 text-md text-center text-gray-600 truncate max-w-[220px]">
                                     {{ $val->marks_obtained }}
                                 </td>

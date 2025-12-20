@@ -54,40 +54,7 @@
 
                 <!-- [ Main Content ] start -->
                 <div class="grid grid-cols-1 gap-6">
-                    <!-- <div class="col-span-1">
-                        <div class="card rounded-lg border">
-                            <div class="card-header">
-                                <h5>Add New Subject</h5>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{url('/add-new-subject')}}" method="POST" class="space-y-6" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label for="name" class="font-medium">Subject Name</label>
-                                            <input type="text" name="name" id="name" required placeholder="Enter Subject Name" class="form-input w-full rounded-md mt-1 py-3 px-3 border border-gray-300 focus:border-green-500 focus:ring-green-500">
-                                        </div>
-                                        <div>
-                                            <label for="class_id" class="font-medium">Class</label>
-                                            <select name="class_id" id="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
-                                                <option value="">Select Class</option>
-                                                @foreach($rooms as $room)
-                                                    <option value="{{$room->id}}">{{$room->name}}- {{$room->section}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="text-center">
-                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-md shadow-md transition duration-300" onclick="return confirmSubmit(event)">
-                                        Submit
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> -->
-
+                    
                     <!-- ✅ ADD SUBJECT MODAL -->
                     <div id="subjectModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
                         <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
@@ -110,9 +77,21 @@
                                     </div>
 
                                     <div>
+                                        <label class="font-medium">Group</label>
+                                        <select name="group_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                            <option value="" selected disabled>Select Group</option>
+                                            @foreach($groups as $val)
+                                                <option value="{{ $val->id }}">
+                                                    {{ $val->name }} - {{ $val->section }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div>
                                         <label class="font-medium">Class</label>
                                         <select name="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
-                                            <option value="">Select Class</option>
+                                            <option value="" selected disabled>Select Class</option>
                                             @foreach($rooms as $room)
                                                 <option value="{{ $room->id }}">
                                                     {{ $room->name }} - {{ $room->section }}
@@ -147,25 +126,27 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="overflow-x-auto">
+                            <div class="overflow-x-auto overflow-y-auto max-h-[650px] border rounded-lg shadow-sm">
                                 <table class="min-w-full bg-white">
-                                    <thead class="bg-gray-400 text-black">
+                                    <thead class="bg-gray-400 text-black sticky top-0">
                                         <tr>
                                             <th class="py-3 px-4">#</th>
-                                            <th class="py-3 px-4">Subject Name</th>
+                                            <th class="py-3 px-4 text-left">Subject Name</th>
+                                            <th class="py-3 px-4 text-left">Group</th>
                                             <th class="py-3 px-4">Class</th>
                                             <th class="py-3 px-4">Action</th>
                                         </tr>
                                     </thead>
 
-                                    <tbody class="text-gray-700 text-center">
+                                    <tbody class="text-gray-700">
                                         @foreach($subjects as $subject)
                                             <tr class="border hover:bg-gray-100">
-                                                <td class="py-3 px-4">{{ $loop->iteration }}</td>
+                                                <td class="py-3 px-4 text-center">{{ $loop->iteration }}</td>
                                                 <td class="py-3 px-4">{{ $subject->name }}</td>
-                                                <td class="py-3 px-4">{{ $subject->room->name }} - {{ $subject->room->section }}</td>
+                                                <td class="py-3 px-4">{{ $subject->group->name }}</td>
+                                                <td class="py-3 px-4 text-center">{{ $subject->room->name }} - {{ $subject->room->section }}</td>
 
-                                                <td class="py-3 px-4 text-blue-600 cursor-pointer"
+                                                <td class="py-3 px-4 text-blue-600 cursor-pointer text-center"
                                                     onclick="openEditModal({{ $subject->id }})">
                                                     <i class="fa-solid fa-pen-to-square"></i> Edit
                                                 </td>
@@ -176,6 +157,7 @@
                                 </table>
                             </div>
                         </div>
+
                     </div>
 
 
@@ -206,9 +188,21 @@
                                     </div>
 
                                     <div>
+                                        <label class="font-medium">Group</label>
+                                        <select name="group_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                            <option value="" disabled>Select Group</option>
+                                            @foreach($groups as $val)
+                                                <option value="{{ $val->id }}" {{ $subject->group_id == $val->id ? 'selected' : '' }}>
+                                                    {{ $val->name }} - {{ $val->section }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div>
                                         <label class="font-medium">Class</label>
                                         <select name="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
-                                            <option value="">Select Class</option>
+                                            <option value="" disabled>Select Class</option>
                                             @foreach($rooms as $room)
                                                 <option value="{{ $room->id }}"
                                                     {{ $subject->class_id == $room->id ? 'selected' : '' }}>

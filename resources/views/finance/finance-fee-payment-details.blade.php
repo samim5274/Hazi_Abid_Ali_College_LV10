@@ -193,7 +193,7 @@
                                     <td class="px-4 py-3 text-md text-red-600 font-semibold text-right">৳{{ number_format($val->total_due, 2) }}/-</td>
                                     <td class="px-4 py-3 text-md text-gray-700 text-right">৳{{ number_format($val->total_paid, 2) }}/-</td>
                                     <td class="px-4 py-3 text-center space-x-2">
-                                        <a href="{{ url('/fee-payment-show/'.$val->id) }}" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="{{ url('/fee-payment-show/'.$val->id) }}" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-eye"></i></a>
                                         <a href="{{ url('/print-pay-invoice/'. $val->receipt_no) }}" target="_blank" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-print"></i></a>
                                     </td>
                                 </tr>

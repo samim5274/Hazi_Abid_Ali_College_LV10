@@ -20,6 +20,7 @@ use App\Http\Controllers\Notice\NoticeController;
 use App\Http\Controllers\Expenses\ExpensesController;
 use App\Http\Controllers\Finance\FeePaymentController;
 use App\Http\Controllers\Finance\FinanceReportController;
+use App\Http\Controllers\Setting\SettingController;
 
 Auth::routes();
 
@@ -38,9 +39,14 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/change-password', [AdminController::class, 'changePassView'])->name('change-password-view');
     Route::post('/update-password', [AdminController::class, 'updateUpdate']);
-    Route::get('/profile', [AdminController::class, 'profile'])->name('user-profile-view');
-    Route::get('/setting', [AdminController::class, 'setting'])->name('setting-view');
-    Route::get('/support', [AdminController::class, 'support'])->name('support-view');
+    Route::get('/profile', [SettingController::class, 'profile'])->name('user-profile-view');
+    Route::get('/setting', [SettingController::class, 'setting'])->name('setting-view');
+    Route::get('/support', [SettingController::class, 'support'])->name('support-view');
+    Route::post('/pofile-edit', [SettingController::class, 'editProfile']);
+    Route::post('/groups/store', [SettingController::class, 'storeGroup'])->name('groups.store');
+    Route::get('/edit-group/{id}', [SettingController::class, 'editGroup'])->name('edit-group');
+    Route::post('/modify-group/{id}', [SettingController::class, 'modifyGroup'])->name('groups.update');
+    Route::post('/delete-group/{id}', [SettingController::class, 'deleteGroup']);
     
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/database-backup', [DashboardController::class, 'dbBackup']);
@@ -149,6 +155,8 @@ Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/add-class', [ClassController::class, 'addNew'])->name('add-new-class-view');
     Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');
+    Route::get('/edit-class/{id}', [ClassController::class, 'editClass'])->name('edit-class-view');
+    Route::post('/modify-class/{id}', [ClassController::class, 'modifyClass']);
     Route::post('/insert-class', [ClassController::class, 'insertClass']);
     Route::get('/assign-teacher-list', [ClassController::class, 'assignTeacehr'])->name('assign-teacher-list-view');
     Route::post('/assigned-teacher-update', [ClassController::class, 'update']);
@@ -207,6 +215,8 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/student-exam-list', [StudentPortalController::class, 'examList'])->name('student-exam-list');
     Route::get('/student-results', [StudentPortalController::class, 'results'])->name('student-result');
     Route::get('/student-fee-details', [StudentPortalController::class, 'feeDetails'])->name('student-fee-details');
+    Route::get('/payment-history', [StudentPortalController::class, 'myPaymentHistory'])->name('my-payment-history');
+    Route::get('/student/invoice/{id}', [StudentPortalController::class, 'paymentDetails'])->name('fee-payment-details');
     Route::get('/student-payment-history', [StudentPortalController::class, 'feeHistory'])->name('payment-history');
     Route::get('/my-daily-report', [StudentPortalController::class, 'dailyReport'])->name('my-daily-report');
     Route::post('/student-daily-report', [StudentPortalController::class, 'dailyReportStore'])->name('student-daily-routine.store');

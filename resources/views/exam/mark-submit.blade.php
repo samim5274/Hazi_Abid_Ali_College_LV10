@@ -55,22 +55,31 @@
 
             <!-- Card -->
             <div class="card rounded-lg border shadow-sm ">
-                <div class="bg-gray-100 border-b px-4 py-4 sm:py-6 rounded-t-lg">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="bg-gray-100 border-b px-4 py-4 sm:py-6 rounded-t-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                    <!-- Left: Previous Button + Student Info -->
+                    <div class="flex items-center gap-4">
+                        <!-- Previous Button -->
+                        <a href="{{ url()->previous() }}" 
+                        class="inline-flex items-center gap-2 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                            <i class="fa-solid fa-angle-left"></i> Back
+                        </a>
+
                         <!-- Student Info -->
                         <h2 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
                             <span class="text-blue-500 text-xl">📌</span>
                             Student: <span class="text-gray-700">{{ $students[0]->room->name ?? 'N/A' }}</span> 
                             (<span class="text-gray-700">{{ $students[0]->room->section ?? 'N/A' }}</span>)
                         </h2>
-
-                        <!-- Subject Info -->
-                        <h3 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
-                            <span class="text-green-500 text-xl">📌</span>
-                            Subject: <span class="text-gray-700">{{ $sub->name }}</span>
-                        </h3>
                     </div>
+
+                    <!-- Right: Subject Info -->
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
+                        <span class="text-green-500 text-xl">📌</span>
+                        Subject: <span class="text-gray-700">{{ $sub->name }}</span>
+                    </h3>
                 </div>
+
                 <div class="space-y-4">                    
                     @foreach($students as $val)
                     <div class="bg-white border rounded-xl shadow-sm hover:shadow-lg transition p-5">

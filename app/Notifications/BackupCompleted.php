@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class BackupCompleted extends Notification
 {
@@ -35,13 +36,31 @@ class BackupCompleted extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
-                    ->subject('✅ Database Backup - SMS')
-                    ->greeting('Hi ' . $notifiable->first_name . ',')
-                    ->line('Your database backup has been completed successfully.')
-                    ->line('🗂 Backup File: ' . $this->file)
-                    ->line('🕒 Backup Date: ' . now()->format('d M Y, H:i A'))
-                    ->line('Thank you for using our School Management System!');
+        if (empty($notifiable->email) || !filter_var($notifiable->email, FILTER_VALIDATE_EMAIL)) {
+            Log::warning("Backup email skipped for user: {$notifiable->id}, invalid email: {$notifiable->email}");
+            return (new MailMessage)
+                    ->subject('Backup Notification Skipped')
+                    ->line('Your email is invalid or missing. Backup email could not be sent.');
+        }
+
+        try {
+            return (new MailMessage)
+                ->subject('✅ Database Backup - HAAC')
+                ->greeting('Hi ' . $notifiable->first_name . ',')
+                ->line('Your database backup has been completed successfully.')
+                ->line('🗂 Backup File: ' . basename($this->file))
+                ->line('🕒 Backup Date: ' . now()->format('d M Y, H:i A'))
+                ->attach($this->file, [
+                    'as' => 'database-backup.zip',
+                    'mime' => 'application/zip',
+                ])
+                ->line('Thank you for using our School Management System!');
+        } catch (\Exception $e) {
+            Log::error("Failed to send backup email to {$notifiable->email}: " . $e->getMessage());
+            return (new MailMessage)
+                    ->subject('Backup Notification Failed')
+                    ->line('There was an error sending the backup email. Please check logs.');
+        }
     }
 
     /**

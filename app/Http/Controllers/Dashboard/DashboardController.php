@@ -69,6 +69,7 @@ class DashboardController extends Controller
     }
 
     public function dbBackup(){
+        // Run backup
         Artisan::call('backup:run', ['--only-db' => true]);
 
         $diskName = config('backup.backup.destination.disks')[0];
@@ -87,10 +88,14 @@ class DashboardController extends Controller
         $path = $disk->path($latestBackup);
 
         $user = Auth::guard('teacher')->user();
+
         if ($user) {
-            Notification::sendNow($user, new BackupCompleted($latestBackup));
+            Notification::send($user, new BackupCompleted($path));
+            return redirect()->back()->with('success', 'Database backup email queued successfully.');
         }
+
+        return redirect()->back()->with('error', 'No authenticated user found.');
         
-        return response()->download($path);
+        // return response()->download($path);
     }
 }

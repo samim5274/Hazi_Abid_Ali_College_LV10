@@ -70,7 +70,7 @@ class ExpensesController extends Controller
         if(!$data){
             return redirect()->back()->with('error', 'Expenses not found. Please try again. Thank You!');
         }
-        $data->delete();
+        // $data->delete();
         return redirect()->back()->with('success', 'Expenses deleted successfully.');
     }
 

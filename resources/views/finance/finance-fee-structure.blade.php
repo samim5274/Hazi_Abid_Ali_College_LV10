@@ -121,12 +121,12 @@
 
                             {{-- Previous Button --}}
                             @if ($feeStructure->onFirstPage())
-                                <span class="px-4 py-2 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                    &laquo; Previous
+                                <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                    &laquo;
                                 </span>
                             @else
-                                <a href="{{ $feeStructure->previousPageUrl() }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                    &laquo; Previous
+                                <a href="{{ $feeStructure->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                    &laquo;
                                 </a>
                             @endif
 
@@ -138,20 +138,20 @@
 
                             @for ($i = $start; $i <= $end; $i++)
                                 @if ($i == $feeStructure->currentPage())
-                                    <span class="px-4 py-2 text-sm md:text-base bg-theme-bg-1 text-white rounded-lg">{{ $i }}</span>
+                                    <span class="px-2 py-1 text-sm md:text-base bg-[#3F4D67] text-white rounded-lg">{{ $i }}</span>
                                 @else
-                                    <a href="{{ $feeStructure->url($i) }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                    <a href="{{ $feeStructure->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
                                 @endif
                             @endfor
 
                             {{-- Next Button --}}
                             @if ($feeStructure->hasMorePages())
-                                <a href="{{ $feeStructure->nextPageUrl() }}" class="px-4 py-2 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                    Next &raquo;
+                                <a href="{{ $feeStructure->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                    &raquo;
                                 </a>
                             @else
-                                <span class="px-4 py-2 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                    Next &raquo;
+                                <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                    &raquo;
                                 </span>
                             @endif
                         </div>

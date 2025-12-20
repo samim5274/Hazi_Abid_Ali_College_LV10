@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('restrict');
             $table->foreignId('class_id')->constrained('rooms')->onDelete('restrict');
             $table->timestamps();
         });

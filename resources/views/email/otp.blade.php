@@ -9,7 +9,7 @@
     <div style="max-width: 500px; margin: auto; background: #ffffff; padding: 20px; border-radius: 8px;">
 
         <h2 style="color: #333;">Password Reset Request</h2>
-        <p>Hello,</p>
+        <p>Hello, {{ $data->first_name }}</p>
 
         <p>Your One-Time Password (OTP) is:</p>
 
@@ -20,7 +20,7 @@
         <p>If you did not request a password reset, please ignore this email.</p>
 
         <br>
-        <p>Regards,<br><b>Mr Paul Bakers</b></p>
+        <p>Regards,<br><b>Hazi Abed Ali College</b> - <small>213/1, East Brahmondi, Narsingdi. || Code - 3010 || Degree - 5424 || EIIN - 112717</small></p>
 
     </div>
 

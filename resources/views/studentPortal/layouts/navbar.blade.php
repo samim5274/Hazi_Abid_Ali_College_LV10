@@ -103,13 +103,19 @@
                 <li class="pc-item">
                     <a href="{{url('/student-fee-details')}}" class="pc-link">
                         <span class="pc-micon"><i class="fa-solid fa-money-bill"></i></span>
-                        <span class="pc-mtext">My Fees</span>
+                        <span class="pc-mtext">Fees</span>
+                    </a>
+                </li>
+                <li class="pc-item">
+                    <a href="{{url('/payment-history')}}" class="pc-link">
+                        <span class="pc-micon"><i class="fa-solid fa-cash-register"></i></span>
+                        <span class="pc-mtext">My Payment Details</span>
                     </a>
                 </li>
                 <li class="pc-item">
                     <a href="{{url('/student-payment-history')}}" class="pc-link">
                         <span class="pc-micon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
-                        <span class="pc-mtext">Payment History</span>
+                        <span class="pc-mtext">Payment Summary</span>
                     </a>
                 </li>
 

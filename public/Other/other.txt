@@ -1,5 +1,18 @@
 INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `created_at`, `updated_at`) VALUES (NULL, 'Hazi Abed Ali College', 'East Brahmondi, Narsingdi. || Code - 3010 || Degree - 5424 || EIIN - 112717', 'info@haac.edu.bd', '01700000000', 'www.haac.edu.bd', '2025-12-14 12:06:59', '2025-12-14 12:06:59');
 
+
+# =haacedub_haacdb
+# =haacedub_samim5274
+# ="Dj]#d+u&rGr%HzC$"
+
+# =smtp
+# =mail.haac.edu.bd 
+# =465
+# =info@haac.edu.bd
+# =4;u@K[ddf8X}i9}p 
+# =tls
+# ="info@haac.edu.bd"
+
 <!-- paginatior -->
                     <!-- @if ($attend->hasPages())
                         <div class="flex flex-wrap items-center justify-between mt-4 w-full">
@@ -87,3 +100,7 @@ INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `
                             </tbody>
                         </table>
                     </div> -->
+
+
+info@haac.edu.bd
+4;u@K[ddf8X}i9}p

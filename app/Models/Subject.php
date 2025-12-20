@@ -12,11 +12,16 @@ class Subject extends Model
 
     protected $fillable = [
         'name', 
+        'group_id',
         'class_id'
     ];
 
     public function room(){
         return $this->belongsTo(Room::class, 'class_id');
+    }
+
+    public function group(){
+        return $this->belongsTo(Group::class, 'group_id');
     }
 
     public function students(): BelongsToMany

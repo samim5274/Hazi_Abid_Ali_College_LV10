@@ -144,12 +144,21 @@
                                         <tbody>
                                             @foreach($subjects as $subject)
                                                 @php
-                                                    $result = $data['student']->results->firstWhere('subject_id', $subject->id);
+                                                    $results = $data['student']->results->where('subject_id', $subject->id);
                                                 @endphp
                                                 <tr>
                                                     <td>{{ $subject->name }}</td>
-                                                    <td class="text-center {{ $result && $result->marks_obtained < 40 ? 'text-danger fw-bold' : '' }}">
-                                                        {{ $result ? $result->marks_obtained : '-' }}
+                                                    <td class="text-center">
+                                                        @if($results->isNotEmpty())
+                                                            @foreach($results as $result)
+                                                                <span class="{{ $result->marks_obtained < 40 ? 'text-danger fw-bold' : '' }}">
+                                                                    {{ $result->marks_obtained }}
+                                                                </span>
+                                                                @if(!$loop->last), @endif
+                                                            @endforeach
+                                                        @else
+                                                            -
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

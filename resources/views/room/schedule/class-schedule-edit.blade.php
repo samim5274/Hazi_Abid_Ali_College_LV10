@@ -53,73 +53,131 @@
             </div>
 
             <!-- Card -->
-            <div class="w-full mx-auto px-4 py-8 border bg-white shadow-md rounded-lg">
-                <h1 class="text-2xl font-bold text-gray-800 mb-6">📝 Modify Class Schedule</h1>
-                <form action="{{url('/update-class-schedule/'.$schedules->id)}}" method="POST" class="space-y-6">
-                    @csrf
-                    <div class="grid md:grid-cols-2 gap-6">
+            <div class="max-w-7xl mx-auto px-6 py-8 bg-white border border-gray-200 shadow-sm rounded-xl">
+
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                            <i class="fa-solid fa-calendar-days text-xl"></i>
+                        </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">{{$schedules->classRoom->name}} - ({{$schedules->classRoom->section}})</label>
-                            <!-- Hidden input to send the value in form submission -->
+                            <h1 class="text-xl font-semibold text-gray-800">
+                                Modify Class Schedule
+                            </h1>
+                            <p class="text-sm text-gray-500">
+                                Update routine details for selected class and period
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="{{ url('/update-class-schedule/'.$schedules->id) }}" method="POST" class="space-y-8">
+                    @csrf
+
+                    <!-- Class & Day Info -->
+                    <div class="grid md:grid-cols-2 gap-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">
+                                Class & Section
+                            </label>
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ $schedules->classRoom->name }} - ({{ $schedules->classRoom->section }})
+                            </p>
                             <input type="hidden" name="class_id" value="{{ isset($schedules) ? $schedules->class_id : '' }}">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Day : {{$schedules->day}}</label>                            
-                            <!-- Hidden input to send the value in form submission -->
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">
+                                Day
+                            </label>
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ $schedules->day }}
+                            </p>
                             <input type="hidden" name="day" value="{{ isset($schedules) ? $schedules->day : '' }}">
                         </div>
-
                     </div>
 
-                    <div class="overflow-x-auto bg-white border rounded-lg mt-6">
-                        <table class="min-w-full text-sm text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-100 text-gray-700">
-                                    <th class="px-4 py-3">Period</th>
-                                    <th class="px-4 py-3">Teacher</th>
-                                    <th class="px-4 py-3">Subject</th>
-                                    <th class="px-4 py-3">Start Time</th>
-                                    <th class="px-4 py-3">End Time</th>
+                    <!-- Schedule Table -->
+                    <div class="overflow-x-auto border border-gray-200 rounded-xl">
+                        <table class="min-w-full text-sm text-left">
+                            <thead class="bg-gray-100 text-gray-700">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold">Period</th>
+                                    <th class="px-4 py-3 font-semibold">Teacher</th>
+                                    <th class="px-4 py-3 font-semibold">Subject</th>
+                                    <th class="px-4 py-3 font-semibold">Start Time</th>
+                                    <th class="px-4 py-3 font-semibold">End Time</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-t hover:bg-gray-50">
-                                    <td class="px-4 py-2 font-medium">Period {{ $schedules->period }}</td>
-                                    <td class="px-4 py-2">
-                                        <select name="teacher[]" class="w-full border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                                            <option disabled selected>-- select teacher --</option>
+                                <tr class="border-t hover:bg-gray-50 transition">
+                                    <td class="px-4 py-3 font-medium text-gray-800">
+                                        Period {{ $schedules->period }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        <select name="teacher[]"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
+                                                focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                            <option disabled selected>-- Select Teacher --</option>
                                             @foreach($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}" {{ isset($schedules) && $schedules->teacher_id == $teacher->id ? 'selected' : '' }}>{{ $teacher->first_name }} {{ $teacher->last_name }}</option>
+                                                <option value="{{ $teacher->id }}"
+                                                    {{ isset($schedules) && $schedules->teacher_id == $teacher->id ? 'selected' : '' }}>
+                                                    {{ $teacher->first_name }} {{ $teacher->last_name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td class="px-4 py-2">
-                                        <select name="subject" class="w-full border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                                            <option disabled selected>-- Select Class --</option>
+
+                                    <td class="px-4 py-3">
+                                        <select name="subject"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
+                                                focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                            <option disabled selected>-- Select Subject --</option>
                                             @foreach($subjects as $subject)
-                                            <option value="{{ $subject->id }}" {{ isset($schedules) && $schedules->subject_id == $subject->id ? 'selected' : '' }}>{{ $subject->name }} - {{$subject->room->name}} ( {{$subject->room->section}} )</option>
+                                                <option value="{{ $subject->id }}"
+                                                    {{ isset($schedules) && $schedules->subject_id == $subject->id ? 'selected' : '' }}>
+                                                    {{ $subject->name }} - {{ $subject->room->name }} ({{ $subject->room->section }})
+                                                </option>
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td class="px-4 py-2">
-                                        <input type="time" name="start_time[]" class="w-full border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none" value="{{ isset($schedules) ? $schedules->start_time : '' }}">
+
+                                    <td class="px-4 py-3">
+                                        <input type="time"
+                                            name="start_time[]"
+                                            value="{{ isset($schedules) ? $schedules->start_time : '' }}"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
+                                                focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                     </td>
-                                    <td class="px-4 py-2">
-                                        <input type="time" name="end_time[]" class="w-full border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none" value="{{ isset($schedules) ? $schedules->end_time : '' }}">
+
+                                    <td class="px-4 py-3">
+                                        <input type="time"
+                                            name="end_time[]"
+                                            value="{{ isset($schedules) ? $schedules->end_time : '' }}"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
+                                                focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit" class="mt-6 px-6 py-2 bg-gradient-to-r from-blue-400 to-indigo-600 text-white rounded-lg shadow hover:from-blue-700 hover:to-indigo-700 transition">
+                    <!-- Submit -->
+                    <div class="flex justify-end pt-4 border-t">
+                        <button type="submit"
+                            class="inline-flex items-center gap-2 px-6 py-2 text-sm font-medium text-white
+                                bg-gradient-to-r from-indigo-500 to-blue-600 rounded-lg shadow
+                                hover:from-indigo-600 hover:to-blue-700 transition"
+                                onclick="return confirm('Are you sure you want to update this schedule?')">
+                            <i class="fa-solid fa-floppy-disk"></i>
                             Update Schedule
                         </button>
                     </div>
                 </form>
             </div>
+
 
 
 
