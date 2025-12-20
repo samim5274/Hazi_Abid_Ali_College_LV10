@@ -152,7 +152,7 @@
 
 
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <a href="{{ url('/student/edit-profile/'.$student->id) }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#3F4D67] hover:bg-blue-900 transition-colors duration-300">
+                            <a href="{{ url('edit-profile') }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#3F4D67] hover:bg-blue-900 transition-colors duration-300">
                                 Edit Profile
                             </a>
                             <a href="{{ url('/student/change-password') }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-400 transition-colors duration-300">

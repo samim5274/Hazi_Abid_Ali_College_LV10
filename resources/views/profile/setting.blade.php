@@ -51,49 +51,64 @@
                     <!-- Personal Tab -->
                     <div id="personal" class="tab-content">
                         <h2 class="text-2xl font-bold mb-6">Personal Details</h2>
+                        @php
+                            $teacher = Auth::guard('teacher')->user();
+                        @endphp
+
                         <form action="{{ url('/pofile-edit') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                             @csrf
 
                             <!-- Name -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="first_name" class="block text-gray-700 font-medium mb-1">First Name</label>
-                                    <input type="text" name="first_name" id="first_name" value="{{ Auth::guard('teacher')->user()->first_name }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">First Name</label>
+                                    <input type="text" name="first_name"
+                                        value="{{ old('first_name', $teacher->first_name ?? '') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                                 </div>
+
                                 <div>
-                                    <label for="last_name" class="block text-gray-700 font-medium mb-1">Last Name</label>
-                                    <input type="text" name="last_name" id="last_name" value="{{ Auth::guard('teacher')->user()->last_name }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">Last Name</label>
+                                    <input type="text" name="last_name"
+                                        value="{{ old('last_name', $teacher->last_name ?? '') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                                 </div>
                             </div>
 
                             <!-- Contact & Email -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="contact_number" class="block text-gray-700 font-medium mb-1">Contact Number</label>
-                                    <input type="text" name="contact_number" id="contact_number" value="{{ Auth::guard('teacher')->user()->contact_number }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">Contact Number</label>
+                                    <input type="text" name="contact_number"
+                                        value="{{ old('contact_number', $teacher->contact_number ?? '') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                                 </div>
+
                                 <div>
-                                    <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
-                                    <input type="email" readonly name="email" id="email" value="{{ Auth::guard('teacher')->user()->email }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">Email</label>
+                                    <input type="email" readonly name="email"
+                                        value="{{ $teacher->email ?? '' }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-100">
                                 </div>
                             </div>
 
                             <!-- DOB & Gender -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="dob" class="block text-gray-700 font-medium mb-1">Date of Birth</label>
-                                    @php
-                                        $dob = Auth::guard('teacher')->user()->dob;
-                                        $dobValue = $dob ? \Carbon\Carbon::parse($dob)->format('Y-m-d') : '';
-                                    @endphp
-                                    <input type="date" name="dob" id="dob" value="{{ old('dob', $dobValue) }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">Date of Birth</label>
+                                    <input type="date" name="dob"
+                                        value="{{ old('dob', optional($teacher)->dob ? \Carbon\Carbon::parse($teacher->dob)->format('Y-m-d') : '') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                                 </div>
+
                                 <div>
-                                    <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
-                                    <select name="gender" id="gender" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
-                                        <option value="Male" {{ Auth::guard('teacher')->user()->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                        <option value="Female" {{ Auth::guard('teacher')->user()->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                        <option value="Other" {{ Auth::guard('teacher')->user()->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                    <label class="block text-gray-700 font-medium mb-1">Gender</label>
+                                    <select name="gender"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                        <option value="">Select</option>
+                                        <option value="Male" {{ old('gender', $teacher->gender ?? '') == 'Male' ? 'selected' : '' }}>Male</option>
+                                        <option value="Female" {{ old('gender', $teacher->gender ?? '') == 'Female' ? 'selected' : '' }}>Female</option>
+                                        <option value="Other" {{ old('gender', $teacher->gender ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,24 +116,36 @@
                             <!-- Blood Group & National ID -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="blood_group" class="block text-gray-700 font-medium mb-1">Blood Group</label>
-                                    <input type="text" name="blood_group" id="blood_group" value="{{ Auth::guard('teacher')->user()->blood_group }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">Blood Group</label>
+                                    <input type="text" name="blood_group"
+                                        value="{{ old('blood_group', $teacher->blood_group ?? '') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                                 </div>
+
                                 <div>
-                                    <label for="nationality" class="block text-gray-700 font-medium mb-1">National ID</label>
-                                    <input type="text" readonly name="nationality" id="nationality" value="{{ Auth::guard('teacher')->user()->national_id }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                    <label class="block text-gray-700 font-medium mb-1">National ID</label>
+                                    <input type="text" readonly
+                                        value="{{ $teacher->national_id ?? '' }}"
+                                        class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-100">
                                 </div>
                             </div>
 
                             <!-- Address -->
                             <div>
-                                <label for="address1" class="block text-gray-700 font-medium mb-1">Address</label>
-                                <input type="text" name="address1" id="address1" value="{{ Auth::guard('teacher')->user()->address }}" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+                                <label class="block text-gray-700 font-medium mb-1">Address</label>
+                                <input type="text" name="address"
+                                    value="{{ old('address', $teacher->address ?? '') }}"
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-200">
                             </div>
 
                             <!-- Submit -->
-                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition" onclick="return confirm('Are you sure you want to edit your profile?')">Save Changes</button>
+                            <button type="submit"
+                                onclick="return confirm('Are you sure you want to edit your profile?')"
+                                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Save Changes
+                            </button>
                         </form>
+
                     </div>
 
                     <!-- Other Tabs -->

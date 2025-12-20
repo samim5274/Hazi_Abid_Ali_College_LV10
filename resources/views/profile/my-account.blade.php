@@ -39,6 +39,10 @@
 
 
     <!-- [ Main Content ] start -->
+    @php
+        $teacher = Auth::guard('teacher')->user();
+    @endphp
+
     <div class="pc-container">
         <div class="pc-content">
             <div class="max-w-full px-4">
@@ -50,7 +54,7 @@
                             <h5 class="mb-0 font-medium">Account</h5>
                         </div>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                             <li class="breadcrumb-item">Setting</li>
                             <li class="breadcrumb-item"><a href="#">Account</a></li>
                             <li class="breadcrumb-item" aria-current="page">Profile</li>
@@ -71,79 +75,68 @@
                                 <!-- Profile Image -->
                                 <div class="mx-auto flex justify-center">
                                     <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-200">
-                                        <img 
-                                            src="{{ asset('img/teacher/' . Auth::guard('teacher')->user()->photo) }}"
+                                        <img
+                                            src="{{ $teacher && $teacher->photo
+                                                ? asset('img/teacher/'.$teacher->photo)
+                                                : asset('img/default-user.png') }}"
                                             class="w-full h-full object-cover"
-                                            onerror="this.src='{{ asset('img/default-user.png') }}'">
+                                            alt="Teacher Photo">
                                     </div>
                                 </div>
 
-
                                 <!-- Name -->
-                                <h2 class="mt-5 text-xl sm:text-2xl font-semibold text-gray-800">
-                                    <a href="{{ url('/edit-teacher-view/' . Auth::guard('teacher')->user()->id) }}" 
-                                    class="hover:underline">
-                                        {{ Auth::guard('teacher')->user()->first_name }}
-                                        {{ Auth::guard('teacher')->user()->last_name }}
-                                    </a>
-                                </h2>
+                                @if($teacher)
+                                    <h2 class="mt-5 text-xl sm:text-2xl font-semibold text-gray-800">
+                                        <a href="{{ url('/edit-teacher-view/'.$teacher->id) }}" class="hover:underline">
+                                            {{ $teacher->first_name }} {{ $teacher->last_name }}
+                                        </a>
+                                    </h2>
 
-                                <!-- Email -->
-                                <p class="text-gray-600 text-sm sm:text-base">
-                                    {{ Auth::guard('teacher')->user()->email }}
-                                </p>
+                                    <!-- Email -->
+                                    <p class="text-gray-600 text-sm sm:text-base">
+                                        {{ $teacher->email }}
+                                    </p>
 
-                                <!-- Designation -->
-                                <p class="text-gray-500 text-xs sm:text-sm mt-1">
-                                    {{ Auth::guard('teacher')->user()->designation }}
-                                </p>
+                                    <!-- Designation -->
+                                    <p class="text-gray-500 text-xs sm:text-sm mt-1">
+                                        {{ $teacher->designation }}
+                                    </p>
+                                @endif
                             </div>
 
                             <!-- PROFILE DETAILS -->
+                            @if($teacher)
                             <div class="border-t border-gray-200">
                                 <dl class="divide-y divide-gray-200">
 
-                                    <!-- Full Name -->
                                     <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Full Name
-                                        </dt>
+                                        <dt class="text-sm font-medium text-gray-500">Full Name</dt>
                                         <dd class="text-sm sm:col-span-2 text-gray-900 font-semibold">
-                                            {{ Auth::guard('teacher')->user()->first_name }}
-                                            {{ Auth::guard('teacher')->user()->last_name }}
+                                            {{ $teacher->first_name }} {{ $teacher->last_name }}
                                             <p class="text-xs text-gray-500">
-                                                ({{ Auth::guard('teacher')->user()->designation }})
+                                                ({{ $teacher->designation }})
                                             </p>
                                         </dd>
                                     </div>
 
-                                    <!-- Email -->
                                     <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Email Address
-                                        </dt>
+                                        <dt class="text-sm font-medium text-gray-500">Email Address</dt>
                                         <dd class="text-sm sm:col-span-2 text-gray-900">
-                                            {{ Auth::guard('teacher')->user()->email }}
+                                            {{ $teacher->email }}
                                         </dd>
                                     </div>
 
-                                    <!-- Phone -->
                                     <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Phone Number
-                                        </dt>
+                                        <dt class="text-sm font-medium text-gray-500">Phone Number</dt>
                                         <dd class="text-sm sm:col-span-2 text-gray-900">
-                                            {{ Auth::guard('teacher')->user()->contact_number }}
+                                            {{ $teacher->contact_number }}
                                         </dd>
                                     </div>
 
-                                    <!-- Address -->
                                     <div class="py-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Address
-                                        </dt>
+                                        <dt class="text-sm font-medium text-gray-500">Address</dt>
                                         <dd class="text-sm sm:col-span-2 text-gray-900">
-                                            {{ Auth::guard('teacher')->user()->address }}
+                                            {{ $teacher->address }}
                                         </dd>
                                     </div>
 
@@ -152,16 +145,19 @@
 
                             <!-- EDIT BUTTON -->
                             <div class="text-center mt-10">
-                                <a href="{{ url('/edit-teacher-view/' . Auth::guard('teacher')->user()->id) }}"
+                                <a href="{{ url('/edit-teacher-view/'.$teacher->id) }}"
                                 class="inline-flex items-center gap-2 bg-[#3F4D67] hover:bg-[#2f3b52] transition-colors duration-300 text-white font-medium py-2.5 px-6 rounded-full shadow-md">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span>Edit Profile</span>
                                 </a>
                             </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
-                <!-- [ Main Content ] end -->        
+                <!-- [ Main Content ] end -->
+
             </div>
         </div>
     </div>
