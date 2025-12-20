@@ -35,11 +35,24 @@ Route::post('/otp-verify', [AdminController::class, 'otpVarify']);
 Route::get('/create-new-password', [AdminController::class, 'createNewPass'])->name('new.password.form');
 Route::post('/create-password', [AdminController::class, 'createPassword']);
 
+Route::get('/clear', function () {
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('optimize:clear');
+        Artisan::call('optimize');
+
+        return redirect()->back()->with('success','Caches cleared successfully.');
+    });
+
 Route::group(['middleware' => ['admin']], function(){
 
     Route::get('/change-password', [AdminController::class, 'changePassView'])->name('change-password-view');
     Route::post('/update-password', [AdminController::class, 'updateUpdate']);
     Route::get('/profile', [SettingController::class, 'profile'])->name('user-profile-view');
+    Route::get('/edit-teacher-profile', [SettingController::class, 'modifyProfile'])->name('edit-teacher-profile-view');
+    Route::post('/modify-teacher-profile', [SettingController::class, 'modifyTeacherProfile']);
     Route::get('/setting', [SettingController::class, 'setting'])->name('setting-view');
     Route::get('/support', [SettingController::class, 'support'])->name('support-view');
     Route::post('/pofile-edit', [SettingController::class, 'editProfile']);

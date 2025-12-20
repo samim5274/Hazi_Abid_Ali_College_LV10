@@ -172,6 +172,7 @@
                     <div id="privacy-policy" class="tab-content hidden">
                         <h2 class="text-xl font-semibold mb-4">Privacy Policy</h2>
                         <p>Review the Privacy Policy of our platform.</p>
+                        <a href="{{ url('/clear') }}">Cookies & cache clear</a>
                     </div>
 
                     <div id="group-setting" class="tab-content hidden">

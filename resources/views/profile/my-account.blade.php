@@ -144,7 +144,7 @@
 
                             <!-- EDIT BUTTON -->
                             <div class="text-center mt-10">
-                                <a href="{{ url('/edit-teacher-view/'.$teacher->id) }}"
+                                <a href="{{ url('/edit-teacher-profile') }}"
                                 class="inline-flex items-center gap-2 bg-[#3F4D67] hover:bg-[#2f3b52] transition-colors duration-300 text-white font-medium py-2.5 px-6 rounded-full shadow-md">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span>Edit Profile</span>
