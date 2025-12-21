@@ -98,7 +98,7 @@ class FeePaymentController extends Controller
         $company = Company::first();
         $category = FeeCategory::all();
         $classes = Room::all();
-        $feeStructure = FeeStructure::paginate(10);
+        $feeStructure = FeeStructure::with(['room','category'])->paginate(10);
         return view('finance.finance-fee-structure', compact('category','classes','feeStructure','company'));
     }
 
