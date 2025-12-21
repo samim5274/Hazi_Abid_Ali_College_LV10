@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Student\StudentController;
@@ -20,7 +20,9 @@ use App\Http\Controllers\Notice\NoticeController;
 use App\Http\Controllers\Expenses\ExpensesController;
 use App\Http\Controllers\Finance\FeePaymentController;
 use App\Http\Controllers\Finance\FinanceReportController;
+use App\Http\Controllers\Finance\TotalTransectionController;
 use App\Http\Controllers\Setting\SettingController;
+use App\Http\Controllers\Bank\BankController;
 
 Auth::routes();
 
@@ -204,6 +206,8 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/fee-payment-show/{id}', [FeePaymentController::class, 'showPayment'])->name('show-specific-student-payment');
     Route::get('/print-pay-invoice/{receipt}', [FeePaymentController::class, 'feePayPrintReceipt']);
 
+    Route::get('/total-transection-summary', [TotalTransectionController::class, 'totalTransectionSummary']);
+
     Route::get('/students/{class_id}', [FeePaymentController::class, 'getStudentsByClass']);
     Route::get('/fee-structures/{class_id}', [FeePaymentController::class, 'getFeeStructuresByClass']);
     
@@ -215,6 +219,38 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/find-student-fee-payment', [FinanceReportController::class, 'findStudentFeeReport']);
     Route::get('/fee-payment-hisoty', [FinanceReportController::class, 'paymentHistory']);
     Route::get('/find-payment-history', [FinanceReportController::class,'findPaymentHistory']);
+
+
+
+
+
+
+
+    Route::get('/bank-setting', [BankController::class, 'setting'])->name('bank-setting-view');
+    Route::post('/create-bank', [BankController::class, 'createBank']);
+    Route::get('/edit-bank/{id}', [BankController::class, 'editView'])->name('bank-edit-view');
+    Route::post('/modify-bank/{id}', [BankController::class, 'modifyBank']);
+    Route::post('/delete-bank/{id}', [BankController::class, 'deleteBank']);
+    Route::get('/bank-diposit-view', [BankController::class, 'bankDepositView'])->name('bank-diposit-view');
+    Route::post('/bank-diposit-amount', [BankController::class, 'bankDepositAmount']);
+    Route::get('/edit-bank-deposit/{id}', [BankController::class, 'dipositEdit'])->name('bank-diposit-edit-view');
+    Route::post('/modify-bank-deposit/{id}', [BankController::class, 'dipositModify']);
+    Route::post('/delete-bank-deposit/{id}', [BankController::class, 'deleteDiposit']);
+    Route::get('/bank-withdraw-view', [BankController::class, 'bankWithdrawView'])->name('bank-withdraw-view');
+    Route::post('/bank-withdraw-amount', [BankController::class, 'bankWithdrawAmount']);
+    Route::get('/edit-bank-withdraw/{id}', [BankController::class, 'withdrawEdit'])->name('bank-withdraw-edit-view');
+    Route::post('/modify-bank-withdraw/{id}', [BankController::class, 'withdrawModify']);
+    Route::post('/delete-bank-withdraw/{id}', [BankController::class, 'withdrawDelete']);
+    Route::get('/bank-to-transection-view', [BankController::class, 'bankToTransectionView'])->name('bank-to-transection-view');
+    Route::post('/bank-to-bank-transection', [BankController::class, 'bankToBankTransection']);
+    Route::get('/total-transection-report', [BankController::class, 'totalTransectionReport'])->name('total-transection');
+    Route::get('/filter-transection-date', [BankController::class, 'filterTransectionDate'])->name('filter-transection-date');
+    Route::get('/total-diposit', [BankController::class, 'totalDiposit'])->name('total-diposit');
+    Route::get('/filter-total-diposit-date', [BankController::class, 'filterDipositDate'])->name('filter-total-diposit-date');
+    Route::get('/total-withdraw', [BankController::class, 'totalWithdraw'])->name('total-withdraw');
+    Route::get('/filter-total-Withdraw-date', [BankController::class, 'filterWithdrawDate'])->name('filter-total-Withdraw-date');
+
+
 
 
 

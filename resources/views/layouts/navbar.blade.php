@@ -290,6 +290,38 @@
                         <li class="pc-item"><a class="pc-link" href="{{ url('/sub-category-wise-expenses') }}">Sub Category Report's</a></li>
                     </ul>
                 </li>
+                <li class="pc-item">
+                    <a href="{{url('/total-transection-summary')}}" class="pc-link">
+                        <span class="pc-micon">
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </span>
+                        <span class="pc-mtext">T.T.S</span>
+                    </a>
+                </li>
+                <li class="pc-item pc-caption">
+                    <label>Banking</label>
+                    <i data-feather="feather"></i>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-building-columns"></i> </span><span
+                    class="pc-mtext">Banking Details</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/bank-diposit-view') }}">Diposit</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/bank-withdraw-view') }}">Withdraw</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/bank-to-transection-view') }}">Bank to Bank</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/bank-setting') }}">Setting</a></li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-filter-circle-dollar"></i> </span><span
+                    class="pc-mtext">Banking Report</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/total-transection-report') }}">Date Report</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/total-diposit') }}">Diposit Report</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/total-withdraw') }}">Withdraw Report</a></li>
+                        <!-- <li class="pc-item"><a class="pc-link" href="{{ url('/') }}">Total Report</a></li> -->
+                    </ul>
+                </li>
                 <!-- Account End -->
 
 

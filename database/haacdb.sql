@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 20, 2025 at 09:46 AM
+-- Generation Time: Dec 21, 2025 at 12:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,68 @@ CREATE TABLE `attendances` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_details`
+--
+
+CREATE TABLE `bank_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `bank_name` varchar(255) NOT NULL,
+  `branch_name` varchar(255) DEFAULT NULL,
+  `account_name` varchar(255) NOT NULL,
+  `account_number` varchar(255) NOT NULL,
+  `routing_number` varchar(255) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bank_details`
+--
+
+INSERT INTO `bank_details` (`id`, `bank_name`, `branch_name`, `account_name`, `account_number`, `routing_number`, `remarks`, `created_at`, `updated_at`) VALUES
+(1, 'Islamic Bank Ltd.', 'Uttara', 'Shamim', 'IBL654984984', 'ISSLBBANK9876543210', 'Primary Bank Account', '2025-12-21 07:08:55', '2025-12-21 07:26:25'),
+(2, 'Islamic Bank PLC', 'Uttara', 'Shamim', 'IBL65498498433', 'ISSLBBANK9876543210', 'Secondary Bank Account.', '2025-12-21 07:13:40', '2025-12-21 07:27:03'),
+(3, 'Dutch Bangla Bank PLC', 'Uttara', 'Shamim', 'DBL54654948', 'DBL54654948', NULL, '2025-12-21 09:33:55', '2025-12-21 09:33:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_transection_details`
+--
+
+CREATE TABLE `bank_transection_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `bank_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `date` date NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `remarks` text NOT NULL DEFAULT 'N/A',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bank_transection_details`
+--
+
+INSERT INTO `bank_transection_details` (`id`, `bank_id`, `user_id`, `amount`, `date`, `status`, `remarks`, `created_at`, `updated_at`) VALUES
+(18, 1, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-20 09:43:21', '2025-12-21 09:43:21'),
+(19, 2, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-19 09:43:26', '2025-12-21 09:43:26'),
+(20, 3, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-18 09:43:31', '2025-12-21 09:43:31'),
+(21, 1, 1, 500.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 2. ', '2025-12-21 09:43:49', '2025-12-21 09:43:49'),
+(22, 2, 1, 500.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 1. ', '2025-12-21 09:43:49', '2025-12-21 09:43:49'),
+(23, 1, 1, 500.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 3. ', '2025-12-21 09:43:59', '2025-12-21 09:43:59'),
+(24, 3, 1, 500.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 1. ', '2025-12-21 09:43:59', '2025-12-21 09:43:59'),
+(25, 3, 1, 1000.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 1. ', '2025-12-21 09:58:48', '2025-12-21 09:58:48'),
+(26, 1, 1, 1000.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 3. ', '2025-12-21 09:58:48', '2025-12-21 09:58:48'),
+(27, 1, 1, 1000.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 2. ', '2025-12-21 09:58:58', '2025-12-21 09:58:58'),
+(28, 2, 1, 1000.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 1. ', '2025-12-21 09:58:58', '2025-12-21 09:58:58');
 
 -- --------------------------------------------------------
 
@@ -155,6 +217,14 @@ CREATE TABLE `expenses` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `catId`, `subcatId`, `userId`, `title`, `date`, `amount`, `remark`, `created_at`, `updated_at`) VALUES
+(1, 6, 16, 3, 'Bazar', '2025-12-21', 1000.00, 'N/A', '2025-12-21 04:53:43', '2025-12-21 04:53:43'),
+(2, 3, 9, 1, 'Painting', '2025-12-21', 15000.00, 'N/A', '2025-12-21 06:05:56', '2025-12-21 06:05:56');
 
 -- --------------------------------------------------------
 
@@ -288,6 +358,19 @@ CREATE TABLE `fee_payment_details` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fee_payment_details`
+--
+
+INSERT INTO `fee_payment_details` (`id`, `student_id`, `user_id`, `total_amount`, `total_paid`, `total_discount`, `total_due`, `payment_date`, `month`, `year`, `payment_method`, `status`, `receipt_no`, `invoice_no`, `created_at`, `updated_at`) VALUES
+(1, 2, 3, 4500.00, 4500.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'YZIVAUUWRL', 'INV-37011', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(2, 3, 3, 4500.00, 4500.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'OBNFSRXTZ7', 'INV-30838', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(3, 1, 3, 5200.00, 5200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'AUDTRPRRPI', 'INV-34265', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(4, 4, 3, 5200.00, 5200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'K4IQEIUTLG', 'INV-48280', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(5, 8, 3, 3200.00, 3200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'QSOWCN7MWP', 'INV-16675', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(6, 9, 3, 3200.00, 3200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'QLREAJCPET', 'INV-15197', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(7, 21, 1, 3200.00, 2500.00, 500.00, 200.00, '2025-12-21', '12', '2025', 'Cash', 'Partial', 'SHNFYSLY2D', 'INV-78741', '2025-12-21 06:04:57', '2025-12-21 06:04:57');
+
 -- --------------------------------------------------------
 
 --
@@ -308,6 +391,69 @@ CREATE TABLE `fee_payment_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fee_payment_items`
+--
+
+INSERT INTO `fee_payment_items` (`id`, `fee_payment_id`, `student_id`, `fee_structure_id`, `amount`, `paid`, `discount`, `due`, `payment_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 1, 1000.00, 1000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(2, 1, 2, 2, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(3, 1, 2, 3, 500.00, 500.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(4, 1, 2, 4, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(5, 1, 2, 5, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(6, 1, 2, 6, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(7, 1, 2, 7, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(8, 1, 2, 8, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(9, 1, 2, 9, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(10, 1, 2, 10, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:14', '2025-12-21 04:51:14'),
+(11, 2, 3, 1, 1000.00, 1000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(12, 2, 3, 2, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(13, 2, 3, 3, 500.00, 500.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(14, 2, 3, 4, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(15, 2, 3, 5, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(16, 2, 3, 6, 100.00, 100.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(17, 2, 3, 7, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(18, 2, 3, 8, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(19, 2, 3, 9, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(20, 2, 3, 10, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:30', '2025-12-21 04:51:30'),
+(21, 3, 1, 11, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(22, 3, 1, 15, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(23, 3, 1, 19, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(24, 3, 1, 23, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(25, 3, 1, 27, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(26, 3, 1, 31, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(27, 3, 1, 35, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(28, 3, 1, 39, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:51:51', '2025-12-21 04:51:51'),
+(29, 4, 4, 12, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(30, 4, 4, 16, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(31, 4, 4, 20, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(32, 4, 4, 24, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(33, 4, 4, 28, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(34, 4, 4, 32, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(35, 4, 4, 36, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(36, 4, 4, 40, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
+(37, 5, 8, 13, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(38, 5, 8, 17, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(39, 5, 8, 21, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(40, 5, 8, 25, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(41, 5, 8, 29, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(42, 5, 8, 33, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(43, 5, 8, 37, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
+(44, 6, 9, 14, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(45, 6, 9, 18, 2000.00, 2000.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(46, 6, 9, 22, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(47, 6, 9, 26, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(48, 6, 9, 30, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(49, 6, 9, 34, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(50, 6, 9, 38, 200.00, 200.00, 0.00, 0.00, '2025-12-21', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
+(51, 7, 21, 14, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(52, 7, 21, 18, 2000.00, 1562.50, 312.50, 125.00, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(53, 7, 21, 22, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(54, 7, 21, 26, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(55, 7, 21, 30, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(56, 7, 21, 34, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(57, 7, 21, 38, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57');
+
 -- --------------------------------------------------------
 
 --
@@ -323,6 +469,52 @@ CREATE TABLE `fee_structures` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fee_structures`
+--
+
+INSERT INTO `fee_structures` (`id`, `class_id`, `fee_cat_id`, `amount`, `due_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1000.00, '2026-01-21', '2025-12-21 04:32:13', '2025-12-21 04:32:13'),
+(2, 1, 2, 100.00, '2026-01-21', '2025-12-21 04:32:18', '2025-12-21 04:32:18'),
+(3, 1, 3, 500.00, '2026-01-21', '2025-12-21 04:32:24', '2025-12-21 04:32:24'),
+(4, 1, 4, 100.00, '2026-01-21', '2025-12-21 04:32:30', '2025-12-21 04:32:30'),
+(5, 1, 5, 100.00, '2026-01-21', '2025-12-21 04:32:36', '2025-12-21 04:32:36'),
+(6, 1, 6, 100.00, '2026-01-21', '2025-12-21 04:32:43', '2025-12-21 04:32:43'),
+(7, 1, 7, 200.00, '2026-01-21', '2025-12-21 04:32:48', '2025-12-21 04:32:48'),
+(8, 1, 8, 2000.00, '2026-01-21', '2025-12-21 04:33:10', '2025-12-21 04:33:10'),
+(9, 1, 9, 200.00, '2026-01-21', '2025-12-21 04:33:16', '2025-12-21 04:33:16'),
+(10, 1, 10, 200.00, '2026-01-21', '2025-12-21 04:33:25', '2025-12-21 04:33:25'),
+(11, 2, 1, 200.00, '2026-01-21', '2025-12-21 04:33:37', '2025-12-21 04:33:37'),
+(12, 3, 1, 200.00, '2026-01-21', '2025-12-21 04:33:43', '2025-12-21 04:33:43'),
+(13, 4, 1, 200.00, '2026-01-21', '2025-12-21 04:33:49', '2025-12-21 04:33:49'),
+(14, 5, 1, 200.00, '2026-01-21', '2025-12-21 04:33:55', '2025-12-21 04:33:55'),
+(15, 2, 2, 2000.00, '2026-01-21', '2025-12-21 04:34:07', '2025-12-21 04:34:07'),
+(16, 3, 2, 2000.00, '2026-01-21', '2025-12-21 04:34:13', '2025-12-21 04:34:13'),
+(17, 4, 2, 2000.00, '2026-01-21', '2025-12-21 04:34:18', '2025-12-21 04:34:18'),
+(18, 5, 2, 2000.00, '2026-01-21', '2025-12-21 04:34:22', '2025-12-21 04:34:22'),
+(19, 2, 3, 200.00, '2026-01-21', '2025-12-21 04:34:38', '2025-12-21 04:34:38'),
+(20, 3, 3, 200.00, '2026-01-21', '2025-12-21 04:34:43', '2025-12-21 04:34:43'),
+(21, 4, 3, 200.00, '2026-01-21', '2025-12-21 04:35:02', '2025-12-21 04:35:02'),
+(22, 5, 3, 200.00, '2026-01-21', '2025-12-21 04:35:06', '2025-12-21 04:35:06'),
+(23, 2, 4, 200.00, '2026-01-21', '2025-12-21 04:35:15', '2025-12-21 04:35:15'),
+(24, 3, 4, 200.00, '2026-01-21', '2025-12-21 04:35:19', '2025-12-21 04:35:19'),
+(25, 4, 4, 200.00, '2026-01-21', '2025-12-21 04:35:43', '2025-12-21 04:35:43'),
+(26, 5, 4, 200.00, '2026-01-21', '2025-12-21 04:35:48', '2025-12-21 04:35:48'),
+(27, 2, 5, 200.00, '2026-01-21', '2025-12-21 04:35:56', '2025-12-21 04:35:56'),
+(28, 3, 5, 200.00, '2026-01-21', '2025-12-21 04:36:01', '2025-12-21 04:36:01'),
+(29, 4, 5, 200.00, '2026-01-21', '2025-12-21 04:36:06', '2025-12-21 04:36:06'),
+(30, 5, 5, 200.00, '2026-01-21', '2025-12-21 04:36:11', '2025-12-21 04:36:11'),
+(31, 2, 6, 200.00, '2026-01-21', '2025-12-21 04:36:19', '2025-12-21 04:36:19'),
+(32, 3, 6, 200.00, '2026-01-21', '2025-12-21 04:36:50', '2025-12-21 04:36:50'),
+(33, 4, 6, 200.00, '2026-01-21', '2025-12-21 04:36:54', '2025-12-21 04:36:54'),
+(34, 5, 6, 200.00, '2026-01-21', '2025-12-21 04:36:58', '2025-12-21 04:36:58'),
+(35, 2, 7, 200.00, '2026-01-21', '2025-12-21 04:37:03', '2025-12-21 04:37:03'),
+(36, 3, 7, 200.00, '2026-01-21', '2025-12-21 04:37:09', '2025-12-21 04:37:09'),
+(37, 4, 7, 200.00, '2026-01-21', '2025-12-21 04:37:14', '2025-12-21 04:37:14'),
+(38, 5, 7, 200.00, '2026-01-21', '2025-12-21 04:37:19', '2025-12-21 04:37:19'),
+(39, 2, 8, 2000.00, '2026-01-21', '2025-12-21 04:37:23', '2025-12-21 04:38:06'),
+(40, 3, 8, 2000.00, '2026-01-21', '2025-12-21 04:37:35', '2025-12-21 04:37:35');
 
 -- --------------------------------------------------------
 
@@ -419,7 +611,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (215, '2025_12_07_102853_create_expenses_table', 2),
 (216, '2025_12_08_104245_create_companies_table', 2),
 (217, '2025_12_09_125819_create_fee_payment_details_table', 2),
-(218, '2025_12_09_125837_create_fee_payment_items_table', 2);
+(218, '2025_12_09_125837_create_fee_payment_items_table', 2),
+(222, '2025_12_21_130614_create_bank_details_table', 3),
+(223, '2025_12_21_130634_create_bank_transection_details_table', 3);
 
 -- --------------------------------------------------------
 
@@ -581,7 +775,7 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `religion`, `nationality`, `national_id`, `contact_number`, `email`, `password`, `address1`, `address2`, `admission_no`, `admission_date`, `section`, `group`, `session_year`, `previous_school`, `father_name`, `father_profession`, `father_contact`, `father_email`, `father_nid`, `father_monthly_income`, `mother_name`, `mother_profession`, `mother_contact`, `mother_email`, `mother_nid`, `mother_monthly_income`, `guardian_name`, `guardian_contact`, `guardian_email`, `guardian_nid`, `guardian_relationship`, `status`, `roll_number`, `class_id`, `attend_date`, `remark`, `b_reg_no`, `b_roll_no`, `photo`, `father_photo`, `mother_photo`, `otp`, `otp_expires_at`, `email_verified_at`, `last_login_at`, `last_login_ip`, `is_profile_completed`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Elmira', 'Yost', '1980-06-28', 'Male', 'AB-', 'Islam', 'Bangladeshi', '9427891742565', '01385945949', 'student1@example.com', '$2y$12$87OafmOeoOHx6MoXNKYlQu6zIwZwFk7iE554CxsvW/YDonKf01riC', '2377 Collier Skyway Apt. 763\nNew Antonetta, WV 27696-0098', '52963 Hazel Groves\nEffertzshire, VA 24159', 'ADM-00001', '1970-09-26', 'A', 'Commerce', '2025-2026', 'Daugherty PLC School', 'Henderson Strosin', 'Teacher', '01700444725', 'father1@example.com', '4207100160478', NULL, 'Thelma Grimes', 'Housewife', '01342330735', 'mother1@example.com', '5361857194270', NULL, 'Dr. Mertie Daugherty MD', '01746589404', 'guardian1@example.com', '3100310984778', 'Brother', 1, 1, 2, '2025-12-20', NULL, 2025000001, 900001, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:15', '2025-12-20 08:34:15', '127.0.0.1', 1, NULL, '2025-12-20 08:34:15', '2025-12-20 08:34:15'),
-(2, 'Antonetta', 'Herzog', '2015-12-02', 'Other', 'O+', 'Buddhist', 'Bangladeshi', '8888895611617', '01965502730', 'student2@example.com', '$2y$12$HsZb4fgO1.Twn08dKXquDuA/PhoYyHlvQRkvOWJ5wXMBugy0tyjiu', '6090 Neha Hollow\nNew Mateoland, SD 46904-0347', '167 Darwin Cliff Suite 227\nLake Effieburgh, RI 70507-4106', 'ADM-00002', '2008-02-27', 'C', 'Commerce', '2025-2026', 'Hessel, Hoeger and Kub School', 'Dr. Silas Greenfelder', 'Businessman', '01808161771', 'father2@example.com', '4495243771660', NULL, 'Miss Adrienne Steuber DDS', 'Housewife', '01958039731', 'mother2@example.com', '1359670217689', NULL, 'Ramona Conn', '01482187807', 'guardian2@example.com', '1626088375187', 'Grandparent', 1, 1, 1, '2025-12-20', NULL, 2025000002, 900002, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:15', '2025-12-20 08:34:15', '127.0.0.1', 1, NULL, '2025-12-20 08:34:15', '2025-12-20 08:34:15'),
+(2, 'Antonetta', 'Herzog', '2015-12-02', 'Other', 'O+', 'Buddhist', 'Bangladeshi', '8888895611617', '01965502730', 'student2@example.com', '$2y$12$HsZb4fgO1.Twn08dKXquDuA/PhoYyHlvQRkvOWJ5wXMBugy0tyjiu', '6090 Neha Hollow\nNew Mateoland, SD 46904-0347', '167 Darwin Cliff Suite 227\nLake Effieburgh, RI 70507-4106', 'ADM-00002', '2008-02-27', 'C', 'Commerce', '2025-2026', 'Hessel, Hoeger and Kub School', 'Dr. Silas Greenfelder', 'Businessman', '01808161771', 'father2@example.com', '4495243771660', NULL, 'Miss Adrienne Steuber DDS', 'Housewife', '01958039731', 'mother2@example.com', '1359670217689', NULL, 'Ramona Conn', '01482187807', 'guardian2@example.com', '1626088375187', 'Grandparent', 1, 1, 1, '2025-12-20', NULL, 2025000002, 900002, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:15', '2025-12-21 04:54:35', '127.0.0.1', 1, 'SNMDSksSngPeiTnyD3DDcWWtH8pEFKJgKkWeAY2z7J6M9nAb4LMQNKRDsT58', '2025-12-20 08:34:15', '2025-12-21 04:54:35'),
 (3, 'Patrick', 'Stark', '1988-07-22', 'Other', 'A-', 'Islam', 'Bangladeshi', '4687830190617', '01761148827', 'student3@example.com', '$2y$12$jPDy1/Lj6dt8ZmyEj4pvE.W4O/0v6NilwnhfbAciRNJyzWLHkNEp2', '53089 Matilde Lock Suite 561\nPort Ernestinaland, CO 62305-7107', '753 Leopold Viaduct Apt. 728\nLake Jackieberg, WI 71592', 'ADM-00003', '1981-01-18', 'C', 'Arts', '2025-2026', 'Miller-Keeling School', 'Mr. Buddy Klein', 'Teacher', '01590447732', 'father3@example.com', '7984972577642', NULL, 'Bridgette Larson', 'Businesswoman', '01574877479', 'mother3@example.com', '4385644484942', NULL, 'Prof. Boris Bogisich', '01600348194', 'guardian3@example.com', '8818518235128', 'Grandparent', 1, 2, 1, '2025-12-20', NULL, 2025000003, 900003, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16', '127.0.0.1', 1, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16'),
 (4, 'Marcia', 'Carroll', '1990-03-31', 'Male', 'A+', 'Other', 'Bangladeshi', '6467423759222', '01735202051', 'student4@example.com', '$2y$12$zqLdUR43xKd..YuSKJuKnuWGUB1gzX/oMc0MYcTzvpMXVju4mS5n.', '30425 Bradtke Springs Suite 691\nZemlaktown, KY 58907', '5165 Cummerata Drive Suite 024\nStammmouth, ME 01915', 'ADM-00004', '2001-04-26', 'C', 'Science', '2025-2026', 'Macejkovic, McGlynn and Kling School', 'Madison Schroeder', 'Farmer', '01758248008', 'father4@example.com', '8895286361560', NULL, 'Dahlia Schmitt', 'Housewife', '01501014928', 'mother4@example.com', '6152771094553', NULL, 'Kris Gutmann', '01865480190', 'guardian4@example.com', '8419000177017', 'Uncle', 1, 1, 3, '2025-12-20', NULL, 2025000004, 900004, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16', '127.0.0.1', 1, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16'),
 (5, 'Esmeralda', 'Christiansen', '1992-10-23', 'Other', 'O+', 'Hindu', 'Bangladeshi', '4220354776676', '01350392329', 'student5@example.com', '$2y$12$6BvZo8.3l5khXqYulZIXtuXHfe5TC.2n0F4VNFHdVxKizFfaSqqCC', '22267 Hazle Branch\nNew Verda, RI 04817-7589', '8427 Kulas Mount\nNew Rosalindaburgh, MD 23829-9052', 'ADM-00005', '2015-07-14', 'C', 'Science', '2025-2026', 'Bradtke-Schoen School', 'Dr. Jermey Bartell', 'Businessman', '01747982952', 'father5@example.com', '3766398053239', NULL, 'Dina Rutherford', 'Businesswoman', '01815167899', 'mother5@example.com', '5868756883960', NULL, 'Adele Roob Jr.', '01429186935', 'guardian5@example.com', '7133143905515', 'Sister', 1, 3, 1, '2025-12-20', NULL, 2025000005, 900005, NULL, NULL, NULL, NULL, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16', '127.0.0.1', 1, NULL, '2025-12-20 08:34:16', '2025-12-20 08:34:16'),
@@ -1098,9 +1292,9 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `national_id`, `contact_number`, `email`, `password`, `designation`, `address`, `father_name`, `father_contact`, `mother_name`, `mother_contact`, `guardian_name`, `guardian_contact`, `guardian_relationship`, `photo`, `father_photo`, `mother_photo`, `joning_date`, `mop_date`, `traning`, `index_no`, `role`, `status`, `remark`, `email_verified_at`, `last_login_at`, `last_login_ip`, `is_profile_completed`, `otp`, `otp_expires_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Brody', 'Mante', '1970-04-13', 'Male', 'B-', '1281548849053', '01948595395', 'teacher0@example.com', '$2y$12$1BU4HyCREhX2ROz4hAUuZehvwzPW3uclF751hzUQf5jIxUHgniqJS', 'Assistant Professor', '70488 Ricardo Vista\nLake Etha, NH 51291', 'Prof. Grayce Will Jr.', '01571390431', 'Mariah Rodriguez', '01479228891', 'Priscilla Grady', '01743329307', 'Brother', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:09', '2025-12-20 08:34:09', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:09', '2025-12-20 08:34:09'),
+(1, 'Brody', 'Mante', '1970-04-13', 'Male', 'B-', '1281548849053', '01948595395', 'cse.hacker.cub@gmail.com', '$2y$12$1BU4HyCREhX2ROz4hAUuZehvwzPW3uclF751hzUQf5jIxUHgniqJS', 'Assistant Professor', '70488 Ricardo Vista\nLake Etha, NH 51291', 'Prof. Grayce Will Jr.', '01571390431', 'Mariah Rodriguez', '01479228891', 'Priscilla Grady', '01743329307', 'Brother', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:09', '2025-12-21 04:56:57', '127.0.0.1', 1, NULL, NULL, '59TlTU3XqlMqTv4QhblaLa4hE6YbFMKp2k9KzwoZIYQ1fnU7sS0gOdOE4eAd', '2025-12-20 08:34:09', '2025-12-21 04:56:57'),
 (2, 'Nedra', 'Huel', '1972-01-04', 'Male', 'B-', '7353794099621', '01467489355', 'teacher1@example.com', '$2y$12$dv0dKjyif73QOKW15ukmeeDkQrB1/WPz7CnziQlMI5/EiFXJgWSyG', 'Head of Department', '186 Johns Landing Suite 225\nRueckerbury, IA 21997', 'Johann Wuckert', '01484301368', 'Dr. Abagail Huel', '01368475533', 'Tyra Price', '01618968875', 'Brother', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:09', '2025-12-20 08:34:09', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:09', '2025-12-20 08:34:09'),
-(3, 'Wilfred', 'Jacobs', '1966-03-02', 'Male', 'B-', '5202854964587', '01862625458', 'teacher2@example.com', '$2y$12$dvPJFHp5sLaZg2Uo325Rx.luu35zEc94fsjk/xrv1pvtzLdVD9lt6', 'Assistant Professor', '24167 Asha Rapids Suite 237\nLuettgenberg, NC 76682-1892', 'Leopoldo Kerluke', '01839044685', 'Mrs. Deborah Langworth I', '01452764205', 'Leslie Murray', '01576761483', 'Brother', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:10', '2025-12-20 08:34:10', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:10', '2025-12-20 08:34:10'),
+(3, 'Shamim', 'Hossain', '1966-03-02', 'Male', 'B-', '5202854964587', '01862625458', 'teacher2@example.com', '$2y$12$dvPJFHp5sLaZg2Uo325Rx.luu35zEc94fsjk/xrv1pvtzLdVD9lt6', NULL, '24167 Asha Rapids Suite 237\r\nLuettgenberg, NC 76682-1892', 'Leopoldo Kerluke', '01839044685', 'Mrs. Deborah Langworth I', '01452764205', 'Leslie Murray', '01576761483', 'Brother', 'tch-Shamim-1766231695.jpg', 'ftr-Shamim-Leopoldo Kerluke-1766231695.jpg', 'mtr-Shamim-Mrs. Deborah Langworth I-1766231695.jpg', '2025-12-20', '2025-12-20', NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:10', '2025-12-20 10:53:43', '127.0.0.1', 1, NULL, NULL, 'pjrsy5eFO9lo404i6MVt3byl1Mkp6jzcQuYeWYHtoPOMu2Nv2qmuJwec0rF8', '2025-12-20 08:34:10', '2025-12-20 11:54:55'),
 (4, 'Dereck', 'Rippin', '1984-09-22', 'Male', 'B-', '6466560158043', '01744907653', 'teacher3@example.com', '$2y$12$gT3ZzziI3MY0z8xqf8ZDl.LlX5mPpjMss9CCQ8d6mfKGNb6a4Ar.K', 'Senior Teacher', '175 Jacobi Gateway Apt. 415\nMertzfurt, DC 60883-8244', 'Willard Shanahan', '01736210438', 'Carley Turner', '01836908722', 'Napoleon VonRueden I', '01585770671', 'Sister', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:10', '2025-12-20 08:34:10', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:10', '2025-12-20 08:34:10'),
 (5, 'Kyra', 'Hudson', '1979-05-27', 'Female', 'AB-', '5737347818543', '01400298078', 'teacher4@example.com', '$2y$12$w9iNPJ4GIIpS1yiKfZgY2eTRIMqWV3w9ECJtu7LTu1..6qUZ6OT82', 'Senior Teacher', '2410 Rhett Circles\nRaleighshire, CO 74203', 'Prof. Arely McLaughlin III', '01902895170', 'Dorris Ortiz', '01345924855', 'Benny Oberbrunner Jr.', '01809446690', 'Uncle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:10', '2025-12-20 08:34:10', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:10', '2025-12-20 08:34:10'),
 (6, 'Alvena', 'Hoppe', '1989-02-10', 'Female', 'B+', '1034240194839', '01752996782', 'teacher5@example.com', '$2y$12$Xxij8Xqi.CuF10gbruc8qexl3KzqmwEJDHokVSnlCrsfQu3RbmuTm', 'Head of Department', '8222 Stamm Springs\nRaulport, IN 77726', 'Olen Medhurst', '01762046330', 'Leanne Schamberger I', '01492768351', 'Dr. Kip Gerlach', '01874070596', 'Grandparent', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2025-12-20 08:34:10', '2025-12-20 08:34:10', '127.0.0.1', 1, NULL, NULL, NULL, '2025-12-20 08:34:10', '2025-12-20 08:34:10'),
@@ -1178,6 +1372,21 @@ ALTER TABLE `attendances`
   ADD KEY `attendances_student_id_foreign` (`student_id`),
   ADD KEY `attendances_class_id_foreign` (`class_id`),
   ADD KEY `attendances_subject_id_foreign` (`subject_id`);
+
+--
+-- Indexes for table `bank_details`
+--
+ALTER TABLE `bank_details`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bank_details_account_number_unique` (`account_number`);
+
+--
+-- Indexes for table `bank_transection_details`
+--
+ALTER TABLE `bank_transection_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bank_transection_details_bank_id_foreign` (`bank_id`),
+  ADD KEY `bank_transection_details_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `class_schedules`
@@ -1401,6 +1610,18 @@ ALTER TABLE `attendances`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `bank_details`
+--
+ALTER TABLE `bank_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `bank_transection_details`
+--
+ALTER TABLE `bank_transection_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
 -- AUTO_INCREMENT for table `class_schedules`
 --
 ALTER TABLE `class_schedules`
@@ -1434,7 +1655,7 @@ ALTER TABLE `excategories`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `exsubcategories`
@@ -1464,19 +1685,19 @@ ALTER TABLE `fee_payments`
 -- AUTO_INCREMENT for table `fee_payment_details`
 --
 ALTER TABLE `fee_payment_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `fee_payment_items`
 --
 ALTER TABLE `fee_payment_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `fee_structures`
 --
 ALTER TABLE `fee_structures`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -1494,7 +1715,7 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -1567,6 +1788,13 @@ ALTER TABLE `attendances`
   ADD CONSTRAINT `attendances_class_id_foreign` FOREIGN KEY (`class_id`) REFERENCES `rooms` (`id`),
   ADD CONSTRAINT `attendances_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `attendances_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+
+--
+-- Constraints for table `bank_transection_details`
+--
+ALTER TABLE `bank_transection_details`
+  ADD CONSTRAINT `bank_transection_details_bank_id_foreign` FOREIGN KEY (`bank_id`) REFERENCES `bank_details` (`id`),
+  ADD CONSTRAINT `bank_transection_details_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `class_schedules`
