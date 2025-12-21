@@ -64,66 +64,58 @@
 
                 <!-- Total Transactions -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="card bg-gradient-to-r from-indigo-500 to-indigo-400 text-white">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-xs uppercase opacity-80">Total Transactions</p>
-                                    <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_amount') }}/-</h2>
-                                    <p class="text-xs opacity-80 mt-1">All financial movements</p>
-                                </div>
-                                <i class="fa-solid fa-layer-group text-[42px] opacity-30"></i>
+                    <div class="rounded-lg shadow-lg text-white p-6 bg-indigo-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-xs uppercase opacity-80">Total Transactions</p>
+                                <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_amount') }}/-</h2>
+                                <p class="text-xs opacity-80 mt-1">All financial movements</p>
                             </div>
+                            <i class="fa-solid fa-layer-group text-[42px] opacity-30"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Total Income -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="card bg-gradient-to-r from-green-500 to-emerald-400 text-white">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-xs uppercase opacity-80">Total Income</p>
-                                    <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_paid') }}/-</h2>
-                                    <p class="text-xs opacity-80 mt-1">Student & other income</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-trend-up text-[42px] opacity-30"></i>
+                    <div class="rounded-lg shadow-lg text-white p-6 bg-green-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-xs uppercase opacity-80">Total Income</p>
+                                <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_paid') }}/-</h2>
+                                <p class="text-xs opacity-80 mt-1">Student & other income</p>
                             </div>
+                            <i class="fa-solid fa-arrow-trend-up text-[42px] opacity-30"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Total Expense -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="card bg-gradient-to-r from-red-500 to-rose-400 text-white">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-xs uppercase opacity-80">Total Expense</p>
-                                    <h2 class="font-semibold mt-1 text-white">৳ {{ $expenses->sum('amount') }}/-</h2>
-                                    <p class="text-xs opacity-80 mt-1">Operational & salary</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-trend-down text-[42px] opacity-30"></i>
+                    <div class="rounded-lg shadow-lg text-white p-6 bg-red-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-xs uppercase opacity-80">Total Expense</p>
+                                <h2 class="font-semibold mt-1 text-white">৳ {{ $expenses->sum('amount') }}/-</h2>
+                                <p class="text-xs opacity-80 mt-1">Operational & salary</p>
                             </div>
+                            <i class="fa-solid fa-arrow-trend-down text-[42px] opacity-30"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Net Balance -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="card bg-gradient-to-r from-emerald-600 to-teal-500 text-white">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-xs uppercase opacity-80">Net Balance</p>
-                                    <h2 class="font-semibold mt-1 text-white">
-                                        ৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-
-                                    </h2>
-                                    <p class="text-xs opacity-80 mt-1">Income − Expense</p>
-                                </div>
-                                <i class="fa-solid fa-wallet text-[42px] opacity-30"></i>
+                    <div class="rounded-lg shadow-lg text-white p-6 bg-teal-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-xs uppercase opacity-80">Net Balance</p>
+                                <h2 class="font-semibold mt-1 text-white">
+                                    ৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-
+                                </h2>
+                                <p class="text-xs opacity-80 mt-1">Income − Expense</p>
                             </div>
+                            <i class="fa-solid fa-wallet text-[42px] opacity-30"></i>
                         </div>
                     </div>
                 </div>
@@ -137,49 +129,49 @@
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-blue-50 border-l-4 border-blue-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-blue-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Fee Collection</p>
-                                <h3 class="font-semibold mt-1">৳ {{ $total->sum('total_paid') }}/-</h3>
+                                <p class="text-sm">Fee Collection</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_paid') }}/-</h3>
                             </div>
-                            <i class="fa-solid fa-graduation-cap text-blue-400 text-[30px]"></i>
+                            <i class="fa-solid fa-graduation-cap text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-cyan-50 border-l-4 border-cyan-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-cyan-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Due Collection</p>
-                                <h3 class="font-semibold mt-1">৳ 00/-</h3>
+                                <p class="text-sm">Due Collection</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
                             </div>
-                            <i class="fa-solid fa-hand-holding-dollar text-cyan-400 text-[30px]"></i>
+                            <i class="fa-solid fa-hand-holding-dollar text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-yellow-50 border-l-4 border-yellow-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-yellow-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Discount</p>
-                                <h3 class="font-semibold mt-1">৳ {{ $total->sum('total_discount') }}/-</h3>
+                                <p class="text-sm">Discount</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_discount') }}/-</h3>
                             </div>
-                            <i class="fa-solid fa-tags text-yellow-400 text-[30px]"></i>
+                            <i class="fa-solid fa-tags text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-orange-50 border-l-4 border-orange-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-orange-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Refund</p>
-                                <h3 class="font-semibold mt-1">৳ 00/-</h3>
+                                <p class="text-sm">Refund</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
                             </div>
-                            <i class="fa-solid fa-rotate-left text-orange-400 text-[30px]"></i>
+                            <i class="fa-solid fa-rotate-left text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
@@ -193,25 +185,25 @@
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-indigo-50 border-l-4 border-indigo-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-indigo-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Bank Deposit</p>
-                                <h3 class="font-semibold mt-1">৳ 00/-</h3>
+                                <p class="text-sm">Bank Deposit</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
                             </div>
-                            <i class="fa-solid fa-building-columns text-indigo-400 text-[30px]"></i>
+                            <i class="fa-solid fa-building-columns text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="card bg-pink-50 border-l-4 border-pink-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-pink-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Bank Withdraw</p>
-                                <h3 class="font-semibold mt-1">৳ 00/-</h3>
+                                <p class="text-sm">Bank Withdraw</p>
+                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
                             </div>
-                            <i class="fa-solid fa-money-bill-transfer text-pink-400 text-[30px]"></i>
+                            <i class="fa-solid fa-money-bill-transfer text-[30px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
@@ -225,31 +217,30 @@
                 </div>
 
                 <div class="col-span-12 md:col-span-6 xl:col-span-4">
-                    <div class="card bg-gradient-to-r from-green-100 to-green-50 border-l-4 border-green-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-green-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Cash Balance</p>
-                                <h2 class="font-semibold text-green-600">৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-</h2>
+                                <p class="text-sm">Cash Balance</p>
+                                <h2 class="font-semibold text-white">৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-</h2>
                             </div>
-                            <i class="fa-solid fa-wallet text-green-400 text-[36px]"></i>
+                            <i class="fa-solid fa-wallet text-[36px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-12 md:col-span-6 xl:col-span-4">
-                    <div class="card bg-gradient-to-r from-red-100 to-red-50 border-l-4 border-red-500">
-                        <div class="card-body flex justify-between items-center">
+                    <div class="rounded-lg shadow-sm p-4 bg-red-500 text-white">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm text-gray-600">Total Due</p>
-                                <h2 class="font-semibold text-red-600">৳ {{ $total->sum('total_due') }}/-</h2>
+                                <p class="text-sm">Total Due</p>
+                                <h2 class="font-semibold text-white">৳ {{ $total->sum('total_due') }}/-</h2>
                             </div>
-                            <i class="fa-solid fa-triangle-exclamation text-red-400 text-[36px]"></i>
+                            <i class="fa-solid fa-triangle-exclamation text-[36px] opacity-80"></i>
                         </div>
                     </div>
                 </div>
 
             </div>
-
             <!-- ================= END OVERVIEW ================= -->
 
         </div>
