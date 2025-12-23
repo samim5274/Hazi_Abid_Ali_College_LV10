@@ -256,7 +256,7 @@
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-management')}}">Fee Category</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-fee-structure')}}">Fee Structure</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{url('/finance-fee-payment')}}">Fee Payment</a></li>
-                        <!-- <li class="pc-item"><a class="pc-link" href="{{url('/due-collection')}}">Due Collection</a></li> -->
+                        <li class="pc-item"><a class="pc-link" href="{{url('/due-collection')}}">Due Collection</a></li>
                     </ul>
                 </li>
                 <li class="pc-item pc-hasmenu">
@@ -275,7 +275,6 @@
                     <ul class="pc-submenu">
                         <li class="pc-item pc-hasmenu">
                             <a href="{{url('/expense')}}" class="pc-link">
-                                <span class="pc-micon"><i class="fa-solid fa-money-bill-transfer"></i></span>
                                 <span class="pc-mtext">Expenses</span>
                             </a>                            
                         </li>
@@ -288,6 +287,31 @@
                         <li class="pc-item"><a class="pc-link" href="{{ url('/date-wise-expenses') }}">Date Report's</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{ url('/category-wise-expenses') }}">Category Report's</a></li>
                         <li class="pc-item"><a class="pc-link" href="{{ url('/sub-category-wise-expenses') }}">Sub Category Report's</a></li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-money-bill-trend-up"></i> </span><span
+                    class="pc-mtext">Income</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item pc-hasmenu">
+                            <a href="{{url('/income')}}" class="pc-link">
+                                <span class="pc-mtext">Income</span>
+                            </a>                            
+                        </li>
+                        <li class="pc-item pc-hasmenu">
+                            <a href="{{url('/income-setting')}}" class="pc-link">
+                                <span class="pc-mtext">Settings</span>
+                            </a>                            
+                        </li>
+                    </ul>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link"><span class="pc-micon"> <i class="fa-solid fa-filter-circle-dollar"></i> </span><span
+                    class="pc-mtext">Income Report</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/date-wise-income') }}">Date Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/category-wise-income') }}">Category Report's</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ url('/sub-category-wise-income') }}">Sub Category Report's</a></li>
                     </ul>
                 </li>
                 <li class="pc-item">

@@ -23,6 +23,7 @@ use App\Http\Controllers\Finance\FinanceReportController;
 use App\Http\Controllers\Finance\TotalTransectionController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Bank\BankController;
+use App\Http\Controllers\Income\IncomeController;
 
 Auth::routes();
 
@@ -194,6 +195,8 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/class-finance/{class_id}', [FeePaymentController::class, 'StudentList'])->name('class-and student-list');
     Route::get('/class/student/{class_id}/{student_id}', [FeePaymentController::class, 'feeView'])->name('student-class-fee-view');
     Route::get('/due-collection', [FeePaymentController::class, 'dueCollection'])->name('due-collection');
+    Route::get('/student/payment-info/{student}', [FeePaymentController::class, 'paymentInfo']);
+    Route::post('/due-collection-payment', [FeePaymentController::class, 'duePament']);
 
     Route::get('/finance-management', [FeePaymentController::class, 'financeManagement'])->name('finance-management');
     Route::post('/add-new-finance-category', [FeePaymentController::class, 'store']);
@@ -307,4 +310,35 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/sub-category-wise-expenses', [ExpensesController::class, 'subCategoyExpenses']);
     Route::get('/expenses-sub-category-data-filter', [ExpensesController::class, 'filterSubCatExpen']);
 
+
+    // ======================================================= income Board Route =======================================================
+    Route::get('/income', [IncomeController::class, 'index'])->name('income-view');
+    Route::get('/get-income-subcategories/{id}', [IncomeController::class, 'getIncomeSubCategory']);
+    Route::post('/create-income', [IncomeController::class, 'store']);
+    Route::get('/income-view/{id}', [IncomeController::class, 'incomeView']);
+    Route::get('/income-delete/{id}', [IncomeController::class, 'delete']);
+    Route::get('/income-print/{id}', [IncomeController::class, 'print']);
+    Route::get('/income-edit/{id}', [IncomeController::class, 'edit']);
+    Route::post('/modify-income/{id}', [IncomeController::class, 'update']);    
+
+    // income setting routes
+    Route::get('/income-setting', [IncomeController::class, 'incomeSetting'])->name('income-setting-view');
+    //category routes
+    Route::post('/create-income-category', [IncomeController::class, 'storeIncomeCategory'])->name('create-income-category');
+    Route::get('/edit-income-category/{id}', [IncomeController::class, 'editIncomeCategory'])->name('income-category-edit-view');
+    Route::post('/modify-income-category/{id}', [IncomeController::class, 'modifyIncomeCategory']);
+    Route::post('/delete-income-category/{id}', [IncomeController::class, 'deleteIncomeCategory']);
+    // subcategory routes
+    Route::post('/create-income-subcategory', [IncomeController::class, 'storeIncomeSubCategory'])->name('create-income-subcategory');
+    Route::get('/edit-income-subcategory/{id}', [IncomeController::class, 'editIncomeSubCategory'])->name('income-subcategory-edit-view');
+    Route::post('/modify-income-subcategory/{id}', [IncomeController::class, 'modifyIncomeSubCategory']);
+    Route::post('/delete-income-subcategory/{id}', [IncomeController::class, 'deleteIncomeSubCategory']);
+
+    // Income report Route
+    Route::get('/date-wise-income', [IncomeController::class, 'dateIncome']);
+    Route::get('/income-data-filter', [IncomeController::class, 'filterIncome']);
+    Route::get('/category-wise-income', [IncomeController::class, 'categroyIncome']);
+    Route::get('/income-category-data-filter', [IncomeController::class, 'filterCatIncome']);
+    Route::get('/sub-category-wise-income', [IncomeController::class, 'subCategoyIncome']);
+    Route::get('/income-sub-category-data-filter', [IncomeController::class, 'filterSubCatIncome']);
 });

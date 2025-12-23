@@ -96,4 +96,9 @@ class Teacher extends Authenticatable
     {
         return $this->hasMany(BankTransectionDetail::class, 'user_id');
     }
+
+    public function income()
+    {
+        return $this->hasMany(Teacher::class, 'user_id');
+    }
 }

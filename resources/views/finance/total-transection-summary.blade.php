@@ -38,7 +38,7 @@
             <!-- Flash Message -->
             @include('layouts.message')
             <!-- Breadcrumb -->
-            <div class="page-header mb-6">
+            <!-- <div class="page-header mb-6">
                 <div class="page-block">
                     <div class="page-header-title">
                         <h4 class="font-semibold text-lg mb-2">🎓 Transactions Summary</h4>
@@ -49,7 +49,17 @@
                         <li class="breadcrumb-item" aria-current="page">Total Transection Summary</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
+
+
+
+
+
+
+
+
+
+
 
             <!-- ================= FINANCIAL OVERVIEW ================= -->
             <div class="grid grid-cols-12 gap-6">
@@ -64,58 +74,64 @@
 
                 <!-- Total Transactions -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="rounded-lg shadow-lg text-white p-6 bg-indigo-500">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-indigo-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-xs uppercase opacity-80">Total Transactions</p>
-                                <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_amount') }}/-</h2>
-                                <p class="text-xs opacity-80 mt-1">All financial movements</p>
+                                <p class="text-xs uppercase text-gray-500">Total Transactions</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($totalTransactions, 2) }}/-
+                                </h2>
+                                <p class="text-xs text-gray-400 mt-1">All financial movements</p>
                             </div>
-                            <i class="fa-solid fa-layer-group text-[42px] opacity-30"></i>
+                            <i class="fa-solid fa-layer-group text-4xl text-indigo-400"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Total Income -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="rounded-lg shadow-lg text-white p-6 bg-green-500">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-green-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-xs uppercase opacity-80">Total Income</p>
-                                <h2 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_paid') }}/-</h2>
-                                <p class="text-xs opacity-80 mt-1">Student & other income</p>
+                                <p class="text-xs uppercase text-gray-500">Total Income</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($totalIncome, 2) }}/-
+                                </h2>
+                                <p class="text-xs text-gray-400 mt-1">Student & Other Income</p>
                             </div>
-                            <i class="fa-solid fa-arrow-trend-up text-[42px] opacity-30"></i>
+                            <i class="fa-solid fa-arrow-trend-up text-4xl text-green-400"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Total Expense -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="rounded-lg shadow-lg text-white p-6 bg-red-500">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-red-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-xs uppercase opacity-80">Total Expense</p>
-                                <h2 class="font-semibold mt-1 text-white">৳ {{ $expenses->sum('amount') }}/-</h2>
-                                <p class="text-xs opacity-80 mt-1">Operational & salary</p>
+                                <p class="text-xs uppercase text-gray-500">Total Expense</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($totalExpense, 2) }}/-
+                                </h2>
+                                <p class="text-xs text-gray-400 mt-1">Operational & Salary</p>
                             </div>
-                            <i class="fa-solid fa-arrow-trend-down text-[42px] opacity-30"></i>
+                            <i class="fa-solid fa-arrow-trend-down text-4xl text-red-400"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Net Balance -->
                 <div class="col-span-12 xl:col-span-3 md:col-span-6">
-                    <div class="rounded-lg shadow-lg text-white p-6 bg-teal-500">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-teal-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-xs uppercase opacity-80">Net Balance</p>
-                                <h2 class="font-semibold mt-1 text-white">
-                                    ৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-
+                                <p class="text-xs uppercase text-gray-500">Net Balance</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($netBalance, 2) }}/-
                                 </h2>
-                                <p class="text-xs opacity-80 mt-1">Income − Expense</p>
+                                <p class="text-xs text-gray-400 mt-1">Income − Expense</p>
                             </div>
-                            <i class="fa-solid fa-wallet text-[42px] opacity-30"></i>
+                            <i class="fa-solid fa-wallet text-4xl text-teal-400"></i>
                         </div>
                     </div>
                 </div>
@@ -128,50 +144,84 @@
                     </h4>
                 </div>
 
+                <!-- Fee Collection -->
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-blue-500 text-white">
+                    <div class="rounded-xl p-5 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-blue-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Fee Collection</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_paid') }}/-</h3>
+                                <p class="text-sm text-gray-500">Fee Collection</p>
+                                <h3 class="text-xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($feeCollection, 2) }}/-
+                                </h3>
                             </div>
-                            <i class="fa-solid fa-graduation-cap text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-graduation-cap text-4xl text-blue-400"></i>
                         </div>
                     </div>
                 </div>
 
+                <!-- Due Collection -->
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-cyan-500 text-white">
+                    <div class="rounded-xl p-5 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-cyan-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Due Collection</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
+                                <p class="text-sm text-gray-500">Due Collection</p>
+                                <h3 class="text-xl font-bold text-gray-700 mt-1">
+                                    ৳ 00.00/-
+                                </h3>
                             </div>
-                            <i class="fa-solid fa-hand-holding-dollar text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-hand-holding-dollar text-4xl text-cyan-400"></i>
                         </div>
                     </div>
                 </div>
 
+                <!-- Discount -->
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-yellow-500 text-white">
+                    <div class="rounded-xl p-5 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-yellow-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Discount</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ {{ $total->sum('total_discount') }}/-</h3>
+                                <p class="text-sm text-gray-500">Discount</p>
+                                <h3 class="text-xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($discount, 2) }}/-
+                                </h3>
                             </div>
-                            <i class="fa-solid fa-tags text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-tags text-4xl text-yellow-400"></i>
                         </div>
                     </div>
                 </div>
 
+                <!-- Refund -->
                 <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-orange-500 text-white">
+                    <div class="rounded-xl p-5 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-orange-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Refund</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
+                                <p class="text-sm text-gray-500">Refund</p>
+                                <h3 class="text-xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($refund, 2) }}/-
+                                </h3>
                             </div>
-                            <i class="fa-solid fa-rotate-left text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-rotate-left text-4xl text-orange-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Income -->
+                <div class="col-span-12 mt-6">
+                    <h4 class="font-semibold text-lg flex items-center gap-2">
+                        <i class="fa-regular fa-credit-card text-green-500"></i>
+                        Other's Income
+                    </h4>
+                </div>
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-green-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-xs uppercase text-gray-500">Income</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($incomes->sum('amount'), 2) }}/-
+                                </h2>
+                                <p class="text-xs text-gray-400 mt-1">Operational & Income</p>
+                            </div>
+                            <i class="fa-solid fa-money-check-dollar text-4xl text-green-400"></i>
                         </div>
                     </div>
                 </div>
@@ -184,26 +234,47 @@
                     </h4>
                 </div>
 
-                <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-indigo-500 text-white">
+                <!-- Bank Deposit -->
+                <div class="col-span-12 md:col-span-6 xl:col-span-4">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-indigo-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Bank Deposit</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
+                                <p class="text-sm text-gray-500">Bank Deposit</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($depositSum, 2) }}/-
+                                </h2>
                             </div>
-                            <i class="fa-solid fa-building-columns text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-building-columns text-[30px] text-indigo-400"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-span-12 md:col-span-4 xl:col-span-3">
-                    <div class="rounded-lg shadow-sm p-4 bg-pink-500 text-white">
+                <!-- Bank Withdraw -->
+                <div class="col-span-12 md:col-span-6 xl:col-span-4">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-pink-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Bank Withdraw</p>
-                                <h3 class="font-semibold mt-1 text-white">৳ 00/-</h3>
+                                <p class="text-sm text-gray-500">Bank Withdraw</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($withdrawSum, 2) }}/-
+                                </h2>
                             </div>
-                            <i class="fa-solid fa-money-bill-transfer text-[30px] opacity-80"></i>
+                            <i class="fa-solid fa-money-bill-transfer text-[30px] text-pink-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Balance -->
+                <div class="col-span-12 md:col-span-6 xl:col-span-4">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-green-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">Bank Balance</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($bankBalance, 2) }}/-
+                                </h2>
+                            </div>
+                            <i class="fa-solid fa-wallet text-[30px] text-green-400"></i>
                         </div>
                     </div>
                 </div>
@@ -216,31 +287,38 @@
                     </h4>
                 </div>
 
+                <!-- Cash Balance -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4">
-                    <div class="rounded-lg shadow-sm p-4 bg-green-500 text-white">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-green-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Cash Balance</p>
-                                <h2 class="font-semibold text-white">৳ {{ $total->sum('total_paid') - $expenses->sum('amount') }}/-</h2>
+                                <p class="text-sm text-gray-500">Cash Balance</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($netBalance, 2) }}/-
+                                </h2>
                             </div>
-                            <i class="fa-solid fa-wallet text-[36px] opacity-80"></i>
+                            <i class="fa-solid fa-wallet text-4xl text-green-400"></i>
                         </div>
                     </div>
                 </div>
 
+                <!-- Total Due -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4">
-                    <div class="rounded-lg shadow-sm p-4 bg-red-500 text-white">
+                    <div class="rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition border-l-4 border-red-500">
                         <div class="flex justify-between items-center">
                             <div>
-                                <p class="text-sm">Total Due</p>
-                                <h2 class="font-semibold text-white">৳ {{ $total->sum('total_due') }}/-</h2>
+                                <p class="text-sm text-gray-500">Total Due</p>
+                                <h2 class="text-2xl font-bold text-gray-700 mt-1">
+                                    ৳ {{ number_format($totalDue, 2) }}/-
+                                </h2>
                             </div>
-                            <i class="fa-solid fa-triangle-exclamation text-[36px] opacity-80"></i>
+                            <i class="fa-solid fa-triangle-exclamation text-4xl text-red-400"></i>
                         </div>
                     </div>
                 </div>
 
             </div>
+
             <!-- ================= END OVERVIEW ================= -->
 
         </div>

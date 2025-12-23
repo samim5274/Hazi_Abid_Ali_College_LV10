@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2025 at 12:57 PM
+-- Generation Time: Dec 23, 2025 at 10:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -89,7 +89,7 @@ CREATE TABLE `bank_transection_details` (
 --
 
 INSERT INTO `bank_transection_details` (`id`, `bank_id`, `user_id`, `amount`, `date`, `status`, `remarks`, `created_at`, `updated_at`) VALUES
-(18, 1, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-20 09:43:21', '2025-12-21 09:43:21'),
+(18, 1, 1, 500.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-20 09:43:21', '2025-12-23 04:34:59'),
 (19, 2, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-19 09:43:26', '2025-12-21 09:43:26'),
 (20, 3, 1, 1000.00, '2025-12-21', 'Deposit', 'N/A', '2025-12-18 09:43:31', '2025-12-21 09:43:31'),
 (21, 1, 1, 500.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 2. ', '2025-12-21 09:43:49', '2025-12-21 09:43:49'),
@@ -99,7 +99,19 @@ INSERT INTO `bank_transection_details` (`id`, `bank_id`, `user_id`, `amount`, `d
 (25, 3, 1, 1000.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 1. ', '2025-12-21 09:58:48', '2025-12-21 09:58:48'),
 (26, 1, 1, 1000.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 3. ', '2025-12-21 09:58:48', '2025-12-21 09:58:48'),
 (27, 1, 1, 1000.00, '2025-12-21', 'Withdraw', 'Transfer to Bank ID: 2. ', '2025-12-21 09:58:58', '2025-12-21 09:58:58'),
-(28, 2, 1, 1000.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 1. ', '2025-12-21 09:58:58', '2025-12-21 09:58:58');
+(28, 2, 1, 1000.00, '2025-12-21', 'Deposit', 'Transfer from Bank ID: 1. ', '2025-12-21 09:58:58', '2025-12-21 09:58:58'),
+(29, 1, 1, 5000.00, '2025-12-22', 'Deposit', 'N/A', '2025-12-22 04:52:13', '2025-12-22 04:52:13'),
+(30, 2, 1, 5000.00, '2025-12-22', 'Deposit', 'N/A', '2025-12-22 04:52:18', '2025-12-22 04:52:18'),
+(31, 3, 1, 5000.00, '2025-12-22', 'Deposit', 'N/A', '2025-12-22 04:52:23', '2025-12-22 04:52:23'),
+(32, 1, 1, 3000.00, '2025-12-22', 'Withdraw', 'N/A', '2025-12-22 04:52:30', '2025-12-22 04:52:30'),
+(33, 2, 1, 2000.00, '2025-12-22', 'Withdraw', 'N/A', '2025-12-22 04:52:35', '2025-12-22 04:52:35'),
+(34, 3, 1, 1000.00, '2025-12-22', 'Withdraw', 'N/A', '2025-12-22 04:52:40', '2025-12-22 04:52:40'),
+(35, 3, 1, 1000.00, '2025-12-23', 'Deposit', 'N/A', '2025-12-23 04:34:42', '2025-12-23 04:34:42'),
+(36, 3, 1, 1000.00, '2025-12-23', 'Deposit', 'N/A', '2025-12-23 04:34:48', '2025-12-23 04:34:48'),
+(37, 2, 1, 1000.00, '2025-12-23', 'Deposit', 'N/A', '2025-12-23 04:34:53', '2025-12-23 04:34:53'),
+(38, 3, 1, 1200.00, '2025-12-23', 'Withdraw', 'N/A', '2025-12-23 04:35:09', '2025-12-23 04:35:09'),
+(39, 2, 1, 500.00, '2025-12-23', 'Withdraw', 'N/A', '2025-12-23 04:35:14', '2025-12-23 04:35:14'),
+(40, 1, 1, 100.00, '2025-12-23', 'Withdraw', 'N/A', '2025-12-23 04:35:18', '2025-12-23 04:35:18');
 
 -- --------------------------------------------------------
 
@@ -224,7 +236,9 @@ CREATE TABLE `expenses` (
 
 INSERT INTO `expenses` (`id`, `catId`, `subcatId`, `userId`, `title`, `date`, `amount`, `remark`, `created_at`, `updated_at`) VALUES
 (1, 6, 16, 3, 'Bazar', '2025-12-21', 1000.00, 'N/A', '2025-12-21 04:53:43', '2025-12-21 04:53:43'),
-(2, 3, 9, 1, 'Painting', '2025-12-21', 15000.00, 'N/A', '2025-12-21 06:05:56', '2025-12-21 06:05:56');
+(2, 3, 9, 1, 'Painting', '2025-12-21', 15000.00, 'N/A', '2025-12-21 06:05:56', '2025-12-21 06:05:56'),
+(3, 4, 11, 1, 'Lab Equipment', '2025-12-22', 5000.00, 'N/A', '2025-12-22 04:49:38', '2025-12-22 04:49:38'),
+(4, 4, 12, 1, 'Annual 2025', '2025-12-23', 1000.00, 'N/A', '2025-12-23 04:35:50', '2025-12-23 04:35:50');
 
 -- --------------------------------------------------------
 
@@ -369,7 +383,13 @@ INSERT INTO `fee_payment_details` (`id`, `student_id`, `user_id`, `total_amount`
 (4, 4, 3, 5200.00, 5200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'K4IQEIUTLG', 'INV-48280', '2025-12-21 04:52:03', '2025-12-21 04:52:03'),
 (5, 8, 3, 3200.00, 3200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'QSOWCN7MWP', 'INV-16675', '2025-12-21 04:52:29', '2025-12-21 04:52:29'),
 (6, 9, 3, 3200.00, 3200.00, 0.00, 0.00, '2025-12-21', '12', '2025', 'Cash', 'Paid', 'QLREAJCPET', 'INV-15197', '2025-12-21 04:52:43', '2025-12-21 04:52:43'),
-(7, 21, 1, 3200.00, 2500.00, 500.00, 200.00, '2025-12-21', '12', '2025', 'Cash', 'Partial', 'SHNFYSLY2D', 'INV-78741', '2025-12-21 06:04:57', '2025-12-21 06:04:57');
+(7, 21, 1, 3200.00, 2500.00, 500.00, 200.00, '2025-12-21', '12', '2025', 'Cash', 'Partial', 'SHNFYSLY2D', 'INV-78741', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(8, 25, 1, 3200.00, 3000.00, 0.00, 200.00, '2025-12-21', '12', '2025', 'Cash', 'Partial', 'D8Y9ANS3YK', 'INV-41542', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(9, 27, 1, 3200.00, 3000.00, 0.00, 200.00, '2025-12-22', '12', '2025', 'Cash', 'Partial', 'THACZKTS9N', 'INV-59635', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(10, 26, 1, 4500.00, 4000.00, 200.00, 300.00, '2025-12-22', '12', '2025', 'Cash', 'Partial', 'AXM5GNIZKR', 'INV-90706', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(11, 300, 1, 4500.00, 500.00, 0.00, 4000.00, '2025-12-22', '12', '2025', 'Cash', 'Partial', 'PYLOQELN7C', 'INV-61682', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(12, 88, 1, 4500.00, 425.00, 250.00, 3825.00, '2025-12-23', '12', '2025', 'Cash', 'Partial', '8II5NCFNKT', 'INV-15999', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(13, 68, 1, 4500.00, 4250.00, 250.00, 0.00, '2025-12-23', '12', '2025', 'Cash', 'Paid', 'ASS1MLTOL2', 'INV-89454', '2025-12-23 04:36:57', '2025-12-23 04:36:57');
 
 -- --------------------------------------------------------
 
@@ -452,7 +472,61 @@ INSERT INTO `fee_payment_items` (`id`, `fee_payment_id`, `student_id`, `fee_stru
 (54, 7, 21, 26, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
 (55, 7, 21, 30, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
 (56, 7, 21, 34, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
-(57, 7, 21, 38, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57');
+(57, 7, 21, 38, 200.00, 156.25, 31.25, 12.50, '2025-12-21', '2025-12-21 06:04:57', '2025-12-21 06:04:57'),
+(58, 8, 25, 13, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(59, 8, 25, 17, 2000.00, 1875.00, 0.00, 125.00, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(60, 8, 25, 21, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(61, 8, 25, 25, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(62, 8, 25, 29, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(63, 8, 25, 33, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(64, 8, 25, 37, 200.00, 187.50, 0.00, 12.50, '2025-12-21', '2025-12-21 13:00:21', '2025-12-21 13:00:21'),
+(65, 9, 27, 13, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(66, 9, 27, 17, 2000.00, 1875.00, 0.00, 125.00, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(67, 9, 27, 21, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(68, 9, 27, 25, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(69, 9, 27, 29, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(70, 9, 27, 33, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(71, 9, 27, 37, 200.00, 187.50, 0.00, 12.50, '2025-12-22', '2025-12-22 04:40:30', '2025-12-22 04:40:30'),
+(72, 10, 26, 1, 1000.00, 888.89, 44.44, 66.67, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(73, 10, 26, 2, 100.00, 88.89, 4.44, 6.67, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(74, 10, 26, 3, 500.00, 444.44, 22.22, 33.34, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(75, 10, 26, 4, 100.00, 88.89, 4.44, 6.67, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(76, 10, 26, 5, 100.00, 88.89, 4.44, 6.67, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(77, 10, 26, 6, 100.00, 88.89, 4.44, 6.67, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(78, 10, 26, 7, 200.00, 177.78, 8.89, 13.33, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(79, 10, 26, 8, 2000.00, 1777.78, 88.89, 133.33, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(80, 10, 26, 9, 200.00, 177.78, 8.89, 13.33, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(81, 10, 26, 10, 200.00, 177.77, 8.91, 13.32, '2025-12-22', '2025-12-22 04:50:40', '2025-12-22 04:50:40'),
+(82, 11, 300, 1, 1000.00, 111.11, 0.00, 888.89, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(83, 11, 300, 2, 100.00, 11.11, 0.00, 88.89, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(84, 11, 300, 3, 500.00, 55.56, 0.00, 444.44, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(85, 11, 300, 4, 100.00, 11.11, 0.00, 88.89, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(86, 11, 300, 5, 100.00, 11.11, 0.00, 88.89, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(87, 11, 300, 6, 100.00, 11.11, 0.00, 88.89, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(88, 11, 300, 7, 200.00, 22.22, 0.00, 177.78, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(89, 11, 300, 8, 2000.00, 222.22, 0.00, 1777.78, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(90, 11, 300, 9, 200.00, 22.22, 0.00, 177.78, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(91, 11, 300, 10, 200.00, 22.23, 0.00, 177.77, '2025-12-22', '2025-12-22 05:37:07', '2025-12-22 05:37:07'),
+(92, 12, 88, 1, 1000.00, 94.44, 55.56, 850.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(93, 12, 88, 2, 100.00, 9.44, 5.56, 85.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(94, 12, 88, 3, 500.00, 47.22, 27.78, 425.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(95, 12, 88, 4, 100.00, 9.44, 5.56, 85.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(96, 12, 88, 5, 100.00, 9.44, 5.56, 85.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(97, 12, 88, 6, 100.00, 9.44, 5.56, 85.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(98, 12, 88, 7, 200.00, 18.89, 11.11, 170.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(99, 12, 88, 8, 2000.00, 188.89, 111.11, 1700.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(100, 12, 88, 9, 200.00, 18.89, 11.11, 170.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(101, 12, 88, 10, 200.00, 18.91, 11.09, 170.00, '2025-12-23', '2025-12-23 04:36:23', '2025-12-23 04:36:23'),
+(102, 13, 68, 1, 1000.00, 944.44, 55.56, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(103, 13, 68, 2, 100.00, 94.44, 5.56, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(104, 13, 68, 3, 500.00, 472.22, 27.78, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(105, 13, 68, 4, 100.00, 94.44, 5.56, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(106, 13, 68, 5, 100.00, 94.44, 5.56, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(107, 13, 68, 6, 100.00, 94.44, 5.56, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(108, 13, 68, 7, 200.00, 188.89, 11.11, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(109, 13, 68, 8, 2000.00, 1888.89, 111.11, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(110, 13, 68, 9, 200.00, 188.89, 11.11, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57'),
+(111, 13, 68, 10, 200.00, 188.91, 11.09, 0.00, '2025-12-23', '2025-12-23 04:36:57', '2025-12-23 04:36:57');
 
 -- --------------------------------------------------------
 
@@ -550,6 +624,93 @@ INSERT INTO `groups` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `incomes`
+--
+
+CREATE TABLE `incomes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `subcategory_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `income_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `incomes`
+--
+
+INSERT INTO `incomes` (`id`, `category_id`, `subcategory_id`, `user_id`, `title`, `description`, `amount`, `income_date`, `created_at`, `updated_at`) VALUES
+(1, 2, 4, 1, 'Sports Competition Notice', 'N/A || Date:2025-12-23 13:47:33 || Updated by Brody Mante.', 4000.00, '2025-12-23', '2025-12-23 06:16:59', '2025-12-23 07:47:33'),
+(2, 1, 1, 1, 'Tuition', 'N/A', 5000.00, '2025-12-23', '2025-12-23 06:17:35', '2025-12-23 06:17:35'),
+(3, 3, 6, 1, 'Library fee', 'N/A', 1000.00, '2025-12-23', '2025-12-23 09:25:20', '2025-12-23 09:25:20'),
+(4, 4, 8, 1, 'Bus Fee', 'N/A', 1000.00, '2025-12-23', '2025-12-23 09:25:32', '2025-12-23 09:25:32'),
+(5, 5, 10, 1, 'Exam', 'N/A', 1000.00, '2025-12-23', '2025-12-23 09:25:42', '2025-12-23 09:25:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `income_categories`
+--
+
+CREATE TABLE `income_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `income_categories`
+--
+
+INSERT INTO `income_categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Tuition Fee', 'Income from tuition', '2025-12-23 06:10:08', '2025-12-23 06:10:08'),
+(2, 'Donation', 'Income from donations', '2025-12-23 06:10:08', '2025-12-23 06:10:08'),
+(3, 'Library Fee', 'Income from library', '2025-12-23 06:10:08', '2025-12-23 06:10:08'),
+(4, 'Transport Fee', 'Income from transport', '2025-12-23 06:10:08', '2025-12-23 06:10:08'),
+(5, 'Examination Fee', 'Income from exams', '2025-12-23 06:10:08', '2025-12-23 06:10:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `income_sub_categories`
+--
+
+CREATE TABLE `income_sub_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `income_sub_categories`
+--
+
+INSERT INTO `income_sub_categories` (`id`, `category_id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Grade 1-5', 'Subcategory of Tuition Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(2, 1, 'Grade 6-10', 'Subcategory of Tuition Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(3, 1, 'Grade 11-12', 'Subcategory of Tuition Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(4, 2, 'Alumni Donation', 'Subcategory of Donation', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(5, 2, 'Sponsor Donation', 'Subcategory of Donation', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(6, 3, 'Book Fee', 'Subcategory of Library Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(7, 3, 'Late Fee', 'Subcategory of Library Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(8, 4, 'Bus Fee', 'Subcategory of Transport Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(9, 4, 'Van Fee', 'Subcategory of Transport Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(10, 5, 'Monthly Test', 'Subcategory of Examination Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11'),
+(11, 5, 'Final Exam', 'Subcategory of Examination Fee', '2025-12-23 06:10:11', '2025-12-23 06:10:11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `marks`
 --
 
@@ -613,7 +774,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (217, '2025_12_09_125819_create_fee_payment_details_table', 2),
 (218, '2025_12_09_125837_create_fee_payment_items_table', 2),
 (222, '2025_12_21_130614_create_bank_details_table', 3),
-(223, '2025_12_21_130634_create_bank_transection_details_table', 3);
+(223, '2025_12_21_130634_create_bank_transection_details_table', 3),
+(227, '2025_12_23_104250_create_income_categories_table', 4),
+(228, '2025_12_23_104304_create_income_sub_categories_table', 4),
+(229, '2025_12_23_104324_create_incomes_table', 4);
 
 -- --------------------------------------------------------
 
@@ -1495,6 +1659,29 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `incomes`
+--
+ALTER TABLE `incomes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `incomes_category_id_foreign` (`category_id`),
+  ADD KEY `incomes_subcategory_id_foreign` (`subcategory_id`),
+  ADD KEY `incomes_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `income_categories`
+--
+ALTER TABLE `income_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `income_categories_name_unique` (`name`);
+
+--
+-- Indexes for table `income_sub_categories`
+--
+ALTER TABLE `income_sub_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `income_sub_categories_category_id_foreign` (`category_id`);
+
+--
 -- Indexes for table `marks`
 --
 ALTER TABLE `marks`
@@ -1619,7 +1806,7 @@ ALTER TABLE `bank_details`
 -- AUTO_INCREMENT for table `bank_transection_details`
 --
 ALTER TABLE `bank_transection_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `class_schedules`
@@ -1655,7 +1842,7 @@ ALTER TABLE `excategories`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `exsubcategories`
@@ -1685,13 +1872,13 @@ ALTER TABLE `fee_payments`
 -- AUTO_INCREMENT for table `fee_payment_details`
 --
 ALTER TABLE `fee_payment_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `fee_payment_items`
 --
 ALTER TABLE `fee_payment_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `fee_structures`
@@ -1706,6 +1893,24 @@ ALTER TABLE `groups`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `incomes`
+--
+ALTER TABLE `incomes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `income_categories`
+--
+ALTER TABLE `income_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `income_sub_categories`
+--
+ALTER TABLE `income_sub_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `marks`
 --
 ALTER TABLE `marks`
@@ -1715,7 +1920,7 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -1853,6 +2058,20 @@ ALTER TABLE `fee_payment_items`
 ALTER TABLE `fee_structures`
   ADD CONSTRAINT `fee_structures_class_id_foreign` FOREIGN KEY (`class_id`) REFERENCES `rooms` (`id`),
   ADD CONSTRAINT `fee_structures_fee_cat_id_foreign` FOREIGN KEY (`fee_cat_id`) REFERENCES `fee_categories` (`id`);
+
+--
+-- Constraints for table `incomes`
+--
+ALTER TABLE `incomes`
+  ADD CONSTRAINT `incomes_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `income_categories` (`id`),
+  ADD CONSTRAINT `incomes_subcategory_id_foreign` FOREIGN KEY (`subcategory_id`) REFERENCES `income_sub_categories` (`id`),
+  ADD CONSTRAINT `incomes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `teachers` (`id`);
+
+--
+-- Constraints for table `income_sub_categories`
+--
+ALTER TABLE `income_sub_categories`
+  ADD CONSTRAINT `income_sub_categories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `income_categories` (`id`);
 
 --
 -- Constraints for table `marks`
