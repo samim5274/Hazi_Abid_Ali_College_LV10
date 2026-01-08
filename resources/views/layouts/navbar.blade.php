@@ -278,6 +278,11 @@
                                 <span class="pc-mtext">Expenses</span>
                             </a>                            
                         </li>
+                        <li class="pc-item pc-hasmenu">
+                            <a href="{{url('/expense-setting')}}" class="pc-link">
+                                <span class="pc-mtext">Settings</span>
+                            </a>                            
+                        </li>
                     </ul>
                 </li>
                 <li class="pc-item pc-hasmenu">

@@ -302,6 +302,16 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/expenses-edit/{id}', [ExpensesController::class, 'edit']);
     Route::post('/modify-expenses/{id}', [ExpensesController::class, 'update']);
     Route::get('/expenses-print/{id}', [ExpensesController::class, 'print']);
+    // Expenses setting
+    Route::get('/expense-setting', [ExpensesController::class, 'setting']);
+    Route::post('/create-expenses-category', [ExpensesController::class, 'createCategory']);
+    Route::get('/edit-expenses-category/{id}', [ExpensesController::class, 'editView']);
+    Route::post('/modify-expenses-category/{id}', [ExpensesController::class, 'updateCategory']);
+    Route::post('/delete-expenses-category/{id}', [ExpensesController::class, 'deleteCategory']);
+    Route::post('/create-expenses-subcategory', [ExpensesController::class, 'createSubCategory']);
+    Route::get('/edit-expenses-subcategory/{id}', [ExpensesController::class, 'editSubView']);
+    Route::post('/modify-expenses-subcategory/{id}', [ExpensesController::class, 'updateSubCategory']);
+    Route::post('/delete-expenses-subcategory/{id}', [ExpensesController::class, 'deleteSubCategory']);
     // Expenses report Route
     Route::get('/date-wise-expenses', [ExpensesController::class, 'dateExpenses']);
     Route::get('/expenses-data-filter', [ExpensesController::class, 'filterExpenses']);

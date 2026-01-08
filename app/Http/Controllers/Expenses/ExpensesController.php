@@ -29,7 +29,7 @@ class ExpensesController extends Controller
     }
 
     public function getSubCategory($id) {
-        $subcategories = Exsubcategory::where('cat_id', $id)->get();
+        $subcategories = Exsubcategory::where('category_id', $id)->get();
         return response()->json($subcategories);
     }
 
@@ -267,5 +267,128 @@ class ExpensesController extends Controller
             'sub_category_id',
             'company'
         ));
+    }
+
+    public function setting(){
+        $company = Company::first();
+        $categories = Excategory::get();
+        $subcategories = Exsubcategory::with('category')->get();
+        return view('expenses.expenses_setting', compact('company', 'categories', 'subcategories'));
+    }
+
+    public function createCategory(Request $request){
+        $request->validate([
+            'txtCategoryName.required' => 'Category name is required',
+            'txtCategoryName.unique'  => 'This category already exists',
+        ]);
+
+        $category = new Excategory();
+        $category->name = $request->txtCategoryName;
+        $category->save();
+
+        return redirect()->back()->with('success', 'Expenses Category Created Successfully');
+    }
+
+    public function editView($id){
+        try{
+            $company = Company::first();
+            $category = Excategory::findOrFail($id);
+            return view('expenses.edit_expenses_category', compact('company', 'category'));
+        } catch (\Exception $e) {
+            return response()->json([ 'message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateCategory(Request $request, $id){
+        $request->validate([
+            'txtCategoryName' => 'required|string|max:255' . $id,            
+        ], [
+            'txtCategoryName.required' => 'Category name is required',
+            'txtCategoryName.unique'  => 'This category already exists',
+        ]);
+
+        $category = Excategory::findOrFail($id);
+        $category->name = $request->txtCategoryName;
+        $category->save();
+
+        return redirect()->back()->with('success', 'Expenses Category Updated Successfully');
+    }
+
+    public function deleteCategory($id){
+        try{
+            $data = Excategory::findOrFail($id);
+            $data->delete();
+            return redirect()->back()->with('success', 'Expenses Category Created Successfully');
+        } catch (\Exception $e) {
+            return response()->json([ 'message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function createSubCategory(Request $request){        
+        $request->validate([
+            'category_id' => 'required|exists:excategories,id',
+            'txtSubCategoryName' => 'required|string|max:255|unique:exsubcategories,name',
+        ], [
+            'category_id.required' => 'Please select a category',
+            'category_id.exists'   => 'Selected category does not exist',
+            'txtSubCategoryName.required' => 'Subcategory name is required',
+            'txtSubCategoryName.unique'   => 'This subcategory already exists',
+        ]);
+
+        Exsubcategory::create([
+            'cat_id' => $request->category_id,
+            'name'   => $request->txtSubCategoryName,
+        ]);
+
+        return redirect()->back()->with('success', 'Expenses Subcategory Created Successfully');
+    }
+
+
+    public function editSubView($id){
+        try{
+            $company = Company::first();
+            $subcategories = Exsubcategory::findOrFail($id);
+            $categories = Excategory::get();
+            return view('expenses.edit_expenses_sub_category', compact('company', 'subcategories','categories'));
+        } catch (\Exception $e) {
+            return response()->json([ 'message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateSubCategory(Request $request, $id){
+        // Validation
+        $request->validate([
+            'txtSubCategoryName' => 'required|string|max:255|unique:exsubcategories,name,' . $id,
+            'category_id'        => 'required|exists:excategories,id',
+            'remarks'            => 'nullable|string|max:500',
+        ], [
+            'txtSubCategoryName.required' => 'Subcategory name is required',
+            'txtSubCategoryName.unique'   => 'This subcategory already exists',
+            'category_id.required'        => 'Please select a valid category',
+            'category_id.exists'          => 'Selected category does not exist',
+        ]);
+
+        // Find the subcategory
+        $subcategory = Exsubcategory::findOrFail($id);
+
+        // Update using mass assignment
+        $subcategory->update([
+            'name'        => $request->txtSubCategoryName,
+            'cat_id'      => $request->category_id,
+            'description' => $request->remarks ?? 'N/A',
+        ]);
+
+        // Redirect with success message
+        return redirect()->back()->with('success', 'Expenses Subcategory Updated Successfully');
+    }
+
+    public function deleteSubCategory($id){
+        try{
+            $data = Exsubcategory::findOrFail($id);
+            $data->delete();
+            return redirect()->back()->with('success', 'Expenses Sub-Category Created Successfully');
+        } catch (\Exception $e) {
+            return response()->json([ 'message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
     }
 }
