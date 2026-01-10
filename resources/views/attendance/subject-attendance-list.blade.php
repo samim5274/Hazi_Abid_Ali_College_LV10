@@ -55,7 +55,7 @@
             <div class="card rounded-lg border shadow-sm">
                 <div class="card-header px-4 py-3 border-b bg-gray-100 flex items-center justify-between">
                     <h3 class="text-lg font-semibold text-gray-700">Classes List</h3>
-                    <a href="{{url('/attendance-apply')}}"><button class="px-4 py-2 bg-[#475775] text-white text-sm font-medium rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition">Attendance Apply</button></a>
+                    <!-- <a href="{{url('/attendance-apply')}}"><button class="px-4 py-2 bg-[#475775] text-white text-sm font-medium rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition">Attendance Apply</button></a> -->
                 </div>
                 <div class="card-body p-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

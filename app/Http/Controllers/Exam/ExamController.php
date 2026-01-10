@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Exam;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+use Auth;
 use App\Models\Room;
 use App\Models\Company;
 use App\Models\Student;
@@ -155,7 +157,48 @@ class ExamController extends Controller
 
         $findData = Mark::where('student_id', $id)->where('subject_id', $request->subject_id)->where('exam_id', $request->exam_id)->first();
         if($findData){
-            return redirect()->back()->with('warning', 'Mark already submited. Please try another student. Thank you.');
+            if($request->edit){
+                $exam = Exam::where('id', $request->exam_id)->first();
+                $max_mark = $exam->max_marks;
+                $number = $request->marks_obtained;
+
+                $percentage = ($number / $max_mark) * 100;
+
+                if ($percentage >= 80) {
+                    $grade = 'A+';
+                    $gpa   = 5.00;
+                } elseif ($percentage >= 70) {
+                    $grade = 'A';
+                    $gpa   = 4.00;
+                } elseif ($percentage >= 60) {
+                    $grade = 'A-';
+                    $gpa   = 3.50;
+                } elseif ($percentage >= 50) {
+                    $grade = 'B';
+                    $gpa   = 3.00;
+                } elseif ($percentage >= 40) {
+                    $grade = 'C';
+                    $gpa   = 2.00;
+                } elseif ($percentage >= 33) {
+                    $grade = 'D';
+                    $gpa   = 1.00;
+                } else {
+                    $grade = 'F';
+                    $gpa   = 0.00;
+                }
+
+                $findData->student_id     = $id;
+                $findData->subject_id     = $request->subject_id;
+                $findData->exam_id        = $request->exam_id;
+                $findData->marks_obtained = $number;
+                $findData->grade          = $grade;
+                $findData->gpa            = $gpa;
+                $findData->remarks        = 'Updated by ' . Auth::guard('teacher')->user()->first_name .' '.Auth::guard('teacher')->user()->last_name;
+                
+                // $findData->update();
+                return redirect()->back()->with('success', 'Mark updated successfully!');
+            }
+            // return redirect()->back()->with('warning', 'Mark already submited. Please try another student. Thank you.');
         }
 
         $exam = Exam::where('id', $request->exam_id)->first();
@@ -186,7 +229,6 @@ class ExamController extends Controller
             $grade = 'F';
             $gpa   = 0.00;
         }
-
 
         $mark = new Mark();
         $mark->student_id     = $id;
@@ -263,5 +305,27 @@ class ExamController extends Controller
         $data->exam_name = $name;
         $data->save();
         return redirect()->back()->with('success', 'New exam created successfully!');
+    }
+
+    public function updateExam(Request $request, $id){
+        try {
+            $exam = ExamName::findOrFail($id);
+            if ($request->has('delete')) {
+                // $exam->delete();
+                return back()->with('success', 'Exam deleted successfully!');
+            }
+            $request->validate([
+                'exam_name' => 'required|string|max:255'
+            ]);
+            $exam->exam_name = $request->exam_name;
+            $exam->save();
+            return back()->with('success', 'Exam updated successfully!');
+        }
+        catch (ModelNotFoundException $e) {
+            return back()->with('error', 'Exam not found.');
+        }
+        catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong. Please try again.');
+        }
     }
 }

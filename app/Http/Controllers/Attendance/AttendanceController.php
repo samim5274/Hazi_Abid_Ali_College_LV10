@@ -131,7 +131,7 @@ class AttendanceController extends Controller
         $students = Student::all();
         foreach($students as $student){
             $student->attend_date = $this->date;
-            $student->update();
+            // $student->update();
         }
         return redirect()->back()->with('success','Student attendance apply for all classes. Thank you.');
     }

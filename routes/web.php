@@ -74,10 +74,14 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('/edit-student/{id}', [StudentController::class, 'editStudent']);
     Route::get('liveSearchStudent', [StudentController::class, 'liveSearch']);
 
+    // Only Head of department access this links
+    Route::group(['middleware' => ['hod']], function(){ 
+        Route::get('/promote-class/{class_id}', [PromoteController::class, 'promoteClass']);
+    });
     Route::get('/student/migration', [PromoteController::class, 'classList'])->name('migration-class-list');
     Route::get('/migration/class/{class}', [PromoteController::class, 'stdList'])->name('student-list-migration');
     Route::post('/update/student/class/{student}', [PromoteController::class, 'updateStudent']);    
-    Route::get('/promote-class/{class_id}', [PromoteController::class, 'promoteClass']);
+    
 
     Route::get('/student-report', [StudentReportController::class, 'genderReport'])->name('gender-wise-student-report-view');
     Route::get('/find-gender-wise-student', [StudentReportController::class, 'findGenderReport']);
@@ -151,9 +155,18 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 
+    // Only Head of department access this links
+    Route::group(['middleware' => ['hod']], function(){ 
+        
+    });
+    Route::get('/create-exam', [ExamController::class, 'createExam'])->name('create-exam-view');
+        Route::post('/create-new-exam', [ExamController::class, 'createNewExam']);
+        Route::post('/update-exam/{id}', [ExamController::class, 'updateExam']);
+        Route::post('/add-new-exam', [ExamController::class, 'addExam']);
+        Route::post('/modify-exam/{exam_id}', [ExamController::class, 'modifyExam']);
+        
     Route::get('/exam-management', [ExamController::class, 'viewExam'])->name('exam-details-view');
-    Route::post('/add-new-exam', [ExamController::class, 'addExam']);
-    Route::post('/modify-exam/{exam_id}', [ExamController::class, 'modifyExam']);
+    
     Route::get('/exam-class-list', [ExamController::class, 'classList'])->name('result-entry-class-view');
     Route::get('/class/exam/{class}', [ExamController::class, 'examView'])->name('class-exam-select');
     Route::get('/class/subject/exam/{class}/{subject}/{exam}', [ExamController::class, 'classExam'])->name('class-exam-view');
@@ -163,95 +176,173 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/result-report/class/student/{class}/{student}', [ExamController::class, 'showResult'])->name('show-student-result');
     Route::get('/total-report-result', [ExamController::class, 'totalReport'])->name('total-report-class-list');
     Route::get('/total-result-report/class/{class}', [ExamController::class, 'totalResult'])->name('total-result-report');
-    Route::get('/create-exam', [ExamController::class, 'createExam'])->name('create-exam-view');
-    Route::post('/create-new-exam', [ExamController::class, 'createNewExam']);
+    
 
 
 
-
-    Route::get('/add-class', [ClassController::class, 'addNew'])->name('add-new-class-view');
-    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');
-    Route::get('/edit-class/{id}', [ClassController::class, 'editClass'])->name('edit-class-view');
-    Route::post('/modify-class/{id}', [ClassController::class, 'modifyClass']);
-    Route::post('/insert-class', [ClassController::class, 'insertClass']);
-    Route::get('/assign-teacher-list', [ClassController::class, 'assignTeacehr'])->name('assign-teacher-list-view');
-    Route::post('/assigned-teacher-update', [ClassController::class, 'update']);
+    // Only Head of department access this links
+    Route::group(['middleware' => ['hod']], function(){    });            
+        Route::get('/add-class', [ClassController::class, 'addNew'])->name('add-new-class-view');
+        Route::post('/insert-class', [ClassController::class, 'insertClass']);
+        Route::get('/edit-class/{id}', [ClassController::class, 'editClass'])->name('edit-class-view');
+        Route::post('/modify-class/{id}', [ClassController::class, 'modifyClass']);
+        Route::post('/submit-class-schedule', [ClassController::class, 'store']);
+        Route::get('/modify-class-schedule', [ClassController::class, 'modifySchedule'])->name('class-schedule-modify-view');
+        Route::get('/search-modify-class-schedule', [ClassController::class, 'searchSchedule']);
+        Route::get('/edit/class/schedule/{scheduleId}', [ClassController::class, 'editSchedule'])->name('edit-class-schedule');
+        Route::post('/update-class-schedule/{id}', [ClassController::class, 'updateClassSchedule']);
+        Route::get('/delete/class/schedule/{id}', [ClassController::class, 'deleteClassSchedule']);
+        Route::get('/assign-teacher-list', [ClassController::class, 'assignTeacehr'])->name('assign-teacher-list-view');
+        Route::post('/assigned-teacher-update', [ClassController::class, 'update']);
+    
+    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');    
     Route::get('/class-schedule', [ClassController::class, 'classSchedule'])->name('class-schedule-view');
-    Route::post('/submit-class-schedule', [ClassController::class, 'store']);
-    Route::get('/modify-class-schedule', [ClassController::class, 'modifySchedule'])->name('class-schedule-modify-view');
-    Route::get('/search-modify-class-schedule', [ClassController::class, 'searchSchedule']);
-    Route::get('/edit/class/schedule/{scheduleId}', [ClassController::class, 'editSchedule'])->name('edit-class-schedule');
-    Route::post('/update-class-schedule/{id}', [ClassController::class, 'updateClassSchedule']);
     Route::get('/my-class-schedule', [ClassController::class, 'mySchedule'])->name('my-class-schedule');
 
 
 
 
 
-    Route::get('/fee-structure', [FeePaymentController::class, 'stuctureSetup'])->name('structure-management');
-    Route::get('/fee-structure-edit/{id}', [FeePaymentController::class, 'updateStructre']);
-    Route::post('/modify-fee-structure/{id}', [FeePaymentController::class, 'editStructre']);
-    Route::get('/fee-collection', [FeePaymentController::class, 'FeeCollection'])->name('fee-collection-view');
-    Route::get('/class-finance/{class_id}', [FeePaymentController::class, 'StudentList'])->name('class-and student-list');
-    Route::get('/class/student/{class_id}/{student_id}', [FeePaymentController::class, 'feeView'])->name('student-class-fee-view');
-    Route::get('/due-collection', [FeePaymentController::class, 'dueCollection'])->name('due-collection');
-    Route::get('/student/payment-info/{student}', [FeePaymentController::class, 'paymentInfo']);
-    Route::post('/due-collection-payment', [FeePaymentController::class, 'duePament']);
+    // ======================================================= Notice Board Route =======================================================
+    Route::get('/notice', [NoticeController::class, 'index'])->name('notice-create-view');
+    Route::post('/create-notice', [NoticeController::class, 'create'])->name('create-new-notice');
+    Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');
+    Route::get('/delete/notice/{id}', [NoticeController::class, 'delete'])->name('delete-notice');
+    Route::get('/view/notice/{id}', [NoticeController::class, 'viewNotice'])->name('view-notice');
 
-    Route::get('/finance-management', [FeePaymentController::class, 'financeManagement'])->name('finance-management');
-    Route::post('/add-new-finance-category', [FeePaymentController::class, 'store']);
-    Route::get('/edit-finance-category/{id}', [FeePaymentController::class, 'editCategory']);
-    Route::post('/update-finance-category/{id}', [FeePaymentController::class, 'updateCategory']);
-    Route::get('/finance-fee-structure', [FeePaymentController::class, 'financeFeeStructure'])->name('finance-fee-structure');
-    Route::post('/insert-fee-structure', [FeePaymentController::class, 'insertFeeStructure']);
-    Route::get('/finance-fee-payment', [FeePaymentController::class, 'financeFeePayment'])->name('finance-fee-payment');
-    Route::post('/fee-payments-2', [FeePaymentController::class, 'feePayment']);
-    Route::get('/fee-payment-show/{id}', [FeePaymentController::class, 'showPayment'])->name('show-specific-student-payment');
-    Route::get('/print-pay-invoice/{receipt}', [FeePaymentController::class, 'feePayPrintReceipt']);
 
-    Route::get('/total-transection-summary', [TotalTransectionController::class, 'totalTransectionSummary']);
+    // Only Finance and account access this links
+    Route::group(['middleware' => ['finance']], function(){  });
 
-    Route::get('/students/{class_id}', [FeePaymentController::class, 'getStudentsByClass']);
-    Route::get('/fee-structures/{class_id}', [FeePaymentController::class, 'getFeeStructuresByClass']);
+        Route::get('/fee-structure', [FeePaymentController::class, 'stuctureSetup'])->name('structure-management');
+        Route::get('/fee-structure-edit/{id}', [FeePaymentController::class, 'updateStructre']);
+        Route::post('/modify-fee-structure/{id}', [FeePaymentController::class, 'editStructre']);
+        Route::get('/fee-collection', [FeePaymentController::class, 'FeeCollection'])->name('fee-collection-view');
+        Route::get('/class-finance/{class_id}', [FeePaymentController::class, 'StudentList'])->name('class-and student-list');
+        Route::get('/class/student/{class_id}/{student_id}', [FeePaymentController::class, 'feeView'])->name('student-class-fee-view');
+        Route::get('/due-collection', [FeePaymentController::class, 'dueCollection'])->name('due-collection');
+        Route::get('/student/payment-info/{student}', [FeePaymentController::class, 'paymentInfo']);
+        Route::post('/due-collection-payment', [FeePaymentController::class, 'duePament']);
+
+        Route::get('/finance-management', [FeePaymentController::class, 'financeManagement'])->name('finance-management');
+        Route::post('/add-new-finance-category', [FeePaymentController::class, 'store']);
+        Route::get('/edit-finance-category/{id}', [FeePaymentController::class, 'editCategory']);
+        Route::post('/update-finance-category/{id}', [FeePaymentController::class, 'updateCategory']);
+        Route::get('/finance-fee-structure', [FeePaymentController::class, 'financeFeeStructure'])->name('finance-fee-structure');
+        Route::post('/insert-fee-structure', [FeePaymentController::class, 'insertFeeStructure']);
+        Route::get('/finance-fee-payment', [FeePaymentController::class, 'financeFeePayment'])->name('finance-fee-payment');
+        Route::post('/fee-payments-2', [FeePaymentController::class, 'feePayment']);
+        Route::get('/fee-payment-show/{id}', [FeePaymentController::class, 'showPayment'])->name('show-specific-student-payment');
+        Route::get('/print-pay-invoice/{receipt}', [FeePaymentController::class, 'feePayPrintReceipt']);
+
+        Route::get('/total-transection-summary', [TotalTransectionController::class, 'totalTransectionSummary']);
+
+        Route::get('/students/{class_id}', [FeePaymentController::class, 'getStudentsByClass']);
+        Route::get('/fee-structures/{class_id}', [FeePaymentController::class, 'getFeeStructuresByClass']);
+        
+        Route::get('/student-finance-report', [FinanceReportController::class, 'studentFinanceReport'])->name('student-finance-report-view');
+        Route::get('/find-payment-report', [FinanceReportController::class, 'findPaymentReport']);
+        Route::get('/category-class-finance-report', [FinanceReportController::class, 'categroyReport'])->name('category-finance-report');
+        Route::get('/find-category-payment-report', [FinanceReportController::class, 'findCategoryFeeReport']);
+        Route::get('/student-wise-payment-report', [FinanceReportController::class, 'studentFeeReport'])->name('student-fee-report');
+        Route::get('/find-student-fee-payment', [FinanceReportController::class, 'findStudentFeeReport']);
+        Route::get('/fee-payment-hisoty', [FinanceReportController::class, 'paymentHistory']);
+        Route::get('/find-payment-history', [FinanceReportController::class,'findPaymentHistory']);
+
+
+
+
+
+
+
+        Route::get('/bank-setting', [BankController::class, 'setting'])->name('bank-setting-view');
+        Route::post('/create-bank', [BankController::class, 'createBank']);
+        Route::get('/edit-bank/{id}', [BankController::class, 'editView'])->name('bank-edit-view');
+        Route::post('/modify-bank/{id}', [BankController::class, 'modifyBank']);
+        Route::post('/delete-bank/{id}', [BankController::class, 'deleteBank']);
+        Route::get('/bank-diposit-view', [BankController::class, 'bankDepositView'])->name('bank-diposit-view');
+        Route::post('/bank-diposit-amount', [BankController::class, 'bankDepositAmount']);
+        Route::get('/edit-bank-deposit/{id}', [BankController::class, 'dipositEdit'])->name('bank-diposit-edit-view');
+        Route::post('/modify-bank-deposit/{id}', [BankController::class, 'dipositModify']);
+        Route::post('/delete-bank-deposit/{id}', [BankController::class, 'deleteDiposit']);
+        Route::get('/bank-withdraw-view', [BankController::class, 'bankWithdrawView'])->name('bank-withdraw-view');
+        Route::post('/bank-withdraw-amount', [BankController::class, 'bankWithdrawAmount']);
+        Route::get('/edit-bank-withdraw/{id}', [BankController::class, 'withdrawEdit'])->name('bank-withdraw-edit-view');
+        Route::post('/modify-bank-withdraw/{id}', [BankController::class, 'withdrawModify']);
+        Route::post('/delete-bank-withdraw/{id}', [BankController::class, 'withdrawDelete']);
+        Route::get('/bank-to-transection-view', [BankController::class, 'bankToTransectionView'])->name('bank-to-transection-view');
+        Route::post('/bank-to-bank-transection', [BankController::class, 'bankToBankTransection']);
+        Route::get('/total-transection-report', [BankController::class, 'totalTransectionReport'])->name('total-transection');
+        Route::get('/filter-transection-date', [BankController::class, 'filterTransectionDate'])->name('filter-transection-date');
+        Route::get('/total-diposit', [BankController::class, 'totalDiposit'])->name('total-diposit');
+        Route::get('/filter-total-diposit-date', [BankController::class, 'filterDipositDate'])->name('filter-total-diposit-date');
+        Route::get('/total-withdraw', [BankController::class, 'totalWithdraw'])->name('total-withdraw');
+        Route::get('/filter-total-Withdraw-date', [BankController::class, 'filterWithdrawDate'])->name('filter-total-Withdraw-date');
+
+
+
+
+
+        // ======================================================= expense Board Route =======================================================
+        Route::get('/expense', [ExpensesController::class, 'index'])->name('expenses-view');
+        Route::get('/get-subcategories/{id}', [ExpensesController::class, 'getSubCategory']);
+        Route::post('/create-expenses', [ExpensesController::class, 'store']);
+        Route::get('/delete/Expense/{id}', [ExpensesController::class, 'delete']);
+        Route::get('/expenses-view/{id}', [ExpensesController::class, 'expensesView']);
+        Route::get('/expenses-edit/{id}', [ExpensesController::class, 'edit']);
+        Route::post('/modify-expenses/{id}', [ExpensesController::class, 'update']);
+        Route::get('/expenses-print/{id}', [ExpensesController::class, 'print']);
+        // Expenses setting
+        Route::get('/expense-setting', [ExpensesController::class, 'setting']);
+        Route::post('/create-expenses-category', [ExpensesController::class, 'createCategory']);
+        Route::get('/edit-expenses-category/{id}', [ExpensesController::class, 'editView']);
+        Route::post('/modify-expenses-category/{id}', [ExpensesController::class, 'updateCategory']);
+        Route::post('/delete-expenses-category/{id}', [ExpensesController::class, 'deleteCategory']);
+        Route::post('/create-expenses-subcategory', [ExpensesController::class, 'createSubCategory']);
+        Route::get('/edit-expenses-subcategory/{id}', [ExpensesController::class, 'editSubView']);
+        Route::post('/modify-expenses-subcategory/{id}', [ExpensesController::class, 'updateSubCategory']);
+        Route::post('/delete-expenses-subcategory/{id}', [ExpensesController::class, 'deleteSubCategory']);
+        // Expenses report Route
+        Route::get('/date-wise-expenses', [ExpensesController::class, 'dateExpenses']);
+        Route::get('/expenses-data-filter', [ExpensesController::class, 'filterExpenses']);
+        Route::get('/category-wise-expenses', [ExpensesController::class, 'categroyExpenses']);
+        Route::get('/expenses-category-data-filter', [ExpensesController::class, 'filterCatExpen']);
+        Route::get('/sub-category-wise-expenses', [ExpensesController::class, 'subCategoyExpenses']);
+        Route::get('/expenses-sub-category-data-filter', [ExpensesController::class, 'filterSubCatExpen']);
+
+
+        // ======================================================= income Board Route =======================================================
+        Route::get('/income', [IncomeController::class, 'index'])->name('income-view');
+        Route::get('/get-income-subcategories/{id}', [IncomeController::class, 'getIncomeSubCategory']);
+        Route::post('/create-income', [IncomeController::class, 'store']);
+        Route::get('/income-view/{id}', [IncomeController::class, 'incomeView']);
+        Route::get('/income-delete/{id}', [IncomeController::class, 'delete']);
+        Route::get('/income-print/{id}', [IncomeController::class, 'print']);
+        Route::get('/income-edit/{id}', [IncomeController::class, 'edit']);
+        Route::post('/modify-income/{id}', [IncomeController::class, 'update']);    
+
+        // income setting routes
+        Route::get('/income-setting', [IncomeController::class, 'incomeSetting'])->name('income-setting-view');
+        //category routes
+        Route::post('/create-income-category', [IncomeController::class, 'storeIncomeCategory'])->name('create-income-category');
+        Route::get('/edit-income-category/{id}', [IncomeController::class, 'editIncomeCategory'])->name('income-category-edit-view');
+        Route::post('/modify-income-category/{id}', [IncomeController::class, 'modifyIncomeCategory']);
+        Route::post('/delete-income-category/{id}', [IncomeController::class, 'deleteIncomeCategory']);
+        // subcategory routes
+        Route::post('/create-income-subcategory', [IncomeController::class, 'storeIncomeSubCategory'])->name('create-income-subcategory');
+        Route::get('/edit-income-subcategory/{id}', [IncomeController::class, 'editIncomeSubCategory'])->name('income-subcategory-edit-view');
+        Route::post('/modify-income-subcategory/{id}', [IncomeController::class, 'modifyIncomeSubCategory']);
+        Route::post('/delete-income-subcategory/{id}', [IncomeController::class, 'deleteIncomeSubCategory']);
+
+        // Income report Route
+        Route::get('/date-wise-income', [IncomeController::class, 'dateIncome']);
+        Route::get('/income-data-filter', [IncomeController::class, 'filterIncome']);
+        Route::get('/category-wise-income', [IncomeController::class, 'categroyIncome']);
+        Route::get('/income-category-data-filter', [IncomeController::class, 'filterCatIncome']);
+        Route::get('/sub-category-wise-income', [IncomeController::class, 'subCategoyIncome']);
+        Route::get('/income-sub-category-data-filter', [IncomeController::class, 'filterSubCatIncome']);
     
-    Route::get('/student-finance-report', [FinanceReportController::class, 'studentFinanceReport'])->name('student-finance-report-view');
-    Route::get('/find-payment-report', [FinanceReportController::class, 'findPaymentReport']);
-    Route::get('/category-class-finance-report', [FinanceReportController::class, 'categroyReport'])->name('category-finance-report');
-    Route::get('/find-category-payment-report', [FinanceReportController::class, 'findCategoryFeeReport']);
-    Route::get('/student-wise-payment-report', [FinanceReportController::class, 'studentFeeReport'])->name('student-fee-report');
-    Route::get('/find-student-fee-payment', [FinanceReportController::class, 'findStudentFeeReport']);
-    Route::get('/fee-payment-hisoty', [FinanceReportController::class, 'paymentHistory']);
-    Route::get('/find-payment-history', [FinanceReportController::class,'findPaymentHistory']);
 
-
-
-
-
-
-
-    Route::get('/bank-setting', [BankController::class, 'setting'])->name('bank-setting-view');
-    Route::post('/create-bank', [BankController::class, 'createBank']);
-    Route::get('/edit-bank/{id}', [BankController::class, 'editView'])->name('bank-edit-view');
-    Route::post('/modify-bank/{id}', [BankController::class, 'modifyBank']);
-    Route::post('/delete-bank/{id}', [BankController::class, 'deleteBank']);
-    Route::get('/bank-diposit-view', [BankController::class, 'bankDepositView'])->name('bank-diposit-view');
-    Route::post('/bank-diposit-amount', [BankController::class, 'bankDepositAmount']);
-    Route::get('/edit-bank-deposit/{id}', [BankController::class, 'dipositEdit'])->name('bank-diposit-edit-view');
-    Route::post('/modify-bank-deposit/{id}', [BankController::class, 'dipositModify']);
-    Route::post('/delete-bank-deposit/{id}', [BankController::class, 'deleteDiposit']);
-    Route::get('/bank-withdraw-view', [BankController::class, 'bankWithdrawView'])->name('bank-withdraw-view');
-    Route::post('/bank-withdraw-amount', [BankController::class, 'bankWithdrawAmount']);
-    Route::get('/edit-bank-withdraw/{id}', [BankController::class, 'withdrawEdit'])->name('bank-withdraw-edit-view');
-    Route::post('/modify-bank-withdraw/{id}', [BankController::class, 'withdrawModify']);
-    Route::post('/delete-bank-withdraw/{id}', [BankController::class, 'withdrawDelete']);
-    Route::get('/bank-to-transection-view', [BankController::class, 'bankToTransectionView'])->name('bank-to-transection-view');
-    Route::post('/bank-to-bank-transection', [BankController::class, 'bankToBankTransection']);
-    Route::get('/total-transection-report', [BankController::class, 'totalTransectionReport'])->name('total-transection');
-    Route::get('/filter-transection-date', [BankController::class, 'filterTransectionDate'])->name('filter-transection-date');
-    Route::get('/total-diposit', [BankController::class, 'totalDiposit'])->name('total-diposit');
-    Route::get('/filter-total-diposit-date', [BankController::class, 'filterDipositDate'])->name('filter-total-diposit-date');
-    Route::get('/total-withdraw', [BankController::class, 'totalWithdraw'])->name('total-withdraw');
-    Route::get('/filter-total-Withdraw-date', [BankController::class, 'filterWithdrawDate'])->name('filter-total-Withdraw-date');
 
 
 
@@ -281,74 +372,4 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('/modify-student-information', [StudentPortalController::class, 'modifyProfile']);
     Route::get('/student/change-password', [StudentPortalController::class, 'passChange'])->name('student-password-change-view');
     Route::post('/update-password', [StudentPortalController::class, 'updatePass']);
-
-
-
-
-    // ======================================================= Notice Board Route =======================================================
-    Route::get('/notice', [NoticeController::class, 'index'])->name('notice-create-view');
-    Route::post('/create-notice', [NoticeController::class, 'create'])->name('create-new-notice');
-    Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');
-    Route::get('/delete/notice/{id}', [NoticeController::class, 'delete'])->name('delete-notice');
-    Route::get('/view/notice/{id}', [NoticeController::class, 'viewNotice'])->name('view-notice');
-
-
-    // ======================================================= expense Board Route =======================================================
-    Route::get('/expense', [ExpensesController::class, 'index'])->name('expenses-view');
-    Route::get('/get-subcategories/{id}', [ExpensesController::class, 'getSubCategory']);
-    Route::post('/create-expenses', [ExpensesController::class, 'store']);
-    Route::get('/delete/Expense/{id}', [ExpensesController::class, 'delete']);
-    Route::get('/expenses-view/{id}', [ExpensesController::class, 'expensesView']);
-    Route::get('/expenses-edit/{id}', [ExpensesController::class, 'edit']);
-    Route::post('/modify-expenses/{id}', [ExpensesController::class, 'update']);
-    Route::get('/expenses-print/{id}', [ExpensesController::class, 'print']);
-    // Expenses setting
-    Route::get('/expense-setting', [ExpensesController::class, 'setting']);
-    Route::post('/create-expenses-category', [ExpensesController::class, 'createCategory']);
-    Route::get('/edit-expenses-category/{id}', [ExpensesController::class, 'editView']);
-    Route::post('/modify-expenses-category/{id}', [ExpensesController::class, 'updateCategory']);
-    Route::post('/delete-expenses-category/{id}', [ExpensesController::class, 'deleteCategory']);
-    Route::post('/create-expenses-subcategory', [ExpensesController::class, 'createSubCategory']);
-    Route::get('/edit-expenses-subcategory/{id}', [ExpensesController::class, 'editSubView']);
-    Route::post('/modify-expenses-subcategory/{id}', [ExpensesController::class, 'updateSubCategory']);
-    Route::post('/delete-expenses-subcategory/{id}', [ExpensesController::class, 'deleteSubCategory']);
-    // Expenses report Route
-    Route::get('/date-wise-expenses', [ExpensesController::class, 'dateExpenses']);
-    Route::get('/expenses-data-filter', [ExpensesController::class, 'filterExpenses']);
-    Route::get('/category-wise-expenses', [ExpensesController::class, 'categroyExpenses']);
-    Route::get('/expenses-category-data-filter', [ExpensesController::class, 'filterCatExpen']);
-    Route::get('/sub-category-wise-expenses', [ExpensesController::class, 'subCategoyExpenses']);
-    Route::get('/expenses-sub-category-data-filter', [ExpensesController::class, 'filterSubCatExpen']);
-
-
-    // ======================================================= income Board Route =======================================================
-    Route::get('/income', [IncomeController::class, 'index'])->name('income-view');
-    Route::get('/get-income-subcategories/{id}', [IncomeController::class, 'getIncomeSubCategory']);
-    Route::post('/create-income', [IncomeController::class, 'store']);
-    Route::get('/income-view/{id}', [IncomeController::class, 'incomeView']);
-    Route::get('/income-delete/{id}', [IncomeController::class, 'delete']);
-    Route::get('/income-print/{id}', [IncomeController::class, 'print']);
-    Route::get('/income-edit/{id}', [IncomeController::class, 'edit']);
-    Route::post('/modify-income/{id}', [IncomeController::class, 'update']);    
-
-    // income setting routes
-    Route::get('/income-setting', [IncomeController::class, 'incomeSetting'])->name('income-setting-view');
-    //category routes
-    Route::post('/create-income-category', [IncomeController::class, 'storeIncomeCategory'])->name('create-income-category');
-    Route::get('/edit-income-category/{id}', [IncomeController::class, 'editIncomeCategory'])->name('income-category-edit-view');
-    Route::post('/modify-income-category/{id}', [IncomeController::class, 'modifyIncomeCategory']);
-    Route::post('/delete-income-category/{id}', [IncomeController::class, 'deleteIncomeCategory']);
-    // subcategory routes
-    Route::post('/create-income-subcategory', [IncomeController::class, 'storeIncomeSubCategory'])->name('create-income-subcategory');
-    Route::get('/edit-income-subcategory/{id}', [IncomeController::class, 'editIncomeSubCategory'])->name('income-subcategory-edit-view');
-    Route::post('/modify-income-subcategory/{id}', [IncomeController::class, 'modifyIncomeSubCategory']);
-    Route::post('/delete-income-subcategory/{id}', [IncomeController::class, 'deleteIncomeSubCategory']);
-
-    // Income report Route
-    Route::get('/date-wise-income', [IncomeController::class, 'dateIncome']);
-    Route::get('/income-data-filter', [IncomeController::class, 'filterIncome']);
-    Route::get('/category-wise-income', [IncomeController::class, 'categroyIncome']);
-    Route::get('/income-category-data-filter', [IncomeController::class, 'filterCatIncome']);
-    Route::get('/sub-category-wise-income', [IncomeController::class, 'subCategoyIncome']);
-    Route::get('/income-sub-category-data-filter', [IncomeController::class, 'filterSubCatIncome']);
 });

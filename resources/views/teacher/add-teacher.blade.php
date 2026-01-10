@@ -100,10 +100,10 @@
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="gender">Gender</label>
                                                 <select id="gender" name="gender" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                                <option selected disabled>--Select Gender--</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
+                                                    <option selected disabled>--Select Gender--</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
                                                 </select>
                                             </div>
 
@@ -129,7 +129,20 @@
 
                                             <div>
                                                 <label class="block text-gray-600 mb-1" for="designation">Designation</label>
-                                                <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                                                <!-- <textarea id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea> -->
+                                                <select id="designation" name="designation" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option selected disabled>--Select Designation--</option>
+                                                    <option value="Lecturer">Lecturer</option>
+                                                    <option value="Senior Teacher">Senior Teacher</option>
+                                                    <option value="Finance and Accounts">Finance and Accounts</option>
+                                                    <option value="Assistant Professor">Assistant Professor</option>
+                                                    <option value="Associate Professor">Associate Professor</option>
+                                                    <option value="Professor">Professor</option>
+                                                    <option value="Head of Department">Head of Department</option>
+                                                    <option value="Dean">Dean (Faculty Level)</option>
+                                                    <option value="Vice Principal">Vice Principal</option>
+                                                    <option value="Principal">Principal</option>
+                                                </select>
                                             </div>
 
                                             <div>

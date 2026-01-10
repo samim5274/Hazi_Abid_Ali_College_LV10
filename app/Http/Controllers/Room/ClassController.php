@@ -293,6 +293,17 @@ class ClassController extends Controller
         return redirect()->route('class-schedule-modify-view')->with('success', 'Class schedule updated successfully!');
     }
 
+    public function deleteClassSchedule($id){
+        try{
+            $schedule = ClassSchedule::findOrFail($id);
+            $schedule->delete();
+            return redirect()->route('class-schedule-modify-view')->with('success', 'Class schedule delete successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('class-schedule-modify-view')
+                ->with('error', 'Something went wrong. Please try again.');
+        }
+    }
+
     public function mySchedule(){
         $company = Company::first();
         $user = Auth::guard('teacher')->user()->id;

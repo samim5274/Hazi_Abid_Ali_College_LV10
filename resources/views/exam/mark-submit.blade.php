@@ -132,12 +132,21 @@
                                         focus:ring-green-500 focus:border-green-500"
                                     placeholder="Enter Mark">
 
-                                <button type="submit"
+                                @if($studentMarks)                                
+                                <button type="submit" name="edit" value="1" onclick="return confirm('Are you sure want to update this mark?')"
+                                        class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 
+                                            text-white font-semibold text-sm px-4 py-2 rounded-md w-full sm:w-auto 
+                                            transition duration-200 shadow-md hover:shadow-lg">
+                                    <i class="fa-solid fa-pencil me-2"></i> Modify
+                                </button>
+                                @else
+                                <button type="submit" onclick="return confirm('Are you sure want to save this mark?')"
                                         class="flex items-center justify-center bg-green-500 hover:bg-green-600 
                                             text-white font-semibold text-sm px-4 py-2 rounded-md w-full sm:w-auto 
                                             transition duration-200 shadow-md hover:shadow-lg">
-                                    <i class="fa-solid fa-check mr-2"></i> Submit
+                                    <i class="fa-solid fa-check me-2"></i> Submit
                                 </button>
+                                @endif
                             </form>
                         </div>
                     </div>

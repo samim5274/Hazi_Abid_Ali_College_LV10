@@ -142,7 +142,8 @@
                                         {{ \Carbon\Carbon::parse($schedule->end_time)->format('h:i A') }}
                                     </td>
                                     <td class="px-6 py-4 text-gray-600">
-                                        <a href="{{url('/edit/class/schedule/'.$schedule->id)}}"> <i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                        <a href="{{url('/edit/class/schedule/'.$schedule->id)}}" class="me-2"> <i class="fa-solid fa-pen-to-square text-gray-800"></i> </a>
+                                        <a href="{{url('/delete/class/schedule/'.$schedule->id)}}" onclick="return confirm('Are you sure you want to delete this class schedule?')"> <i class="fa-solid fa-trash-can text-red-500"></i> </a>
                                     </td>
                                 </tr>
                             @empty

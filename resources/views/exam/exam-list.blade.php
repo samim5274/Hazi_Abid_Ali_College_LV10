@@ -84,10 +84,8 @@
                                         <label for="class_id" class="font-medium">Class</label>
                                         <select name="class_id" id="class_id" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
                                             <option disabled selected>-- Select Class --</option>
-                                            @foreach($rooms as $room)
-                                            @if($room->id != 13)
-                                                <option value="{{$room->id}}">{{$room->name}} - {{$room->section}}</option>
-                                            @endif
+                                            @foreach($rooms as $room)                                            
+                                                <option value="{{$room->id}}">{{$room->name}} - {{$room->section}}</option>                                            
                                             @endforeach
                                         </select>
                                     </div>
@@ -181,8 +179,9 @@
                                         <label for="name_{{$val->id}}" class="font-medium">Exam Name</label>
                                         <select name="name" id="name_{{$val->id}}" class="form-select w-full rounded-md mt-1 border-gray-300 focus:border-green-500 focus:ring-green-500">
                                             <option selected disabled>-- Select Exam --</option>
-                                            <option value="Midterm" {{ $val->name == 'Midterm' ? 'selected' : '' }}>Midterm</option>
-                                            <option value="Final" {{ $val->name == 'Final' ? 'selected' : '' }}>Final</option>
+                                            @foreach($examName as $ex)
+                                            <option value="{{$ex->exam_name}}" {{ $val->name === $ex->exam_name ? 'selected' : '' }}>{{$ex->exam_name}}</option>      
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div>
