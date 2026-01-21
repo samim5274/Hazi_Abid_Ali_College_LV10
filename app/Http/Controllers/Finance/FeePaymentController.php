@@ -16,6 +16,7 @@ use App\Models\FeeCategory;
 use App\Models\FeeStructure;
 use App\Models\feePaymentDetails;
 use App\Models\FeePaymentItem;
+use App\Models\DueCollection;
 
 class FeePaymentController extends Controller
 {
@@ -200,6 +201,8 @@ class FeePaymentController extends Controller
             'fee_structure'   => 'required|array|min:1',
             'fee_structure.*' => 'exists:fee_structures,id',
             'amount_paid'     => 'required|numeric|min:0',
+            'month'           => 'required',
+            'year'            => 'required',
             'discount'        => 'nullable|numeric|min:0',
             'payment_method'  => 'required|in:Cash,Card,Bank Transfer,Mobile Banking',
         ]);
@@ -208,8 +211,8 @@ class FeePaymentController extends Controller
             return back()->with('error', 'Full due payment not exceed. Thank You!');
         }
 
-        $month = now()->format('m');
-        $year  = now()->format('Y');
+        $month = $request->month;
+        $year  = $request->year;
 
         $feeStructures = FeeStructure::whereIn('id', $request->fee_structure)->get();
 
@@ -247,13 +250,13 @@ class FeePaymentController extends Controller
 
             // Generate Receipt & Invoice
             do { $receipt = strtoupper(Str::random(10)); }
-            while (FeePaymentDetails::where('receipt_no', $receipt)->exists());
+            while (feePaymentDetails::where('receipt_no', $receipt)->exists());
 
             do { $invoice = 'INV-' . rand(10000, 99999); }
-            while (FeePaymentDetails::where('invoice_no', $invoice)->exists());
+            while (feePaymentDetails::where('invoice_no', $invoice)->exists());
 
             // Store Master Invoice
-            $payment = FeePaymentDetails::create([
+            $payment = feePaymentDetails::create([
                 'student_id'    => $request->student_id,
                 'user_id'       => Auth::guard('teacher')->user()->id,
                 'total_amount'  => $totalAmount,
@@ -326,23 +329,81 @@ class FeePaymentController extends Controller
     }
 
     public function paymentInfo($studentId){
-        $payment = feePaymentDetails::where('student_id', $studentId)
-            ->selectRaw('
-                SUM(total_amount) as total_amount,
-                SUM(total_paid) as total_paid,
-                SUM(total_due) as total_due
-            ')
-            ->first();
+        // 1 Student wise total due (all invoices/fee entries)
+        $total_due = (float) feePaymentDetails::where('student_id', $studentId)
+            ->selectRaw('COALESCE(SUM(total_due),0) as total_due')
+            ->value('total_due');
+
+        // 2 Student wise total paid (all due collections)
+        $total_paid = (float) DueCollection::where('student_id', $studentId)
+            ->selectRaw('COALESCE(SUM(paid_amount),0) as total_paid')
+            ->value('total_paid');
+
+        // 3 Final Due = total_due - total_paid (never negative)
+        $final_total_due = max(0, $total_due - $total_paid);
 
         return response()->json([
-            'total_amount' => $payment->total_amount ?? 0,
-            'total_paid'   => $payment->total_paid ?? 0,
-            'total_due'    => $payment->total_due ?? 0,
+            'total_due'       => $total_due,
+            'total_paid'      => $total_paid,
+            'final_total_due' => (float) $final_total_due,
         ]);
     }
 
     public function duePament(Request $request){
-        return redirect()->back()->with('warning','Due collection under maintanance. Please contact with developer. Thank You!');
+        
+        $request->validate([
+            'class_id'        => ['required', 'integer'],
+            'student_id'      => ['required', 'integer', 'exists:students,id'],
+            'payment_method'  => ['nullable', 'string', 'max:50'],
+            'txtPaymentAmount'=> ['required', 'numeric', 'min:1'],
+        ]);
+        
+        $studentId = (int) $request->student_id;
+        $payAmount = (float) $request->txtPaymentAmount;
+
+        // student total due (from payment_details)
+        $paymentAgg = feePaymentDetails::where('student_id', $studentId)->selectRaw('COALESCE(SUM(total_due),0) as total_due')->first();
+        
+        // due paid later (from due collections)
+        $duePaidLater = DueCollection::where('student_id', $studentId)->sum('paid_amount');
+        
+        $currentDue = max(0, (float)$paymentAgg->total_due - (float)$duePaidLater);
+                
+        if ($currentDue <= 0) {
+            return redirect()->back()->with('warning', 'No due found for this student.');
+        }
+
+        if ($payAmount > $currentDue) {
+            return redirect()->back()->with('error', 'Payment amount cannot be greater than due amount.');
+        }
+
+        $remainingDue = $currentDue - $payAmount;
+        
+        DB::transaction(function () use ($request, $studentId, $payAmount, $currentDue, $remainingDue) {
+
+            // Generate unique receipt/invoice for due collection
+            do { $receipt = strtoupper(Str::random(10)); }
+            while (DueCollection::where('receipt_no', $receipt)->exists());
+
+            do { $invoice = 'INV-' . rand(10000, 99999); }
+            while (DueCollection::where('invoice_no', $invoice)->exists());
+            
+            // Insert Due Collection
+            DueCollection::create([
+                'receipt_no'      => $receipt,
+                'invoice_no'      => $invoice,
+                'student_id'      => $studentId,
+                'user_id'         => Auth::guard('teacher')->user()->id,
+                'previous_due'    => $currentDue,
+                'paid_amount'     => $payAmount,
+                'remaining_due'   => $remainingDue,
+                'collection_date' => now()->toDateString(),
+                'payment_method'  => $request->payment_method,
+                'remarks'         => $request->remarks ?? 'N/A',
+            ]);            
+        });
+
+        return redirect()->back()->with('success', 'Due payment collected successfully.');
     }
 
     public function showPayment($id){

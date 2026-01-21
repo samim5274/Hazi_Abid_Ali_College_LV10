@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 
 
 use App\Models\Student;
-use App\Models\Room;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,6 +33,7 @@ class DatabaseSeeder extends Seeder
             ExpenseSubcategorySeeder::class,
             IncomeCategorySeeder::class,
             IncomeSubCategorySeeder::class,
+            CompanySeeder::class,
         ]);
     }
 }

@@ -132,6 +132,8 @@
                                     <h3 id="remainingDueAmount" class="text-2xl font-bold text-green-600 mt-1">
                                         ৳ 0/-
                                     </h3>
+                                    <input type="hidden" name="previous_due" id="previous_due" value="0">
+                                    <input type="hidden" name="calculated_remaining_due" id="calculated_remaining_due" value="0">
                                 </div>
                                 <i class="fa-solid fa-circle-check text-3xl text-green-400"></i>
                             </div>
@@ -221,77 +223,102 @@
             // ================= ELEMENTS =================
             const classIdDropdown = document.getElementById('class_id');
             const studentDropdown = document.getElementById('student_id');
+
             const dueBox = document.getElementById('studentDueBox');
             const dueAmountText = document.getElementById('studentDueAmount');
 
             const paymentInput = document.getElementById('txtPaymentAmount');
             const remainingBox = document.getElementById('remainingDueBox');
             const remainingText = document.getElementById('remainingDueAmount');
+
             const submitBtn = document.querySelector('button[type="submit"]');
 
+            // hidden inputs (optional but useful)
+            const previousDueInput = document.getElementById('previous_due');
+            const calcRemainingInput = document.getElementById('calculated_remaining_due');
+
             let studentDue = 0;
+
+            // initial reset
+            resetPaymentUI();
 
             // ================= LOAD STUDENTS =================
             classIdDropdown.addEventListener('change', function () {
                 const classId = this.value;
 
-                fetch(`/students/${classId}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        studentDropdown.innerHTML =
-                            '<option disabled selected>-- Select Student --</option>';
+                // reset UI + reset student dropdown
+                studentDropdown.innerHTML = '<option disabled selected>-- Select Student --</option>';
+                resetPaymentUI();
 
+                fetch(`/students/${classId}`)
+                    .then(res => res.ok ? res.json() : Promise.reject(res))
+                    .then(data => {
                         data.forEach(student => {
                             const option = document.createElement('option');
                             option.value = student.id;
                             option.textContent = `${student.first_name} ${student.last_name}`;
                             studentDropdown.appendChild(option);
                         });
-
-                        // Reset all
-                        resetPaymentUI();
-                    });
+                    })
+                    .catch(err => console.error('students fetch error:', err));
             });
 
-            // ================= LOAD STUDENT PAYMENT =================
+            // ================= LOAD STUDENT DUE =================
             studentDropdown.addEventListener('change', function () {
                 const studentId = this.value;
 
                 fetch(`/student/payment-info/${studentId}`)
-                    .then(res => res.json())
+                    .then(res => res.ok ? res.json() : Promise.reject(res))
                     .then(data => {
+                        studentDue = parseFloat(data.final_total_due) || 0;
 
-                        studentDue = parseFloat(data.total_due) || 0;
-
+                        // show due box
                         dueBox.classList.remove('hidden');
                         dueAmountText.innerText = `৳ ${studentDue}/-`;
 
-                        dueAmountText.classList.toggle('text-red-600', studentDue > 0);
-                        dueAmountText.classList.toggle('text-[#3F4D67]', studentDue == 0);
+                        // set hidden previous due
+                        if (previousDueInput) previousDueInput.value = studentDue;
 
-                        // Reset payment input & remaining
+                        // reset payment input + remaining
                         paymentInput.value = '';
                         updateRemaining(studentDue);
+                        if (calcRemainingInput) calcRemainingInput.value = studentDue;
+
+                        // enable submit by default
+                        enableSubmit();
+
+                        // due color
+                        dueAmountText.classList.toggle('text-red-600', studentDue > 0);
+                        dueAmountText.classList.toggle('text-[#3F4D67]', studentDue === 0);
                     })
-                    .catch(err => console.error(err));
+                    .catch(err => console.error('payment-info fetch error:', err));
             });
 
             // ================= AUTO CALCULATE =================
             paymentInput.addEventListener('input', function () {
                 const payment = parseFloat(this.value) || 0;
-                const remaining = studentDue - payment;
 
+                // if no student selected, do nothing
+                if (!studentDropdown.value) return;
+
+                const remaining = studentDue - payment;
                 remainingBox.classList.remove('hidden');
 
                 if (payment > studentDue) {
                     remainingText.innerText = 'Over Payment!';
                     remainingText.className = 'text-2xl font-bold text-red-600';
-                    submitBtn.disabled = true;
-                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                    disableSubmit();
+
+                    // keep safe value
+                    if (calcRemainingInput) calcRemainingInput.value = studentDue;
                 } else {
-                    updateRemaining(remaining);
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    const fixedRemaining = Math.max(0, remaining);
+
+                    updateRemaining(fixedRemaining);
+                    if (calcRemainingInput) calcRemainingInput.value = fixedRemaining;
+
+                    enableSubmit();
                 }
             });
 
@@ -305,14 +332,31 @@
             function resetPaymentUI() {
                 studentDue = 0;
                 paymentInput.value = '';
+
                 dueBox.classList.add('hidden');
                 remainingBox.classList.add('hidden');
+
+                dueAmountText.innerText = `৳ 0/-`;
+                remainingText.innerText = `৳ 0/-`;
+
+                if (previousDueInput) previousDueInput.value = 0;
+                if (calcRemainingInput) calcRemainingInput.value = 0;
+
+                enableSubmit();
+            }
+
+            function disableSubmit() {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            function enableSubmit() {
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
 
         });
-        </script>
+    </script>
 
 
     <script> layout_change('false'); </script>

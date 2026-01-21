@@ -18,7 +18,7 @@ class StudentSeeder extends Seeder
 
         $rollCounters = [];
 
-        for ($i = 1; $i <= 300; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
 
             $classId = $faker->numberBetween(1, 5);
 

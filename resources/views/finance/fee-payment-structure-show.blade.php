@@ -51,78 +51,149 @@
                 </div>
             </div>
 
-            <div class="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-8 mt-10 border border-gray-100">
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm mt-10">
+                {{-- Header --}}
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-8 py-6 border-b border-gray-200">
+                    <div class="flex items-start gap-3">
+                        <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                        </div>
 
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
-                        <i class="fa-solid fa-money-check-dollar mr-3 text-green-600"></i>
-                        <small>Record Fee Payment </small> ({{ $payment->student->first_name }} {{ $payment->student->last_name }})
-                    </h2>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">
+                                Record Fee Payment
+                            </h2>
+                            <p class="text-sm text-gray-600 mt-1">
+                                {{ $payment->student->first_name ?? '' }} {{ $payment->student->last_name ?? '' }}
+                                @if(!empty($payment->student->roll_number))
+                                    <span class="text-gray-400">•</span> Roll: {{ $payment->student->roll_number }}
+                                @endif
+                            </p>
+                        </div>
+                    </div>
 
-                    <span class="px-4 py-1 rounded-full text-sm font-semibold
-                        {{ $payment->status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
-                        {{ ucfirst($payment->status) }}
+                    {{-- Status --}}
+                    @php
+                        $paid = strtolower($payment->status ?? '') === 'paid';
+                    @endphp
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold
+                        {{ $paid ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200' : 'bg-amber-50 text-amber-700 ring-1 ring-amber-200' }}">
+                        <span class="h-2 w-2 rounded-full {{ $paid ? 'bg-emerald-600' : 'bg-amber-600' }}"></span>
+                        {{ ucfirst($payment->status ?? 'N/A') }}
                     </span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{-- Body --}}
+                <div class="p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
-                        <h4 class="text-sm font-semibold text-gray-600 mb-4">Student Information</h4>
+                        {{-- Student Info --}}
+                        <div class="bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                                <h4 class="text-sm font-semibold text-gray-800">Student Information</h4>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-600">
+                                    Student
+                                </span>
+                            </div>
 
-                        <div class="space-y-2 text-sm text-gray-700">
-                            <p>
-                                <span class="font-semibold w-24 inline-block">Name:</span>
-                                {{ $payment->student->first_name ?? '' }}
-                                {{ $payment->student->last_name ?? '' }}
-                            </p>
+                            <div class="p-6">
+                                <dl class="space-y-3 text-sm">
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Invoice No</dt>
+                                        <dd class="text-gray-900 font-semibold text-right break-all">
+                                            {{ $payment->invoice_no ?? 'N/A' }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-24 inline-block">Roll:</span>
-                                {{ $payment->student->roll_number ?? 'N/A' }}
-                            </p>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Name</dt>
+                                        <dd class="text-gray-800 text-right break-words">
+                                            {{ $payment->student->first_name ?? '' }} {{ $payment->student->last_name ?? '' }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-24 inline-block">Class:</span>
-                                {{ $payment->student->room->name ?? 'N/A' }}
-                            </p>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Roll</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ $payment->student->roll_number ?? 'N/A' }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-24 inline-block">Total:</span>
-                                ৳{{ number_format($payment->total_amount ?? 'N/A') }}
-                            </p>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Class</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ $payment->student->room->name ?? 'N/A' }}
+                                            @if(!empty($payment->student->room->section))
+                                                <span class="text-gray-500">({{ $payment->student->room->section }})</span>
+                                            @endif
+                                        </dd>
+                                    </div>
+
+                                    <div class="pt-3 border-t border-gray-200 flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Total</dt>
+                                        <dd class="text-gray-900 font-bold text-right">
+                                            ৳{{ number_format($payment->total_amount ?? 0, 2) }}
+                                        </dd>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
-                        <h4 class="text-sm font-semibold text-gray-600 mb-4">Payment Information</h4>
+                        {{-- Payment Info --}}
+                        <div class="bg-gray-50 rounded-2xl border border-gray-200">
+                            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                                <h4 class="text-sm font-semibold text-gray-800">Payment Information</h4>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">
+                                    {{ strtoupper($payment->payment_method ?? 'N/A') }}
+                                </span>
+                            </div>
 
-                        <div class="space-y-2 text-sm text-gray-700">
-                            <p>
-                                <span class="font-semibold w-28 inline-block">Date:</span>
-                                {{ optional($payment->payment_date)->format('d M Y') }}
-                            </p>
+                            <div class="p-6">
+                                <dl class="space-y-3 text-sm">
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Receipt No</dt>
+                                        <dd class="text-gray-900 font-semibold text-right break-all">
+                                            {{ $payment->receipt_no ?? 'N/A' }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-28 inline-block">Method:</span>
-                                {{ strtoupper($payment->payment_method) }}
-                            </p>
+                                    {{-- ✅ Fix: payment_date যদি string হয়, optional()->format কাজ করবে না --}}
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Date</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ !empty($payment->payment_date) ? \Carbon\Carbon::parse($payment->payment_date)->format('d M Y') : 'N/A' }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-28 inline-block">Invoice:</span>
-                                {{ $payment->invoice_no }}
-                            </p>
+                                    {{-- ✅ Month name --}}
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Pay For</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ \Carbon\Carbon::createFromDate($payment->year, $payment->month, 1)->format('F Y') }}
+                                        </dd>
+                                    </div>
 
-                            <p>
-                                <span class="font-semibold w-28 inline-block">Receipt:</span>
-                                {{ $payment->receipt_no }}
-                            </p>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Method</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ strtoupper($payment->payment_method ?? 'N/A') }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="flex items-start justify-between gap-4">
+                                        <dt class="text-gray-500 font-medium w-28 shrink-0">Handled By</dt>
+                                        <dd class="text-gray-800 text-right">
+                                            {{ $payment->teacher->first_name ?? 'N/A' }} {{ $payment->teacher->last_name ?? '' }}
+                                        </dd>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-
             </div>
+
 
 
 
