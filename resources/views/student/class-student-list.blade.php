@@ -76,7 +76,7 @@
                                 <div class="flex flex-col">
                                     <a href="{{ url('/edit-student-view/'.$val->id) }}" 
                                         class="text-lg font-semibold text-gray-900 hover:text-blue-600 transition">
-                                        {{ $loop->iteration }}. {{ $val->first_name }} {{ $val->last_name }}
+                                        {{ $loop->iteration }}. {{ $val->first_name }} {{ $val->last_name }} - <small>Roll: {{ $val->roll_number }}</small>
                                     </a>
                                     <div class="flex items-center gap-3 mt-2 text-sm text-gray-600">
                                         <span class="flex items-center gap-1 text-red-500 font-medium">

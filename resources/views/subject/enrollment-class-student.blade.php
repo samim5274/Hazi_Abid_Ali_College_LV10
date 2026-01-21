@@ -85,7 +85,7 @@
 
                                 <div class="flex-grow text-center sm:text-left">
                                     <h5 class="text-xl font-bold text-gray-900 tracking-tight leading-tight mb-1">
-                                        {{ $val->first_name }} {{ $val->last_name }}
+                                        {{ $val->first_name }} {{ $val->last_name }} - {{ $val->roll_number }}
                                     </h5>
                                     <p class="text-gray-500 text-sm mb-2">{{ $val->address }}</p>
 

@@ -127,7 +127,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card shadow-md border-0 h-100 rounded-lg">
                             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                                <h2 class="text-lg">{{ $key + 1 }}. {{ $data['student']->first_name }} {{ $data['student']->last_name }}</h2> 
+                                <h2 class="text-lg">{{ $key + 1 }}. {{ $data['student']->first_name }} {{ $data['student']->last_name }} - Roll: {{ $data['student']->roll_number }}</h2> 
                                 <!-- <span class="badge bg-light text-dark">Total: {{ $data['total_marks'] }}</span> -->
                             </div>
                             <div class="card-body p-2">

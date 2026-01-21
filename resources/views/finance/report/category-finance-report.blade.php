@@ -132,7 +132,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
-                                    {{ $val->student->first_name }} {{ $val->student->last_name }}
+                                   {{ $val->student->roll_number }} - {{ $val->student->first_name }} {{ $val->student->last_name }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

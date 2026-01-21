@@ -121,7 +121,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-700 hover:underline">
-                                    <a href="{{ url('/fee-payment-show/'.$val->id) }}">{{ $val->student->first_name }} {{ $val->student->last_name }}</a>
+                                    <a href="{{ url('/fee-payment-show/'.$val->id) }}">{{ $val->student->roll_number }} - {{ $val->student->first_name }} {{ $val->student->last_name }}</a>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

@@ -107,7 +107,7 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td class="px-4 py-3 border">
-                                                {{ $val->student->first_name }} {{ $val->student->last_name }}
+                                                {{ $val->student->first_name }} {{ $val->student->last_name }} - {{ $val->student->roll_number }}
                                             </td>
                                             <td class="px-4 py-3 border text-center">
                                                 {{ $val->subject->name ?? '' }}
@@ -192,7 +192,7 @@
                                     @foreach($attendList as $val)
                                     <tr class="hover:bg-gray-50 transition">
                                         <td class="px-4 py-3 border text-center font-medium text-gray-600">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 border">{{ $val->student->first_name }} {{ $val->student->last_name }}</td>
+                                        <td class="px-4 py-3 border">{{ $val->student->first_name }} {{ $val->student->last_name }} - {{ $val->student->roll_number }}</td>
                                         <td class="px-4 py-3 border text-center">{{ $val->subject->name }}</td>
                                         <td class="px-4 py-3 border text-center">{{ $val->class->name }} - {{ $val->class->section }}</td>
                                         <td class="px-4 py-3 border text-center">{{ \Carbon\Carbon::parse($val->attendance_date)->format('d M, Y') }}</td>

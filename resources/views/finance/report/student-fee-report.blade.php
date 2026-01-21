@@ -92,7 +92,7 @@
                             <select name="Student_id" id="Student_id" class="w-full border border-gray-300 rounded-lg">
                                 <option disabled selected>-- Select Student --</option>  
                                 @foreach($student as $val)                                  
-                                <option value="{{$val->id}}">{{$val->first_name}} {{$val->last_name}}</option>
+                                <option value="{{$val->id}}">{{ $val->roll_number }} - {{$val->first_name}} {{$val->last_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -131,7 +131,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
-                                    {{ $val->student->first_name }} {{ $val->student->last_name }}
+                                    {{ $val->student->roll_number }} - {{ $val->student->first_name }} {{ $val->student->last_name }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

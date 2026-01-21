@@ -388,41 +388,77 @@ class StudentController extends Controller
             $bloodGroup = $val->blood_group;
 
             $output .= '
-            <tr class="unread resultData">
-                <td>'.$i++.'</td>
-                <td>';
-            if ($val->photo) {
-                $output .= '<a href="'.$editUrl.'"><img class="rounded-full" style="width: 40px" src="'.$img.'" alt="student" /></a>';
-            } else {
-                $output .= '<a href="'.$editUrl.'"><span class="text-muted">No Image</span></a>';
-            }
+                <tr class="resultData hover:bg-gray-50/70 border-b border-gray-100">
+                    <td class="px-5 py-4 whitespace-nowrap text-gray-500 text-sm">'.$i++.'</td>
 
-            $output .= '
-                </td>
-                <td>
-                    <h6 class="mb-1 text-[#19b6b6]"><a href="'.$editUrl.'">'.$name.'</a></h6>
-                    <p class="m-0">'.$address.'</p>
-                </td>
-                <td>
-                    <h6 class="mb-1">'.$email.'</h6>
-                    <p class="m-0">0'.$contact.'</p>
-                </td>
-                <td>
-                    <h6 class="mb-1">'.$section.'</h6>
-                    <p class="m-0">'.$roomName.'</p>
-                </td>
-                <td>
-                    <h6 class="text-muted">
-                        <i class="fas fa-circle text-success text-[10px]"></i> '.$dob.'
-                    </h6>
-                    <p class="m-0"><i class="fa fa-droplet text-red-500 text-[10px]"></i> '.$bloodGroup.'</p>
-                </td>
-                <td>
-                    <a href="'.$editUrl.'" class="badge bg-theme-bg-1 text-white text-[12px]">
-                        <i class="fa-solid fa-pen-to-square"></i> Edit
-                    </a>
-                </td>
-            </tr>';
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <a href="'.$editUrl.'" class="inline-flex items-center">
+                ';
+
+                if ($val->photo) {
+                    $output .= '
+                            <img class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+                                src="'.$img.'" alt="Student photo" />
+                    ';
+                } else {
+                    $output .= '
+                            <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-700">
+                                '.strtoupper(substr($val->first_name ?? "S", 0, 1)).'
+                            </div>
+                    ';
+                }
+
+                $output .= '
+                        </a>
+                    </td>
+
+                    <td class="px-5 py-4 min-w-[260px]">
+                        <a href="'.$editUrl.'" class="block font-semibold text-gray-900 hover:text-[#19b6b6] transition">
+                            '.$val->roll_number.' — '.$name.'
+                        </a>
+                        <div class="mt-1 text-xs text-gray-500 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-gray-400"></i>
+                            <span class="truncate max-w-[360px]">'.$address.'</span>
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <div class="font-medium text-gray-800">'.$email.'</div>
+                        <div class="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-gray-400"></i>
+                            <span>'.$contact.'</span>
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <div class="font-semibold text-gray-800">'.$roomName.'</div>
+                        <div class="text-xs text-gray-500 mt-1">Section: '.$section.'</div>
+                    </td>
+
+                    <td class="px-5 py-4 whitespace-nowrap">
+                        <div class="inline-flex items-center gap-2 text-gray-700">
+                            <i class="fa-solid fa-calendar-days text-gray-400"></i>
+                            <span class="font-medium">'.$dob.'</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-xs font-semibold ring-1 ring-red-200">
+                                <i class="fa-solid fa-droplet"></i>
+                                '.$bloodGroup.'
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4 whitespace-nowrap text-right">
+                        <a href="'.$editUrl.'"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#19b6b6] text-white text-xs font-semibold
+                                hover:opacity-90 transition shadow-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                ';
+
         }
 
         return response($output);

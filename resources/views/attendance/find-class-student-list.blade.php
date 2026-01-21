@@ -135,7 +135,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <!-- Student Name -->
-                                    <td class="px-4 py-3 border"> {{ $val->student->first_name }} {{ $val->student->last_name }}</td>
+                                    <td class="px-4 py-3 border"> {{ $val->student->first_name }} {{ $val->student->last_name }}- {{ $val->student->roll_number }}</td>
                                     <!-- Student Name -->
                                     <td class="px-4 py-3 border text-center"> {{ $val->class->name }} - ({{ $val->class->section }})</td>
                                     <!-- Subject Name -->

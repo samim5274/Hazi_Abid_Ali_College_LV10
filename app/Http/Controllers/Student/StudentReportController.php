@@ -22,9 +22,7 @@ class StudentReportController extends Controller
         $classes = Room::select('id','name','section')->get();
 
         // 🔹 Paginated students with room
-        $students = Student::with('room:id,name,section')
-            ->select('id','first_name','last_name','gender','class_id','status','religion','blood_group','father_profession')
-            ->paginate(45);
+        $students = Student::with('room:id,name,section')->paginate(45);
 
         // 🔹 Distinct father professions for filter
         $allProfessions = Student::select('father_profession')
@@ -44,8 +42,7 @@ class StudentReportController extends Controller
 
         $classes = Room::select('id','name','section')->get();
 
-        $query = Student::with('room:id,name,section')
-            ->select('id','first_name','last_name','gender','class_id','status','religion','blood_group','father_profession');
+        $query = Student::with('room:id,name,section');
 
         // 🔹 Apply filters
         if ($request->filled('gender_id')) {

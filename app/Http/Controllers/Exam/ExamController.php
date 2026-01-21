@@ -132,7 +132,7 @@ class ExamController extends Controller
 
     public function classExam($class, $subject , $exam){
         $company = Company::first();
-        $students = Student::where('class_id', $class)->where('status', 1)
+        $students = Student::where('class_id', $class)->where('status', 1)->orderBy('roll_number', 'asc')
             ->whereHas('subjects', function ($query) use ($subject) {
                 $query->where('subjects.id', $subject);
             })->get();
@@ -195,7 +195,7 @@ class ExamController extends Controller
                 $findData->gpa            = $gpa;
                 $findData->remarks        = 'Updated by ' . Auth::guard('teacher')->user()->first_name .' '.Auth::guard('teacher')->user()->last_name;
                 
-                // $findData->update();
+                $findData->update();
                 return redirect()->back()->with('success', 'Mark updated successfully!');
             }
             // return redirect()->back()->with('warning', 'Mark already submited. Please try another student. Thank you.');

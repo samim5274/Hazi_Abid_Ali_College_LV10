@@ -115,7 +115,7 @@
                         <div>
                             <p class="text-xs text-gray-500 uppercase">Student</p>
                             <p class="font-semibold text-gray-800">
-                                {{ $data->student->first_name }} {{ $data->student->last_name }}
+                                {{ $date->student->roll_number }} - {{ $data->student->first_name }} {{ $data->student->last_name }}
                             </p>
                         </div>
 

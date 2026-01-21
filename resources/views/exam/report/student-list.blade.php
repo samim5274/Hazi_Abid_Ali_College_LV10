@@ -70,7 +70,7 @@
                                     <!-- Student Info -->
                                     <div class="flex flex-col">
                                         <p class="text-lg font-semibold text-gray-900 hover:text-blue-600 transition">
-                                            {{ $loop->iteration }}. {{ $val->first_name }} {{ $val->last_name }}
+                                            {{ $loop->iteration }}. {{ $val->first_name }} {{ $val->last_name }} - {{ $val->roll_number }}
                                         </p>
                                         <div class="flex items-center gap-3 mt-2 text-sm text-gray-600">
                                             <span class="flex items-center gap-1 text-red-500 font-medium">

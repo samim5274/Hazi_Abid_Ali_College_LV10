@@ -85,53 +85,121 @@
 
             </form>
         </div>
-        <div class="pc-content py-8 px-4 sm:px-6 lg:px-8 space-y-8">
-            <!-- Table View -->
-            <h2 class="text-2xl font-bold text-gray-700 mb-6">Student Daily Routine</h2>
-            <div class="bg-white rounded-xl shadow-md border overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Date</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Student</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Time to Awake</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Attendance</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Arrival</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Prayer</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Morning</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Evening</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Night</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Time to Bed</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Total Hours</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Remark</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
-                        @forelse($routine as $val)
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-3">{{ \Carbon\Carbon::parse($val->date)->format('F j, Y') }}</td>
-                                <td class="px-6 py-3">{{ $val->student->first_name }} {{ $val->student->last_name }}</td>
-                                <td class="px-6 py-3">{{ $val->time_to_awake }}</td>
-                                <td class="px-6 py-3">{{ $val->attendance_in_college ? 'Present' : 'Absent' }}</td>
-                                <td class="px-6 py-3">{{ $val->arrival_in_residence }}</td>
-                                <td class="px-6 py-3">{{ $val->prayer ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $val->morning_activity ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $val->evening_activity ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $val->night_activity ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $val->time_to_bed }}</td>
-                                <td class="px-6 py-3">{{ $val->total_hours }} hrs</td>
-                                <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($val->remark ?? '-', 15) }}</td>
+        <div class="pc-content py-8 px-4 sm:px-6 lg:px-8 space-y-6">
+
+            <!-- Title + Meta -->
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Student Daily Routine</h2>
+                    <p class="text-sm text-gray-500 mt-1">Daily routine reports (sleep, attendance, activities)</p>
+                </div>
+                <div class="text-sm text-gray-500">
+                    Total: <span class="font-semibold text-gray-800">{{ $routine->count() }}</span>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <!-- Head -->
+                        <thead class="bg-gray-50 sticky top-0 z-10 border-b border-gray-200">
+                            <tr class="text-left text-gray-600">
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Date</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Student</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Awake</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Attendance</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Arrival</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Prayer</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Morning</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Evening</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Night</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Bed</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Hours</th>
+                                <th class="px-5 py-3 font-semibold whitespace-nowrap">Remark</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="11" class="px-6 py-4 text-center text-gray-500">No daily reports found.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <!-- Body -->
+                        <tbody class="divide-y divide-gray-100">
+                            @forelse($routine as $val)
+                                @php
+                                    $roll_number = $val->student->roll_number;
+                                    $classRoom = $val->student->room->name;
+                                    $section = $val->student->room->section;
+                                    $date = $val->date ? \Carbon\Carbon::parse($val->date)->format('M d, Y') : 'N/A';
+                                    $studentName = trim(($val->student->first_name ?? '').' '.($val->student->last_name ?? ''));
+                                    $present = (bool) $val->attendance_in_college;
+                                    $remarkFull = $val->remark ?? '-';
+                                    $remarkShort = \Illuminate\Support\Str::limit($remarkFull, 22);
+                                @endphp
+
+                                <tr class="hover:bg-gray-50/70 transition">
+                                    <td class="px-5 py-4 whitespace-nowrap text-gray-700 font-medium">{{ $date }}</td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-9 h-9 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-700">
+                                               {{ strtoupper(substr($studentName ?: 'S', 0, 1)) }}
+                                            </div>
+                                            <div class="min-w-0">
+                                                <div class="font-semibold text-gray-900 truncate max-w-[180px]">
+                                                    {{ $roll_number ?? 'N/A' }} - {{ $studentName ?: 'N/A' }}
+                                                </div>
+                                                <div class="text-xs text-gray-500">{{ $classRoom }} - {{ $section }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap text-gray-700">{{ $val->time_to_awake ?? '-' }}</td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold ring-1
+                                            {{ $present ? 'bg-green-50 text-green-700 ring-green-200' : 'bg-red-50 text-red-700 ring-red-200' }}">
+                                            <i class="fa-solid {{ $present ? 'fa-circle-check' : 'fa-circle-xmark' }}"></i>
+                                            {{ $present ? 'Present' : 'Absent' }}
+                                        </span>
+                                    </td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap text-gray-700">{{ $val->arrival_in_residence ?? '-' }}</td>
+                                    <td class="px-5 py-4 whitespace-nowrap text-gray-700">{{ $val->prayer ?? '-' }}</td>
+                                    <td class="px-5 py-4 text-gray-700">{{ $val->morning_activity ?? '-' }}</td>
+                                    <td class="px-5 py-4 text-gray-700">{{ $val->evening_activity ?? '-' }}</td>
+                                    <td class="px-5 py-4 text-gray-700">{{ $val->night_activity ?? '-' }}</td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap text-gray-700">{{ $val->time_to_bed ?? '-' }}</td>
+
+                                    <td class="px-5 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-gray-50 text-gray-700 text-xs font-semibold ring-1 ring-gray-200">
+                                            <i class="fa-solid fa-hourglass-half text-gray-400"></i>
+                                            {{ $val->total_hours ?? 0 }} hrs
+                                        </span>
+                                    </td>
+
+                                    <td class="px-5 py-4">
+                                        <span class="text-gray-700" title="{{ $remarkFull }}">
+                                            {{ $remarkShort }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="12" class="px-6 py-14 text-center">
+                                        <div class="text-gray-500">
+                                            <i class="fa-regular fa-folder-open text-3xl mb-3"></i>
+                                            <div class="font-semibold text-gray-700">No daily reports found</div>
+                                            <div class="text-sm text-gray-500 mt-1">Try selecting another date range or student.</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
+
 
     </div>
 

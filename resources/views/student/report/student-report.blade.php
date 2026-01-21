@@ -133,66 +133,142 @@
              </div>
 
             <!-- Card -->
-            <div class="card rounded-lg border shadow-sm">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tbody>
-                                @foreach($students as $val)
-                                <tr class="unread">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>
-                                        @if($val->photo)
-                                            <a href="{{url('/edit-student-view/'.$val->id)}}"><img class="rounded-full max-w-10" style="width: 40px" src="{{ asset('img/student/' . $val->photo) }}" alt="activity-user" /></a>
-                                        @else
-                                            <a href="{{url('/edit-student-view/'.$val->id)}}"><span class="text-muted">No Image</span></a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1 text-[#19b6b6]"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
-                                        <p class="m-0">{{$val->gender}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1">{{$val->email}}</h6>
-                                        <p class="m-0">{{$val->contact_number}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1">{{$val->room->name}}</h6>
-                                        <p class="m-0">{{$val->room->section}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-muted">
-                                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                                            {{ \Carbon\Carbon::parse($val->dob)->format('d M, Y') }}
-                                        </h6>
-                                        <p class="m-0"><i class="fa fa-droplet text-red-500 text-[10px] ltr:mr-4 rtl:ml-4"></i>{{$val->blood_group}}</p>
-                                    </td>
+            <div class="card rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <!-- Header -->
+                <div class="bg-gray-50 border-b px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">Students List</h3>
+                        <p class="text-sm text-gray-500">View student information and details</p>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        Total: <span class="font-semibold text-gray-800">{{ $students->total() }}</span>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-white sticky top-0 z-10 border-b">
+                                <tr class="text-left text-gray-600">
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">#</th>
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">Photo</th>
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">Student</th>
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">Contact</th>
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">Class</th>
+                                    <th class="px-5 py-3 font-semibold whitespace-nowrap">DOB & Blood</th>
                                 </tr>
-                                @endforeach
-                            </tbody>                            
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse($students as $val)
+                                    @php
+                                        $initial = strtoupper(substr($val->first_name ?? 'S', 0, 1));
+                                        $dob = $val->dob ? \Carbon\Carbon::parse($val->dob)->format('d M, Y') : 'N/A';
+                                    @endphp
+
+                                    <tr class="hover:bg-gray-50/70 transition">
+                                        <!-- SL -->
+                                        <td class="px-5 py-4 whitespace-nowrap text-gray-500">
+                                            {{ $loop->iteration + (($students->currentPage() - 1) * $students->perPage()) }}
+                                        </td>
+
+                                        <!-- Photo -->
+                                        <td class="px-5 py-4 whitespace-nowrap">
+                                            <a href="{{ url('/edit-student-view/'.$val->id) }}" class="inline-flex items-center">
+                                                @if($val->photo)
+                                                    <img
+                                                        class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+                                                        src="{{ asset('img/student/' . $val->photo) }}"
+                                                        alt="Student photo"
+                                                    />
+                                                @else
+                                                    <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-700">
+                                                        {{ $initial }}
+                                                    </div>
+                                                @endif
+                                            </a>
+                                        </td>
+
+                                        <!-- Student -->
+                                        <td class="px-5 py-4 min-w-[220px]">
+                                            <a href="{{ url('/edit-student-view/'.$val->id) }}"
+                                            class="block font-semibold text-gray-900 hover:text-[#19b6b6] transition">
+                                                {{ $val->first_name }} {{ $val->last_name }}
+                                            </a>
+                                            <div class="mt-1 text-xs text-gray-500 inline-flex items-center gap-2">
+                                                <i class="fa-solid fa-user text-gray-400"></i>
+                                                <span>{{ $val->gender ?? 'N/A' }}</span>
+                                                <i class="fa-solid fa-book text-gray-400"></i>
+                                                <span>{{ $val->roll_number ?? 'N/A' }}</span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Contact -->
+                                        <td class="px-5 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-gray-800">{{ $val->email ?? 'N/A' }}</div>
+                                            <div class="mt-1 text-xs text-gray-500 inline-flex items-center gap-2">
+                                                <i class="fa-solid fa-phone text-gray-400"></i>
+                                                <span>{{ $val->contact_number ?? 'N/A' }}</span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Class -->
+                                        <td class="px-5 py-4 whitespace-nowrap">
+                                            <div class="font-semibold text-gray-800">{{ $val->room->name ?? 'N/A' }}</div>
+                                            <div class="mt-1 text-xs text-gray-500">Section: {{ $val->room->section ?? 'N/A' }}</div>
+                                        </td>
+
+                                        <!-- DOB & Blood -->
+                                        <td class="px-5 py-4 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-2 text-gray-700">
+                                                <i class="fa-solid fa-calendar-days text-gray-400"></i>
+                                                <span class="font-medium">{{ $dob }}</span>
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-xs font-semibold ring-1 ring-red-200">
+                                                    <i class="fa-solid fa-droplet"></i>
+                                                    {{ $val->blood_group ?? 'N/A' }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="px-5 py-12 text-center text-gray-500">
+                                            <i class="fa-regular fa-folder-open text-2xl mb-2"></i>
+                                            <div class="font-semibold text-gray-700">No students found</div>
+                                            <div class="text-sm text-gray-500">Try adjusting your filters.</div>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                         </table>
                     </div>
-                    <!-- paginatior -->
+
+                    <!-- Pagination -->
                     @if ($students->hasPages())
-                        <div class="flex flex-wrap items-center justify-between mt-4 w-full">
+                        <div class="px-5 py-4 border-t bg-gray-50 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
 
                             {{-- Page Info --}}
-                            <div class="text-sm md:text-base text-gray-600">
-                                Page {{ $students->currentPage() }} of {{ $students->lastPage() }} 
-                                (Total Records: {{ $students->total() }})
+                            <div class="text-sm text-gray-600">
+                                Page <span class="font-semibold">{{ $students->currentPage() }}</span> of
+                                <span class="font-semibold">{{ $students->lastPage() }}</span>
+                                • Total <span class="font-semibold">{{ $students->total() }}</span>
                             </div>
 
-                            {{-- Pagination --}}
-                            <div class="flex items-center space-x-2">
+                            {{-- Pagination Buttons --}}
+                            <div class="flex items-center gap-2 flex-wrap">
 
-                                {{-- Previous Button --}}
+                                {{-- Previous --}}
                                 @if ($students->onFirstPage())
-                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                        &laquo; 
+                                    <span class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed">
+                                        &laquo;
                                     </span>
                                 @else
-                                    <a href="{{ $students->appends(request()->query())->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                        &laquo; 
+                                    <a href="{{ $students->appends(request()->query())->previousPageUrl() }}"
+                                    class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                                        &laquo;
                                     </a>
                                 @endif
 
@@ -204,19 +280,25 @@
 
                                 @for ($i = $start; $i <= $end; $i++)
                                     @if ($i == $students->currentPage())
-                                        <span class="px-2 py-1 text-sm md:text-base bg-[#3F4D67] text-white rounded-lg">{{ $i }}</span>
+                                        <span class="px-3 py-2 text-sm bg-[#3F4D67] text-white rounded-lg font-semibold">
+                                            {{ $i }}
+                                        </span>
                                     @else
-                                        <a href="{{ $students->appends(request()->query())->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                        <a href="{{ $students->appends(request()->query())->url($i) }}"
+                                        class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                                            {{ $i }}
+                                        </a>
                                     @endif
                                 @endfor
 
-                                {{-- Next Button --}}
+                                {{-- Next --}}
                                 @if ($students->hasMorePages())
-                                    <a href="{{ $students->appends(request()->query())->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                                    <a href="{{ $students->appends(request()->query())->nextPageUrl() }}"
+                                    class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
                                         &raquo;
                                     </a>
                                 @else
-                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                                    <span class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed">
                                         &raquo;
                                     </span>
                                 @endif
@@ -226,6 +308,7 @@
                     @endif
                 </div>
             </div>
+
 
             <!-- Card End -->
         </div>

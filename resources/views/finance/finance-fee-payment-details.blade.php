@@ -87,7 +87,7 @@
                                 <option disabled selected>-- Select Student --</option>
                                 <!-- Populate dynamically -->
                                  @foreach($student as $std)
-                                 <option value="{{$std->id}}">{{$std->first_name}} {{$std->last_name}}</option>
+                                 <option value="{{$std->id}}">{{ $std->roll_number }} - {{$std->first_name}} {{$std->last_name}}</option>
                                  @endforeach
                             </select>
                         </div>
@@ -420,7 +420,7 @@
                         data.forEach(student => {
                             const option = document.createElement('option');
                             option.value = student.id;
-                            option.textContent = `${student.first_name} ${student.last_name}`;
+                            option.textContent = `${student.roll_number} - ${student.first_name} ${student.last_name}`;
                             studentDropdown.appendChild(option);
                         });
                     })

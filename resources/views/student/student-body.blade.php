@@ -32,94 +32,195 @@
                         </form>
                     </div>
                 </div>
-            <div class="card table-card">
-                <div class="card-header">
-                    <h5>Add new Student</h5>
-                </div>
+            <div class="card table-card">                
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tbody id="content">
-                                @foreach($student as $val)
-                                <tr class="unread allData">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>
-                                        @if($val->photo)
-                                            <a href="{{url('/edit-student-view/'.$val->id)}}"><img class="rounded-full max-w-10" style="width: 40px" src="{{ asset('img/student/' . $val->photo) }}" alt="activity-user" /></a>
-                                        @else
-                                            <a href="{{url('/edit-student-view/'.$val->id)}}"><span class="text-muted">No Image</span></a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1 text-[#19b6b6]"><a href="{{url('/edit-student-view/'.$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a></h6>
-                                        <p class="m-0">{{$val->address1}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1">{{$val->email}}</h6>
-                                        <p class="m-0">0{{$val->contact_number}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-1">{{$val->room->section}}</h6>
-                                        <p class="m-0">{{$val->room->name}}</p>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-muted">
-                                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                                            {{ \Carbon\Carbon::parse($val->dob)->format('d M, Y') }}
-                                        </h6>
-                                        <p class="m-0"><i class="fa fa-droplet text-red-500 text-[10px] ltr:mr-4 rtl:ml-4"></i>{{$val->blood_group}}</p>
-                                    </td>
-                                    <td>
-                                        <a href="{{url('/edit-student-view/'.$val->id)}}" class="badge bg-theme-bg-1 text-white text-[12px]"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                <tr class="row resultData"></tr>
-                            </tbody>                            
-                        </table>
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
-                        <!-- paginatior -->
+                        <!-- Header / Toolbar -->
+                        <div class="px-5 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">Students</h3>
+                                <p class="text-sm text-gray-500">Manage student profiles and information</p>
+                            </div>
+
+                            <div class="text-sm text-gray-500">
+                                Total: <span class="font-semibold text-gray-800">{{ $student->total() ?? count($student) }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm">
+                                <thead class="bg-gray-50 sticky top-0 z-10">
+                                    <tr class="text-left text-gray-600">
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">#</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">Photo</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">Student</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">Contact</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">Class</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap">DOB & Blood</th>
+                                        <th class="px-5 py-3 font-semibold whitespace-nowrap text-right">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="content" class="divide-y divide-gray-100">
+                                    @forelse($student as $val)
+                                        @php
+                                            $initial = strtoupper(substr($val->first_name ?? 'S', 0, 1));
+                                            $dob = $val->dob ? \Carbon\Carbon::parse($val->dob)->format('d M, Y') : 'N/A';
+                                            $phone = $val->contact_number ? (str_starts_with($val->contact_number, '0') ? $val->contact_number : '0'.$val->contact_number) : 'N/A';
+                                        @endphp
+
+                                        <tr class="allData hover:bg-gray-50/70">
+                                            <!-- SL -->
+                                            <td class="px-5 py-4 whitespace-nowrap text-gray-500">
+                                                {{ $loop->iteration + (($student->currentPage() - 1) * $student->perPage()) }}
+                                            </td>
+
+                                            <!-- Photo -->
+                                            <td class="px-5 py-4 whitespace-nowrap">
+                                                <a href="{{ url('/edit-student-view/'.$val->id) }}" class="inline-flex items-center">
+                                                    @if($val->photo)
+                                                        <img
+                                                            class="w-10 h-10 rounded-full border border-gray-200 object-cover"
+                                                            src="{{ asset('img/student/' . $val->photo) }}"
+                                                            alt="{{ $initial }}"
+                                                        />
+                                                    @else
+                                                        <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-700">
+                                                            {{ $initial }}
+                                                        </div>
+                                                    @endif
+                                                </a>
+                                            </td>
+
+                                            <!-- Student -->
+                                            <td class="px-5 py-4 min-w-[260px]">
+                                                <a href="{{ url('/edit-student-view/'.$val->id) }}" class="block font-semibold text-gray-900 hover:text-[#19b6b6] transition">
+                                                    {{ $val->roll_number }} — {{ $val->first_name }} {{ $val->last_name }}
+                                                </a>
+                                                <div class="mt-1 text-xs text-gray-500 flex items-center gap-2">
+                                                    <i class="fa-solid fa-location-dot text-gray-400"></i>
+                                                    <span class="truncate max-w-[360px]">{{ $val->address1 ?? 'N/A' }}</span>
+                                                </div>
+                                            </td>
+
+                                            <!-- Contact -->
+                                            <td class="px-5 py-4 whitespace-nowrap">
+                                                <div class="font-medium text-gray-800">{{ $val->email ?? 'N/A' }}</div>
+                                                <div class="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                                                    <i class="fa-solid fa-phone text-gray-400"></i>
+                                                    <span>{{ $phone }}</span>
+                                                </div>
+                                            </td>
+
+                                            <!-- Class -->
+                                            <td class="px-5 py-4 whitespace-nowrap">
+                                                <div class="font-semibold text-gray-800">{{ $val->room->name ?? 'N/A' }}</div>
+                                                <div class="text-xs text-gray-500 mt-1">Section: {{ $val->room->section ?? 'N/A' }}</div>
+                                            </td>
+
+                                            <!-- DOB & Blood -->
+                                            <td class="px-5 py-4 whitespace-nowrap">
+                                                <div class="inline-flex items-center gap-2 text-gray-700">
+                                                    <i class="fa-solid fa-calendar-days text-gray-400"></i>
+                                                    <span class="font-medium">{{ $dob }}</span>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-xs font-semibold ring-1 ring-red-200">
+                                                        <i class="fa-solid fa-droplet"></i>
+                                                        {{ $val->blood_group ?? 'N/A' }}
+                                                    </span>
+                                                </div>
+                                            </td>
+
+                                            <!-- Action -->
+                                            <td class="px-5 py-4 whitespace-nowrap text-right">
+                                                <a href="{{ url('/edit-student-view/'.$val->id) }}"
+                                                class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#19b6b6] text-white text-xs font-semibold
+                                                        hover:opacity-90 transition shadow-sm">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="px-5 py-12 text-center text-gray-500">
+                                                <i class="fa-regular fa-folder-open text-2xl mb-2"></i>
+                                                <div class="font-semibold text-gray-700">No students found</div>
+                                                <div class="text-sm text-gray-500">Try adjusting your filters or add a new student.</div>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+
+                                    <tr class="row resultData"></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
                         @if ($student->hasPages())
-                            <div class="flex flex-wrap items-center justify-center mt-4 space-x-2">
+                            <div class="px-5 py-4 border-t border-gray-200 bg-gray-50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                                <div class="text-sm text-gray-600">
+                                    Showing
+                                    <span class="font-semibold">{{ $student->firstItem() ?? 0 }}</span>
+                                    to
+                                    <span class="font-semibold">{{ $student->lastItem() ?? 0 }}</span>
+                                    of
+                                    <span class="font-semibold">{{ $student->total() ?? 0 }}</span>
+                                    results
+                                </div>
 
-                                {{-- Previous Button --}}
-                                @if ($student->onFirstPage())
-                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                        &laquo; 
-                                    </span>
-                                @else
-                                    <a href="{{ $student->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                        &laquo; 
-                                    </a>
-                                @endif
-
-                                {{-- Page Numbers --}}
-                                @php
-                                    $start = max(2, $student->currentPage() - 2);
-                                    $end = min($student->lastPage(), $student->currentPage() + 2);
-                                @endphp
-
-                                @for ($i = $start; $i <= $end; $i++)
-                                    @if ($i == $student->currentPage())
-                                        <span class="px-2 py-1 text-sm md:text-base bg-theme-bg-1 text-white rounded-lg">{{ $i }}</span>
+                                <div class="flex flex-wrap items-center justify-center gap-2">
+                                    {{-- Previous --}}
+                                    @if ($student->onFirstPage())
+                                        <span class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed">
+                                            &laquo;
+                                        </span>
                                     @else
-                                        <a href="{{ $student->url($i) }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">{{ $i }}</a>
+                                        <a href="{{ $student->previousPageUrl() }}"
+                                        class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                                            &laquo;
+                                        </a>
                                     @endif
-                                @endfor
 
-                                {{-- Next Button --}}
-                                @if ($student->hasMorePages())
-                                    <a href="{{ $student->nextPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                         &raquo;
-                                    </a>
-                                @else
-                                    <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                         &raquo;
-                                    </span>
-                                @endif
+                                    {{-- Page Numbers --}}
+                                    @php
+                                        $start = max(1, $student->currentPage() - 2);
+                                        $end   = min($student->lastPage(), $student->currentPage() + 2);
+                                    @endphp
+
+                                    @for ($i = $start; $i <= $end; $i++)
+                                        @if ($i == $student->currentPage())
+                                            <span class="px-3 py-2 text-sm bg-[#19b6b6] text-white rounded-lg font-semibold">
+                                                {{ $i }}
+                                            </span>
+                                        @else
+                                            <a href="{{ $student->url($i) }}"
+                                            class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                                                {{ $i }}
+                                            </a>
+                                        @endif
+                                    @endfor
+
+                                    {{-- Next --}}
+                                    @if ($student->hasMorePages())
+                                        <a href="{{ $student->nextPageUrl() }}"
+                                        class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                                            &raquo;
+                                        </a>
+                                    @else
+                                        <span class="px-3 py-2 text-sm bg-white border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed">
+                                            &raquo;
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         @endif
+
                     </div>
+
                 </div>
             </div>
         </div>  
