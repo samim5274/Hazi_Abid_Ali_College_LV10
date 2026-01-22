@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Room;
 use App\Models\Student;
@@ -14,6 +17,8 @@ use App\Models\FeeStructure;
 use App\Models\feePaymentDetails;
 use App\Models\FeePaymentItem;
 use App\Models\Company;
+use App\Models\DueCollection;
+use App\Mail\StudentDueMail;
 
 class FinanceReportController extends Controller
 {
@@ -148,5 +153,111 @@ class FinanceReportController extends Controller
         $paid = $data->sum('total_paid');
         $due = $data->sum('total_due');
         return view('finance.report.student-fee-payment-history', compact('data','total','discount','paid','due','company'));
+    }
+
+    public function dueList(){
+        $company = Company::first();
+        $studentsWithDue = DB::table('students')
+            ->leftJoin('rooms', 'students.class_id', '=', 'rooms.id')
+            ->leftJoin('fee_payment_details', 'students.id', '=', 'fee_payment_details.student_id')
+            ->leftJoin('due_collections', 'students.id', '=', 'due_collections.student_id')
+            ->select(
+                'students.id',
+                'students.roll_number',
+                'students.first_name',
+                'students.last_name',
+                'rooms.name as class_name',
+                'rooms.section as class_section',
+                DB::raw('COALESCE(SUM(fee_payment_details.total_due),0) as total_due'),
+                DB::raw('COALESCE(SUM(due_collections.paid_amount),0) as total_paid'),
+                DB::raw('(COALESCE(SUM(fee_payment_details.total_due),0) - COALESCE(SUM(due_collections.paid_amount),0)) as final_due')
+            )
+            ->groupBy(
+                'students.id','students.roll_number','students.first_name','students.last_name',
+                'rooms.name','rooms.section'
+            )
+            ->having('final_due', '>', 0)
+            ->orderByDesc('final_due')
+            ->paginate(10);
+
+        // dd($studentsWithDue);
+        return view('finance.report.student-due-list', compact('company','studentsWithDue'));
+    }
+
+    public function printDueList(){
+        $company = Company::first();
+        $studentsWithDue = DB::table('students')
+            ->leftJoin('rooms', 'students.class_id', '=', 'rooms.id')
+            ->leftJoin('fee_payment_details', 'students.id', '=', 'fee_payment_details.student_id')
+            ->leftJoin('due_collections', 'students.id', '=', 'due_collections.student_id')
+            ->select(
+                'students.id',
+                'students.roll_number',
+                'students.first_name',
+                'students.last_name',
+                'rooms.name as class_name',
+                'rooms.section as class_section',
+                DB::raw('COALESCE(SUM(fee_payment_details.total_due),0) as total_due'),
+                DB::raw('COALESCE(SUM(due_collections.paid_amount),0) as total_paid'),
+                DB::raw('(COALESCE(SUM(fee_payment_details.total_due),0) - COALESCE(SUM(due_collections.paid_amount),0)) as final_due')
+            )
+            ->groupBy(
+                'students.id','students.roll_number','students.first_name','students.last_name',
+                'rooms.name','rooms.section'
+            )
+            ->having('final_due', '>', 0)
+            ->orderByDesc('final_due')
+            ->get();
+
+        // dd($studentsWithDue);
+        return view('finance.report.print-student-due-list', compact('company','studentsWithDue'));
+    }
+
+    public function sendMailDueStaudent(){
+        $company = Company::first();
+        $studentsWithDue = DB::table('students')
+            ->leftJoin('rooms', 'students.class_id', '=', 'rooms.id')
+            ->leftJoin('fee_payment_details', 'students.id', '=', 'fee_payment_details.student_id')
+            ->leftJoin('due_collections', 'students.id', '=', 'due_collections.student_id')
+            ->select(
+                'students.id','students.roll_number','students.first_name','students.last_name','students.email',
+                'rooms.name as class_name','rooms.section as class_section',
+                DB::raw('COALESCE(SUM(fee_payment_details.total_due),0) as total_due'),
+                DB::raw('COALESCE(SUM(due_collections.paid_amount),0) as total_paid'),
+                DB::raw('(COALESCE(SUM(fee_payment_details.total_due),0) - COALESCE(SUM(due_collections.paid_amount),0)) as final_due')
+            )
+            ->groupBy('students.id','students.roll_number','students.first_name','students.last_name','students.email','rooms.name','rooms.section')
+            ->having('final_due', '>', 0)
+            ->get();
+
+        $sent = 0;
+        $failed = 0;
+        $skipped = 0;
+
+        foreach ($studentsWithDue as $st) {
+
+            // empty / invalid format হলে skip
+            if (empty($st->email) || !filter_var($st->email, FILTER_VALIDATE_EMAIL)) {
+                $skipped++;
+                continue;
+            }
+
+            try {
+                Mail::to($st->email)->send(new StudentDueMail($company, $st));
+                $sent++;
+            } catch (\Throwable $e) {
+                $failed++;
+
+                Log::error('Due mail failed', [
+                    'student_id' => $st->id ?? null,
+                    'email' => $st->email ?? null,
+                    'error' => $e->getMessage(),
+                ]);
+
+                continue;
+            }
+        }
+
+        return back()->with('success', "Due mail sent: {$sent}, skipped (no email): {$skipped}");
     }
 }
