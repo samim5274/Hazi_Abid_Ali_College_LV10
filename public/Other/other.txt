@@ -6,10 +6,10 @@ INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `
 # ="Dj]#d+u&rGr%HzC$"
 
 # =smtp
-# =mail.haac.edu.bd 
+# =mail.haac.edu.bd
 # =465
 # =info@haac.edu.bd
-# =4;u@K[ddf8X}i9}p 
+# =4;u@K[ddf8X}i9}p
 # =tls
 # ="info@haac.edu.bd"
 
@@ -19,7 +19,7 @@ INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `
 
                             {{-- Page Info --}}
                             <div class="text-sm md:text-base text-gray-600">
-                                Page {{ $attend->currentPage() }} of {{ $attend->lastPage() }} 
+                                Page {{ $attend->currentPage() }} of {{ $attend->lastPage() }}
                                 (Total Records: {{ $attend->total() }})
                             </div>
 
@@ -29,11 +29,11 @@ INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `
                                 {{-- Previous Button --}}
                                 @if ($attend->onFirstPage())
                                     <span class="px-2 py-1 text-sm md:text-base bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
-                                        &laquo; 
+                                        &laquo;
                                     </span>
                                 @else
                                     <a href="{{ $attend->previousPageUrl() }}" class="px-2 py-1 text-sm md:text-base bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
-                                        &laquo; 
+                                        &laquo;
                                     </a>
                                 @endif
 
@@ -100,6 +100,75 @@ INSERT INTO `companies` (`id`, `name`, `address`, `email`, `phone`, `website`, `
                             </tbody>
                         </table>
                     </div> -->
+
+
+
+
+<!-- Result show card -->
+<!-- Card -->
+            <!-- <div class="card rounded-lg border shadow-sm ">
+                <div class="bg-gray-100 border-b px-4 py-4 sm:py-6 rounded-t-lg">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                        <h2 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <span class="text-blue-500 text-xl">📌</span>
+                            <span class="text-gray-700">{{ $students[0]->room->name ?? 'N/A' }}</span>
+                            (<span class="text-gray-700">{{ $students[0]->room->section ?? 'N/A' }}</span>)
+                        </h2>
+                    </div>
+                </div>
+                 <table class="table table-striped table-hover table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Student Name</th>
+                            @foreach($subjects as $subject)
+                                <th>{{ $subject->name }}</th>
+                            @endforeach
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($studentResults as $key => $data)
+                        <tr>
+                            <td class="fw-bold">{{ $key + 1 }}</td>
+                            <td>{{ $data['student']->first_name }} {{ $data['student']->last_name }}</td>
+                            @foreach($subjects as $subject)
+                                @php
+                                    $result = $data['student']->results->firstWhere('subject_id', $subject->id);
+                                @endphp
+                                <td class="{{ $result && $result->marks_obtained < 40 ? 'text-danger fw-bold' : '' }}">
+                                    {{ $result ? $result->marks_obtained : '-' }}
+                                </td>
+                            @endforeach
+                            <td class="text-end fw-bold text-primary">{{ $data['total_marks'] }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <td colspan="2" class="fw-bold text-center">Class Average</td>
+                            @foreach($subjects as $subject)
+                                @php
+                                    $avg = $studentResults
+                                        ? round(
+                                            collect($studentResults)->map(function($s) use($subject) {
+                                                $r = $s['student']->results->firstWhere('subject_id', $subject->id);
+                                                return $r ? $r->marks_obtained : 0;
+                                            })->avg(),
+                                        2)
+                                        : 0;
+                                @endphp
+                                <td class="fw-semibold">{{ $avg }}</td>
+                            @endforeach
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div> -->
+
+
+
 
 
 info@haac.edu.bd

@@ -146,101 +146,108 @@ class ExamController extends Controller
     }
     
     public function submitMark(Request $request, $id){
-        $request->validate([
-            'subject_id'     => 'required|exists:subjects,id',
-            'exam_id'     => 'required|exists:subjects,id',
-            'marks_obtained' => 'required|numeric|min:0|max:100',
-            'grade'          => 'nullable|string|max:2',
-            'gpa'            => 'nullable|numeric|min:0|max:4',
-            'remarks'        => 'nullable|string|max:255',
-        ]);
+        try {
+            // ✅ Validation (custom messages)
+            $validated = $request->validate([
+                'subject_id'       => 'required|exists:subjects,id',
+                'exam_id'          => 'required|exists:exams,id',
+                'marks_objective'  => 'nullable|integer|min:0',
+                'marks_theury'     => 'nullable|integer|min:0',
+                'remarks'          => 'nullable|string|max:255',
+                'edit'             => 'nullable|boolean',
+            ], [
+                'subject_id.required' => 'Subject required.',
+                'subject_id.exists'   => 'Invalid subject selected.',
+                'exam_id.required'    => 'Exam required.',
+                'exam_id.exists'      => 'Invalid exam selected.',
+                'marks_objective.integer' => 'Objective marks must be a number.',
+                'marks_theury.integer'    => 'Theory marks must be a number.',
+            ]);
 
-        $findData = Mark::where('student_id', $id)->where('subject_id', $request->subject_id)->where('exam_id', $request->exam_id)->first();
-        if($findData){
-            if($request->edit){
-                $exam = Exam::where('id', $request->exam_id)->first();
-                $max_mark = $exam->max_marks;
-                $number = $request->marks_obtained;
+            // ✅ objective + theory (default 0)
+            $objective = (int) ($request->marks_objective ?? 0);
+            $theory    = (int) ($request->marks_theury ?? 0);
+            $number    = $objective + $theory;
 
-                $percentage = ($number / $max_mark) * 100;
+            // ✅ Exam fetch
+            $exam = Exam::find($request->exam_id);
+            if (!$exam) {
+                return back()->with('error', 'Exam not found.');
+            }
 
-                if ($percentage >= 80) {
-                    $grade = 'A+';
-                    $gpa   = 5.00;
-                } elseif ($percentage >= 70) {
-                    $grade = 'A';
-                    $gpa   = 4.00;
-                } elseif ($percentage >= 60) {
-                    $grade = 'A-';
-                    $gpa   = 3.50;
-                } elseif ($percentage >= 50) {
-                    $grade = 'B';
-                    $gpa   = 3.00;
-                } elseif ($percentage >= 40) {
-                    $grade = 'C';
-                    $gpa   = 2.00;
-                } elseif ($percentage >= 33) {
-                    $grade = 'D';
-                    $gpa   = 1.00;
-                } else {
-                    $grade = 'F';
-                    $gpa   = 0.00;
+            $max_mark = (int) ($exam->max_marks ?? 0);
+            if ($max_mark <= 0) {
+                return back()->with('error', 'This exam has invalid max marks.');
+            }
+
+            // ✅ marks cannot exceed max
+            if ($number > $max_mark) {
+                return back()->with('error', "Objective + Theory cannot be greater than max marks ({$max_mark}).");
+            }
+
+            // ✅ Grade + GPA
+            $percentage = ($number / $max_mark) * 100;
+
+            if ($percentage >= 80) { $grade = 'A+'; $gpa = 5.00; }
+            elseif ($percentage >= 70) { $grade = 'A'; $gpa = 4.00; }
+            elseif ($percentage >= 60) { $grade = 'A-'; $gpa = 3.50; }
+            elseif ($percentage >= 50) { $grade = 'B'; $gpa = 3.00; }
+            elseif ($percentage >= 40) { $grade = 'C'; $gpa = 2.00; }
+            elseif ($percentage >= 33) { $grade = 'D'; $gpa = 1.00; }
+            else { $grade = 'F'; $gpa = 0.00; }
+
+            // ✅ existing mark check
+            $findData = Mark::where('student_id', $id)
+                ->where('subject_id', $request->subject_id)
+                ->where('exam_id', $request->exam_id)
+                ->first();
+
+            // ✅ Update if exists + edit = true
+            if ($findData) {
+                if ($request->boolean('edit')) {
+
+                    $findData->marks_objective = $objective;
+                    $findData->marks_theury    = $theory;
+                    $findData->marks_obtained  = $number;
+
+                    $findData->grade           = $grade;
+                    $findData->gpa             = $gpa;
+
+                    $teacher = Auth::guard('teacher')->user();
+                    $findData->remarks = 'Updated by ' . trim(($teacher->first_name ?? '') . ' ' . ($teacher->last_name ?? ''));
+
+                    $findData->save();
+
+                    return back()->with('success', 'Mark updated successfully!');
                 }
 
-                $findData->student_id     = $id;
-                $findData->subject_id     = $request->subject_id;
-                $findData->exam_id        = $request->exam_id;
-                $findData->marks_obtained = $number;
-                $findData->grade          = $grade;
-                $findData->gpa            = $gpa;
-                $findData->remarks        = 'Updated by ' . Auth::guard('teacher')->user()->first_name .' '.Auth::guard('teacher')->user()->last_name;
-                
-                $findData->update();
-                return redirect()->back()->with('success', 'Mark updated successfully!');
+                return back()->with('warning', 'Mark already submitted for this student, subject & exam.');
             }
-            // return redirect()->back()->with('warning', 'Mark already submited. Please try another student. Thank you.');
+
+            // ✅ Create new mark
+            $mark = new Mark();
+            $mark->student_id      = $id;
+            $mark->subject_id      = $request->subject_id;
+            $mark->exam_id         = $request->exam_id;
+
+            $mark->marks_objective = $objective;
+            $mark->marks_theury    = $theory;
+            $mark->marks_obtained  = $number;
+
+            $mark->grade           = $grade;
+            $mark->gpa             = $gpa;
+            $mark->remarks         = $request->remarks ?? 'N/A';
+
+            $mark->save();
+
+            return redirect()->back()->with('success', 'Mark submitted successfully!');
         }
-
-        $exam = Exam::where('id', $request->exam_id)->first();
-        $max_mark = $exam->max_marks;
-        $number = $request->marks_obtained;
-
-        $percentage = ($number / $max_mark) * 100;
-
-        if ($percentage >= 80) {
-            $grade = 'A+';
-            $gpa   = 5.00;
-        } elseif ($percentage >= 70) {
-            $grade = 'A';
-            $gpa   = 4.00;
-        } elseif ($percentage >= 60) {
-            $grade = 'A-';
-            $gpa   = 3.50;
-        } elseif ($percentage >= 50) {
-            $grade = 'B';
-            $gpa   = 3.00;
-        } elseif ($percentage >= 40) {
-            $grade = 'C';
-            $gpa   = 2.00;
-        } elseif ($percentage >= 33) {
-            $grade = 'D';
-            $gpa   = 1.00;
-        } else {
-            $grade = 'F';
-            $gpa   = 0.00;
+        catch (\Illuminate\Validation\ValidationException $e) {            
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
         }
-
-        $mark = new Mark();
-        $mark->student_id     = $id;
-        $mark->subject_id     = $request->subject_id;
-        $mark->exam_id        = $request->exam_id;
-        $mark->marks_obtained = $number;
-        $mark->grade          = $grade;
-        $mark->gpa            = $gpa;
-        $mark->remarks        = 'N/A';
-        
-        $mark->save();
-        return redirect()->back()->with('success', 'Mark submitted successfully!');
+        catch (\Throwable $e) {            
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
     }
 
     public function resultReport(){
@@ -269,23 +276,64 @@ class ExamController extends Controller
 
     public function totalResult($class){
         $company = Company::first();
-        $students = Student::where('class_id', $class)->where('status', 1)->with('results.subject')->get();
+
+        $students = Student::with([
+                'results.subject',
+                'results.exam',
+                'room'
+            ])
+            ->where('class_id', $class)
+            ->get();
+
         $subjects = Subject::where('class_id', $class)->get();
 
         $studentResults = [];
 
         foreach ($students as $student) {
-            $totalMarks = 0;
-            foreach ($subjects as $subject) {
-                $subjectResults = $student->results->where('subject_id', $subject->id);
-                foreach ($subjectResults as $result) {
-                    $totalMarks += $result->marks_obtained;
+
+            // exam wise group
+            $examGroups = $student->results->groupBy(function ($item) {
+                return strtolower(optional($item->exam)->name ?? 'unknown');
+            });
+
+            $examWiseResults = [];
+            $overallTotal = 0;
+
+            foreach ($examGroups as $examKey => $results) {
+
+                $examName = optional($results->first()->exam)->name ?? 'Unknown';
+
+                $examTotal = 0;
+                $subjectMarks = [];
+
+                foreach ($subjects as $subject) {
+                    $mark = $results->firstWhere('subject_id', $subject->id);
+
+                    $obtained = $mark->marks_obtained ?? 0;
+                    $examTotal += $obtained;
+
+                    $subjectMarks[] = [
+                        'subject'         => $subject->name,
+                        'marks_objective' => $mark->marks_objective ?? null,
+                        'marks_theury'    => $mark->marks_theury ?? null,
+                        'marks_obtained'  => $mark->marks_obtained ?? null,
+                    ];
                 }
+
+                $overallTotal += $examTotal;
+
+                $examWiseResults[] = [
+                    'exam_name' => $examName,
+                    'subjects'  => $subjectMarks,
+                    'total'     => $examTotal
+                ];
             }
 
             $studentResults[] = [
-                'student' => $student,
-                'total_marks' => $totalMarks
+                'student'        => $student,
+                'exam_results'   => $examWiseResults,
+                'overall_total'  => $overallTotal,
+                'total_marks'    => $overallTotal,
             ];
         }
         
@@ -327,5 +375,62 @@ class ExamController extends Controller
         catch (\Exception $e) {
             return back()->with('error', 'Something went wrong. Please try again.');
         }
+    }
+
+    public function printResult($id){
+        $company = Company::first();
+        $marks = Mark::with(['student','subject','exam'])->where('student_id', $id)->get()
+                        ->groupBy(fn($m) => optional($m->exam)->name ?? 'No Exam');
+        return view('exam.print.print-result-view', compact('marks','company'));
+    }
+
+    public function printAllClassStudentResult($classId){
+         $company = Company::first();
+
+        // Students (rows)
+        $students = Student::with('room')
+            ->where('class_id', $classId)
+            ->orderBy('roll_number')
+            ->get();
+
+        $studentIds = $students->pluck('id');
+
+        // Marks (with exam + subject)
+        $marks = Mark::with(['exam','subject','student'])
+            ->whereIn('student_id', $studentIds)
+            ->get();
+
+        // Exam wise group
+        $byExam = $marks->groupBy(fn($m) => optional($m->exam)->name ?? 'No Exam');
+
+        // Build matrix per exam
+        $examSheets = $byExam->map(function($examMarks) use ($students) {
+
+            // Subjects (columns) unique by id (sorted)
+            $subjects = $examMarks->map(fn($m) => $m->subject)
+                ->filter()
+                ->unique('id')
+                ->sortBy('id')
+                ->values();
+
+            // Fast lookup: [student_id][subject_id] => marks
+            $lookup = [];
+            foreach ($examMarks as $m) {
+                $lookup[$m->student_id][$m->subject_id] = [
+                    'obj'   => $m->marks_objective ?? null,
+                    'thy'   => $m->marks_theury ?? null,
+                    'total' => $m->marks_obtained ?? null,
+                ];
+            }
+
+            return [
+                'subjects' => $subjects,
+                'lookup'   => $lookup,
+            ];
+        });
+
+        $room = $students->first()?->room;
+
+        return view('exam.print.class-all-student-result', compact('company','students','room','examSheets'));
     }
 }

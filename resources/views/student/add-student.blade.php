@@ -69,23 +69,23 @@
                                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="first_name">First Name</label>
-                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="first_name">First Name <span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <input type="text" id="first_name" name="first_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="last_name">Last Name</label>
-                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="last_name">Last Name<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <input type="text" id="last_name" name="last_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="dob">Date of Birth</label>
-                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="dob">Date of Birth<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <input type="date" id="dob" name="dob" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="gender">Gender</label>
-                                                <select id="gender" name="gender" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="gender">Gender<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <select id="gender" name="gender" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                                     <option selected disabled>--Select Gender--</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -119,8 +119,8 @@
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="email">Email Address</label>
-                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="email">Email Address<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                             </div>
 
                                             <div class="">
@@ -134,8 +134,8 @@
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="Class">Class</label>
-                                                <select id="Class" name="class_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="Class">Class<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <select id="Class" name="class_id" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                                     <option selected disabled>--Select Class--</option>
                                                     @foreach($room as $val)
                                                     <option value="{{$val->id}}">{{$val->name}}</option>
@@ -144,18 +144,18 @@
                                             </div>
 
                                             <div class="">
-                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Reg. No</label>
-                                                <input type="b_reg_no" id="b_reg_no" name="b_reg_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="b_reg_no">Board Reg. No</label>
+                                                <input type="number" id="b_reg_no" name="b_reg_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div class="">
-                                                <label class="block text-gray-600 mb-1" for="permanent_address">Board Roll</label>
-                                                <input type="b_roll_no" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="b_roll_no">Board Roll</label>
+                                                <input type="number" id="b_roll_no" name="b_roll_no" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="Section">Section</label>
-                                                <select id="Section" name="cbxSection" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="Section">Section<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <select id="Section" name="cbxSection" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                                     <option selected disabled>--Select Section--</option>                                                    
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>
@@ -165,8 +165,8 @@
                                             </div>
 
                                             <div>
-                                                <label class="block text-gray-600 mb-1" for="Group">Group</label>
-                                                <select id="Group" name="cbxGroup" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <label class="block text-gray-600 mb-1" for="Group">Group<span class="inline-flex items-center text-xs font-semibold text-red-700">*</span></label>
+                                                <select id="Group" name="cbxGroup" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
                                                     <option selected disabled>--Select Group--</option>
                                                     @foreach($groups as $val)
                                                     <option value="{{ $val->name }}">{{ $val->name }}</option>
@@ -184,97 +184,162 @@
                                     <!-- Guardian Information -->
                                     <div class="border-b border-gray-300 pb-4 mb-6">
                                         <h3 class="text-xl font-semibold mb-4 text-gray-700">Guardian / Parent Information</h3>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-                                            <!-- Father information -->
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
-                                                <input type="text" id="father_name" name="father_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
+                                        <div class="space-y-6">
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_profession">Profession</label>
-                                                <input type="text" id="father_profession" name="father_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_contact">Father Contact</label>
-                                                <input type="text" id="father_contact" name="father_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <!-- Father Card -->
+                                            <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                                            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                                                <div class="flex items-center gap-2">
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">
+                                                    Father
+                                                </span>
+                                                <p class="text-sm text-gray-500">Father’s details</p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_email">Email</label>
-                                                <input type="email" id="father_email" name="father_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <div class="p-5">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_name">Father Name</label>
+                                                    <input type="text" id="father_name" name="father_name"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_profession">Profession</label>
+                                                    <input type="text" id="father_profession" name="father_profession"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_contact">Father Contact</label>
+                                                    <input type="text" id="father_contact" name="father_contact"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_email">Email</label>
+                                                    <input type="email" id="father_email" name="father_email"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_nid">NID Number</label>
+                                                    <input type="text" id="father_nid" name="father_nid"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="father_income">Monthly Income</label>
+                                                    <input type="number" id="father_income" name="father_income" min="0"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+                                                </div>
+                                            </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_nid">NID Number</label>
-                                                <input type="text" id="father_nid" name="father_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-                                            
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="father_income">Monthly Income</label>
-                                                <input type="number" id="father_income" name="father_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0">
-                                            </div>
-                                            
-                                            <!-- Mother information -->
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
-                                                <input type="text" id="mother_name" name="mother_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <!-- Mother Card -->
+                                            <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                                            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                                                <div class="flex items-center gap-2">
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-pink-50 text-pink-700 border border-pink-100">
+                                                    Mother
+                                                </span>
+                                                <p class="text-sm text-gray-500">Mother’s details</p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_profession">Profession</label>
-                                                <input type="text" id="mother_profession" name="mother_profession" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <div class="p-5">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_name">Mother Name</label>
+                                                    <input type="text" id="mother_name" name="mother_name"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_profession">Profession</label>
+                                                    <input type="text" id="mother_profession" name="mother_profession"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_contact">Mother Contact</label>
+                                                    <input type="text" id="mother_contact" name="mother_contact"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_email">Email</label>
+                                                    <input type="email" id="mother_email" name="mother_email"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_nid">NID Number</label>
+                                                    <input type="text" id="mother_nid" name="mother_nid"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="mother_income">Monthly Income</label>
+                                                    <input type="number" id="mother_income" name="mother_income" min="0"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+                                                </div>
+                                            </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_contact">Mother Contact</label>
-                                                <input type="text" id="mother_contact" name="mother_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <!-- Guardian Card -->
+                                            <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+                                            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                                                <div class="flex items-center gap-2">
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100">
+                                                    Guardian
+                                                </span>
+                                                <p class="text-sm text-gray-500">Guardian info (if any)</p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_email">Email</label>
-                                                <input type="email" id="mother_email" name="mother_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                            <div class="p-5">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
+                                                    <input type="text" id="guardian_name" name="guardian_name"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="guardian_contact">Guardian Contact</label>
+                                                    <input type="text" id="guardian_contact" name="guardian_contact"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="guardian_email">Guardian Email</label>
+                                                    <input type="email" id="guardian_email" name="guardian_email"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="guardian_nid">Guardian NID</label>
+                                                    <input type="text" id="guardian_nid" name="guardian_nid"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with Student</label>
+                                                    <input type="text" id="guardian_relationship" name="guardian_relationship"
+                                                        class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                </div>
+                                                </div>
+                                            </div>
                                             </div>
 
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_nid">NID Number</label>
-                                                <input type="text" id="mother_nid" name="mother_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="mother_income">Monthly Income</label>
-                                                <input type="number" id="mother_income" name="mother_income" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" min="0">
-                                            </div>
-
-                                            <!-- Guardian information -->
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="guardian_name">Guardian Name (if any)</label>
-                                                <input type="text" id="guardian_name" name="guardian_name" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="guardian_contact">Guardian Contact</label>
-                                                <input type="text" id="guardian_contact" name="guardian_contact" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="guardian_email">Guardian Email</label>
-                                                <input type="email" id="guardian_email" name="guardian_email" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="guardian_nid">Guardian NID</label>
-                                                <input type="text" id="guardian_nid" name="guardian_nid" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
-
-                                            <div>
-                                                <label class="block text-gray-600 mb-1" for="guardian_relationship">Relationship with Student</label>
-                                                <input type="text" id="guardian_relationship" name="guardian_relationship" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                            </div>
                                         </div>
                                     </div>
+
 
                                     <div class="w-full px-3">
                                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">    

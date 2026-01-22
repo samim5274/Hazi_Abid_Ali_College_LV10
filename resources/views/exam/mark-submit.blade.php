@@ -179,15 +179,52 @@
                                             <input type="hidden" name="class_id" value="{{ $room->id }}">
                                             <input type="hidden" name="exam_id" value="{{ $exam->id }}">
 
-                                            <div class="w-full sm:w-44">
-                                                <label class="block text-xs font-semibold text-gray-500 mb-1">
-                                                    Mark (0 - {{ $exam->max_marks }})
-                                                </label>
-                                                <input type="number" name="marks_obtained" min="0" max="{{ $exam->max_marks }}" required
-                                                    class="w-full border border-gray-300 rounded-xl px-3 py-2 text-gray-800
-                                                            placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3F4D67] focus:border-[#3F4D67]"
-                                                    placeholder="Enter mark">
+                                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                                                <!-- Objective -->
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-500 mb-1">
+                                                        Objective (0 - {{ $exam->max_marks }})
+                                                    </label>
+                                                    <input type="number"
+                                                        name="marks_objective"
+                                                        min="0"
+                                                        max="{{ $exam->max_marks }}"
+                                                        value="0"
+                                                        class="marks-objective w-full border border-gray-300 rounded-xl px-3 py-2 text-gray-800
+                                                                focus:outline-none focus:ring-2 focus:ring-[#3F4D67]"
+                                                        placeholder="Objective">
+                                                </div>
+
+                                                <!-- Theory -->
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-500 mb-1">
+                                                        Theory (0 - {{ $exam->max_marks }})
+                                                    </label>
+                                                    <input type="number"
+                                                        name="marks_theury"
+                                                        min="0"
+                                                        max="{{ $exam->max_marks }}"
+                                                        value="0"
+                                                        class="marks-theory w-full border border-gray-300 rounded-xl px-3 py-2 text-gray-800
+                                                                focus:outline-none focus:ring-2 focus:ring-[#3F4D67]"
+                                                        placeholder="Theory">
+                                                </div>
+
+                                                <!-- Total (Auto) -->
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-500 mb-1">
+                                                        Total (Auto)
+                                                    </label>
+                                                    <input type="number"
+                                                        name="marks_obtained"
+                                                        value="0"
+                                                        readonly
+                                                        class="marks-total w-full bg-gray-100 border border-gray-300 rounded-xl px-3 py-2 text-gray-800 font-semibold">
+                                                </div>
+
                                             </div>
+
 
                                             @if($hasMarks)
                                                 <button type="submit" name="edit" value="1"
@@ -255,8 +292,24 @@
     <script>
         // Pop up message (auto-hide)
         document.addEventListener("DOMContentLoaded", () => {
+
+            // ✅ Mark auto calculate (Objective + Theory = Total)
+            document.addEventListener("input", (e) => {
+                const t = e.target;
+
+                if (!t.classList.contains("marks-objective") && !t.classList.contains("marks-theory")) return;
+
+                const wrapper = t.closest(".grid");
+                if (!wrapper) return;
+
+                const objective = parseInt(wrapper.querySelector(".marks-objective")?.value) || 0;
+                const theory    = parseInt(wrapper.querySelector(".marks-theory")?.value) || 0;
+
+                const totalInput = wrapper.querySelector(".marks-total");
+                if (totalInput) totalInput.value = objective + theory;
+            });
             
-            // search section        
+            // ✅ Search section        
             const input = document.getElementById("studentSearch");
             const cards = Array.from(document.querySelectorAll(".student-card"));
             const meta  = document.getElementById("searchMeta");

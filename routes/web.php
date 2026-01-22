@@ -176,6 +176,8 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/result-report/class/student/{class}/{student}', [ExamController::class, 'showResult'])->name('show-student-result');
     Route::get('/total-report-result', [ExamController::class, 'totalReport'])->name('total-report-class-list');
     Route::get('/total-result-report/class/{class}', [ExamController::class, 'totalResult'])->name('total-result-report');
+    Route::get('/print-student-result/{id}', [ExamController::class, 'printResult']);
+    Route::get('/print-class-student-result/{class_Id}', [ExamController::class, 'printAllClassStudentResult']);
     
 
 

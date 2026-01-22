@@ -19,6 +19,16 @@ class Mark extends Model
         'remarks'
     ];
 
+    protected static function booted()
+    {
+        static::saving(function ($result) {
+            $objective = $result->marks_objective ?? 0;
+            $theory    = $result->marks_theury ?? 0;
+
+            $result->marks_obtained = $objective + $theory;
+        });
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');

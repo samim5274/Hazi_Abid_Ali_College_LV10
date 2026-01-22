@@ -65,8 +65,8 @@ class StudentController extends Controller
         $validated = $request->validate([
             'first_name'         => 'required|string|max:100',
             'last_name'          => 'required|string|max:100',
-            'dob'                => 'nullable|date',
-            'gender'             => 'nullable|in:Male,Female,Other',
+            'dob'                => 'required|date',
+            'gender'             => 'required|in:Male,Female,Other',
             'blood_group'        => 'nullable|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
             'religion'           => 'nullable|string|max:50',
             'nationality'        => 'nullable|string|max:50',

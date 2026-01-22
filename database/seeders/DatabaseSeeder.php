@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             IncomeCategorySeeder::class,
             IncomeSubCategorySeeder::class,
             CompanySeeder::class,
+            ExamNameSeeder::class,
+            ExamSeeder::class,
         ]);
     }
 }
