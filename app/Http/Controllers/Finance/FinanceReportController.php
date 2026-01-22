@@ -260,4 +260,30 @@ class FinanceReportController extends Controller
 
         return back()->with('success', "Due mail sent: {$sent}, skipped (no email): {$skipped}");
     }
+
+    public function dueCollectionReport(){
+        $company = Company::first();
+        $dueCollections = DueCollection::with(['student', 'user'])->where('collection_date', Carbon::today())->orderBy('collection_date', 'desc')->paginate(20); // dd($dueCollections);
+        return view('finance.report.due-collection-report', compact('company','dueCollections'));
+    }
+
+    public function filterDueCollection(Request $request){
+        $start = $request->input('start_date', '');
+        $end = $request->input('end_date', '');
+
+        $company = Company::first();
+
+        $startDate = $start ? Carbon::parse($start)->startOfDay() : Carbon::today()->startOfDay();
+        $endDate   = $end   ? Carbon::parse($end)->endOfDay()     : Carbon::today()->endOfDay();
+
+        $query = DueCollection::with(['student', 'user'])->whereBetween('collection_date', [$startDate, $endDate])->orderBy('collection_date', 'desc');
+
+        if($request->print){
+            $dueCollections = $query->get();
+            return view('finance.report.print-due-collection-report', compact('company','dueCollections','startDate','endDate'));
+        }
+
+        $dueCollections = $query->paginate(20);
+        return view('finance.report.due-collection-report', compact('company','dueCollections','startDate','endDate'));
+    }
 }

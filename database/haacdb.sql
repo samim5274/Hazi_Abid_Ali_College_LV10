@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 22, 2026 at 08:32 AM
+-- Generation Time: Jan 22, 2026 at 01:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -139,6 +139,16 @@ CREATE TABLE `due_collections` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `due_collections`
+--
+
+INSERT INTO `due_collections` (`id`, `receipt_no`, `invoice_no`, `student_id`, `user_id`, `previous_due`, `paid_amount`, `remaining_due`, `collection_date`, `payment_method`, `remarks`, `created_at`, `updated_at`) VALUES
+(1, '1AP4XUEV4F', 'INV-10039', 8, 11, 100.00, 50.00, 50.00, '2026-01-22', 'Cash', 'N/A', '2026-01-22 11:32:15', '2026-01-22 11:32:15'),
+(2, 'IAM81DAR5V', 'INV-84842', 10, 11, 500.00, 100.00, 400.00, '2026-01-22', 'Cash', 'N/A', '2026-01-22 11:32:20', '2026-01-22 11:32:20'),
+(3, 'HM9J9JGD21', 'INV-86435', 12, 11, 500.00, 250.00, 250.00, '2026-01-22', 'Cash', 'N/A', '2026-01-22 11:32:26', '2026-01-22 11:32:26'),
+(4, 'CPUUZUNQO0', 'INV-39020', 10, 11, 400.00, 100.00, 300.00, '2026-01-22', 'Cash', 'N/A', '2026-01-22 11:34:07', '2026-01-22 11:34:07');
 
 -- --------------------------------------------------------
 
@@ -375,6 +385,15 @@ CREATE TABLE `fee_payment_details` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fee_payment_details`
+--
+
+INSERT INTO `fee_payment_details` (`id`, `student_id`, `user_id`, `total_amount`, `total_paid`, `total_discount`, `total_due`, `payment_date`, `month`, `year`, `payment_method`, `status`, `receipt_no`, `invoice_no`, `created_at`, `updated_at`) VALUES
+(1, 8, 11, 1000.00, 800.00, 100.00, 100.00, '2026-01-22', '12', '2031', 'Cash', 'Partial', 'GHPKRS6YVR', 'INV-67648', '2026-01-22 07:35:18', '2026-01-22 07:35:18'),
+(2, 10, 11, 1000.00, 500.00, 0.00, 500.00, '2026-01-22', '01', '2027', 'Cash', 'Partial', '218LGIZLBT', 'INV-30436', '2026-01-22 10:01:36', '2026-01-22 10:01:36'),
+(3, 12, 11, 1000.00, 500.00, 0.00, 500.00, '2026-01-22', '03', '2027', 'Cash', 'Partial', 'KTBX6GJB65', 'INV-77297', '2026-01-22 10:01:52', '2026-01-22 10:01:52');
+
 -- --------------------------------------------------------
 
 --
@@ -395,6 +414,15 @@ CREATE TABLE `fee_payment_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fee_payment_items`
+--
+
+INSERT INTO `fee_payment_items` (`id`, `fee_payment_id`, `student_id`, `fee_structure_id`, `amount`, `paid`, `discount`, `due`, `payment_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 8, 1, 1000.00, 800.00, 100.00, 100.00, '2026-01-22', '2026-01-22 07:35:18', '2026-01-22 07:35:18'),
+(2, 2, 10, 1, 1000.00, 500.00, 0.00, 500.00, '2026-01-22', '2026-01-22 10:01:36', '2026-01-22 10:01:36'),
+(3, 3, 12, 1, 1000.00, 500.00, 0.00, 500.00, '2026-01-22', '2026-01-22 10:01:52', '2026-01-22 10:01:52');
+
 -- --------------------------------------------------------
 
 --
@@ -410,6 +438,13 @@ CREATE TABLE `fee_structures` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fee_structures`
+--
+
+INSERT INTO `fee_structures` (`id`, `class_id`, `fee_cat_id`, `amount`, `due_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1000.00, '2026-02-22', '2026-01-22 07:35:00', '2026-01-22 07:35:00');
 
 -- --------------------------------------------------------
 
@@ -722,6 +757,15 @@ CREATE TABLE `notices` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`id`, `title`, `description`, `publish_date`, `user_id`, `attachment`, `notice_type`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Sports Competition Notice', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2026-01-22', 11, '2026-01-22_1769071028_17.pdf', 'Public', 1, '2026-01-22 08:37:08', '2026-01-22 08:37:08'),
+(2, 'Midterm Exam Schedule', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2026-01-22', 11, '2026-01-22_1769071036_17.pdf', 'Student', 1, '2026-01-22 08:37:16', '2026-01-22 08:37:16'),
+(3, 'Office Electrick Bill', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2026-01-22', 11, '2026-01-22_1769071045_17.pdf', 'Teacher', 1, '2026-01-22 08:37:25', '2026-01-22 08:37:25');
+
 -- --------------------------------------------------------
 
 --
@@ -862,7 +906,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood_group`, `religion`, `nationality`, `national_id`, `contact_number`, `email`, `password`, `address1`, `address2`, `admission_no`, `admission_date`, `section`, `group`, `session_year`, `previous_school`, `father_name`, `father_profession`, `father_contact`, `father_email`, `father_nid`, `father_monthly_income`, `mother_name`, `mother_profession`, `mother_contact`, `mother_email`, `mother_nid`, `mother_monthly_income`, `guardian_name`, `guardian_contact`, `guardian_email`, `guardian_nid`, `guardian_relationship`, `status`, `roll_number`, `class_id`, `attend_date`, `remark`, `b_reg_no`, `b_roll_no`, `photo`, `father_photo`, `mother_photo`, `otp`, `otp_expires_at`, `email_verified_at`, `last_login_at`, `last_login_ip`, `is_profile_completed`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Sandra', 'Sipes', '1994-06-09', 'Other', 'AB-', 'Christian', 'Bangladeshi', '6950575693148', '01839016620', 'student1@example.com', '$2y$12$Ncyoht1oShqbQuoVy68e0.WZjF02otN4fXStptToWS.ZJc.91yhR6', '26243 Fern Knolls Apt. 657\nMurraychester, AZ 47913', '638 Wyman Trafficway\nPort Kole, NC 07668', 'ADM-00001', '1982-10-30', 'A', 'Commerce', '2025-2026', 'Kerluke, Reilly and Runolfsson School', 'Junius Reynolds', 'Businessman', '01690867292', 'father1@example.com', '2925933028888', NULL, 'Jeanie Hirthe', 'Doctor', '01602579533', 'mother1@example.com', '7693074039719', NULL, 'Verdie Balistreri', '01966161758', 'guardian1@example.com', '4124635643340', 'Grandparent', 1, 1, 2, '2026-01-22', NULL, 2025000001, 900001, NULL, NULL, NULL, NULL, NULL, '2026-01-22 06:00:02', '2026-01-22 07:28:23', '127.0.0.1', 1, '4FXf7mP5ybVXwf1eJyMq9CmBvRWeDwxPdTlKkXQKZyFPCX0EJFXIsHRmsF9B', '2026-01-22 06:00:02', '2026-01-22 07:28:23'),
+(1, 'Sandra', 'Sipes', '1994-06-09', 'Other', 'AB-', 'Christian', 'Bangladeshi', '6950575693148', '01839016620', 'student1@example.com', '$2y$12$Ncyoht1oShqbQuoVy68e0.WZjF02otN4fXStptToWS.ZJc.91yhR6', '26243 Fern Knolls Apt. 657\nMurraychester, AZ 47913', '638 Wyman Trafficway\nPort Kole, NC 07668', 'ADM-00001', '1982-10-30', 'A', 'Commerce', '2025-2026', 'Kerluke, Reilly and Runolfsson School', 'Junius Reynolds', 'Businessman', '01690867292', 'father1@example.com', '2925933028888', NULL, 'Jeanie Hirthe', 'Doctor', '01602579533', 'mother1@example.com', '7693074039719', NULL, 'Verdie Balistreri', '01966161758', 'guardian1@example.com', '4124635643340', 'Grandparent', 1, 1, 2, '2026-01-22', NULL, 2025000001, 900001, NULL, NULL, NULL, NULL, NULL, '2026-01-22 06:00:02', '2026-01-22 09:10:48', '127.0.0.1', 1, 'PSoseJk1fr5XyuVU5mHmb6ByWbvwtAKjjUqhcsWhF6GUUWHPMw6SPQQNxWCK', '2026-01-22 06:00:02', '2026-01-22 09:10:48'),
 (2, 'Frank', 'Lesch', '2007-03-24', 'Other', 'A+', 'Islam', 'Bangladeshi', '5387213135348', '01759342517', 'student2@example.com', '$2y$12$N/78fU5a9To3LF7OXBN0Qu41Z8UIz4snHIIPhi5vh7OdJCw6uvcDa', '7205 West Mountain\nPort Christy, OK 80987', '773 Parisian Fords Suite 538\nHansenfort, ND 20539-5940', 'ADM-00002', '2011-04-27', 'B', 'Commerce', '2025-2026', 'Gibson Ltd School', 'Darwin Kilback', 'Teacher', '01833033773', 'father2@example.com', '3607124810986', NULL, 'Mrs. Alaina Legros Jr.', 'Businesswoman', '01423526269', 'mother2@example.com', '0364127710940', NULL, 'Christopher Koepp', '01782965872', 'guardian2@example.com', '5327768882930', 'Sister', 1, 2, 2, '2026-01-22', NULL, 2025000002, 900002, NULL, NULL, NULL, NULL, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03', '127.0.0.1', 1, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03'),
 (3, 'Vickie', 'Koch', '1976-04-03', 'Male', 'O-', 'Buddhist', 'Bangladeshi', '9741766353586', '01546392864', 'student3@example.com', '$2y$12$VB2fRrNJLAfjLVYFFFfsKe6OiKyjxQEixqdQdYqhts2Mj2J4/kvWO', '25732 King Extensions\nBillieside, WA 85695-2020', '75970 Alexandria Stravenue\nSouth Dovie, GA 58130', 'ADM-00003', '2016-09-02', 'A', 'Science', '2025-2026', 'O\'Conner-Gerhold School', 'Dr. Emilio Kulas DVM', 'Businessman', '01954444564', 'father3@example.com', '5779914279547', NULL, 'Ms. Alia Huels DDS', 'Doctor', '01872044335', 'mother3@example.com', '9073962036413', NULL, 'Mrs. Verla Heidenreich I', '01326353300', 'guardian3@example.com', '8089611956399', 'Brother', 1, 3, 2, '2026-01-22', NULL, 2025000003, 900003, NULL, NULL, NULL, NULL, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03', '127.0.0.1', 1, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03'),
 (4, 'Darby', 'Rutherford', '1998-11-27', 'Other', 'A-', 'Islam', 'Bangladeshi', '6197384776648', '01614427478', 'student4@example.com', '$2y$12$HmTmo0aCz/UzQpzN7jDy0uPp5vfkoOswAQ4pLzUuyTbqWC7scYWQ.', '30029 Wisozk Ferry\nPort Kianaville, MI 25709-5105', '5751 Jaida Turnpike\nWest Jedediahbury, KY 41241-9009', 'ADM-00004', '1992-03-28', 'A', 'Commerce', '2025-2026', 'O\'Conner, Cremin and Satterfield School', 'Prof. Russell Balistreri', 'Doctor', '01883815327', 'father4@example.com', '2918197054455', NULL, 'Theresa Sauer', 'Nurse', '01763820221', 'mother4@example.com', '4677785985428', NULL, 'Ollie Lakin', '01346884450', 'guardian4@example.com', '5158674738119', 'Uncle', 1, 1, 3, '2026-01-22', NULL, 2025000004, 900004, NULL, NULL, NULL, NULL, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03', '127.0.0.1', 1, NULL, '2026-01-22 06:00:03', '2026-01-22 06:00:03'),
@@ -1243,7 +1287,7 @@ INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `dob`, `gender`, `blood
 (8, 'Antwon', 'Lindgren', '1997-04-06', 'Male', 'O+', '9759560610876', '01949716168', 'teacher7@example.com', '$2y$12$R.dSCCbihnimy7B.wsQwUu7IYkAYmhYdiY0I/dCzDxqUVs1oyjBWC', 'Lecturer', '55751 Merl Burgs\nNew Kearabury, CO 71005', 'Kaden McClure', '01789977069', 'Avis Gutmann', '01854067115', 'Ida Roob', '01967800774', 'Uncle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:58', '2026-01-22 05:59:58', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:58', '2026-01-22 05:59:58'),
 (9, 'Aubrey', 'Bartoletti', '1992-06-19', 'Male', 'O-', '8353001596911', '01641842703', 'teacher8@example.com', '$2y$12$Kjze9QsJWFU2C1CZ20tiHO0jdKDmuBON3OVFd/xg4yomBpi.t9Om6', 'Head of Department', '60061 Zboncak Rapids Apt. 177\nPort Merlinville, WV 82582-1338', 'Reggie Bradtke', '01614408150', 'Trudie Carroll', '01865082113', 'Angelita Walsh', '01782832955', 'Sister', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:58', '2026-01-22 05:59:58', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:58', '2026-01-22 05:59:58'),
 (10, 'Nickolas', 'Abernathy', '1994-12-04', 'Male', 'O-', '6333371150377', '01872311651', 'teacher9@example.com', '$2y$12$lCDyFNUo8U1jViKFWCaFuepFYMWuFnmpFHfsPLCQPtakyp1TJsjbO', 'Assistant Professor', '68169 Ike Gardens Suite 373\nQueenieview, OR 75876-0845', 'Liam Langosh', '01632003404', 'Madelynn Crist', '01805233592', 'Marcelina Fisher', '01754525274', 'Aunt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 05:59:59', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:59', '2026-01-22 05:59:59'),
-(11, 'Adalberto', 'Rohan', '1994-11-29', 'Male', 'B-', '3469414418413', '01704934909', 'teacher10@example.com', '$2y$12$WEMIieEhI2EArgetSw7CfO9/6WsJ63Lvm7bncV8P/dKZrAC.GaYT2', 'Assistant Professor', '704 Gerard Divide Suite 264\nNorth Charlie, AR 78662-7366', 'Dayton Jast', '01938370811', 'Romaine Little PhD', '01306387792', 'Prof. Seth Parisian', '01507414588', 'Aunt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 07:28:59', '127.0.0.1', 1, NULL, NULL, 'ePrSTIBU8Ix6eP02Lp854v7qMOjmr6W1h546eIYzuFCebXNbhQrzR7eEnYSa', '2026-01-22 05:59:59', '2026-01-22 07:28:59'),
+(11, 'Adalberto', 'Rohan', '1994-11-29', 'Male', 'B-', '3469414418413', '01704934909', 'teacher10@example.com', '$2y$12$WEMIieEhI2EArgetSw7CfO9/6WsJ63Lvm7bncV8P/dKZrAC.GaYT2', 'Assistant Professor', '704 Gerard Divide Suite 264\nNorth Charlie, AR 78662-7366', 'Dayton Jast', '01938370811', 'Romaine Little PhD', '01306387792', 'Prof. Seth Parisian', '01507414588', 'Aunt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 09:32:29', '127.0.0.1', 1, NULL, NULL, 'sQ6vpoSnI33rujbyDbsUYD8z0inYqTcHbOTtlEEaqnCzaBEtiVhUs9DNZfyC', '2026-01-22 05:59:59', '2026-01-22 09:32:29'),
 (12, 'Delbert', 'Romaguera', '1994-07-07', 'Male', 'A+', '9115965678078', '01553393977', 'teacher11@example.com', '$2y$12$haFgiu3WNy46oittGHQVyuY9isDO08ugToXOdw5hqmE3d8x9RZJMq', 'Assistant Professor', '1466 Murphy Loop Apt. 514\nFreemanside, ND 08683', 'Noe White', '01615838311', 'Ms. Christelle Morissette', '01397908102', 'Ila Orn', '01614544550', 'Grandparent', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 05:59:59', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:59', '2026-01-22 05:59:59'),
 (13, 'William', 'Welch', '2000-05-25', 'Male', 'AB+', '9511992078470', '01999261398', 'teacher12@example.com', '$2y$12$YbkcGXmWxQVsNbjwQVN1keuJo92I3644AXZGMDjy4MEandxRrOMx2', 'Lecturer', '6124 VonRueden Junctions\nMaureenbury, MA 89784-6638', 'Davin Parisian DDS', '01385770738', 'Mattie Prohaska IV', '01999540366', 'Concepcion Hill', '01554157228', 'Sister', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 05:59:59', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:59', '2026-01-22 05:59:59'),
 (14, 'Ivah', 'Stehr', '1986-12-21', 'Female', 'B+', '1415878382008', '01498546187', 'teacher13@example.com', '$2y$12$h0OBe1i.v7.g4kjBLwP.UOJMqfamCfPdhM4ZNfFkJBor0eTQimSTW', 'Assistant Professor', '1579 Runolfsson Corners Apt. 407\nWest Jaydenmouth, AZ 91364-2904', 'Gust Kuhlman', '01856873247', 'Yvonne Kunde', '01458129771', 'Aleen Keebler', '01920416729', 'Sister', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', 1, 'N/A', '2026-01-22 05:59:59', '2026-01-22 05:59:59', '127.0.0.1', 1, NULL, NULL, NULL, '2026-01-22 05:59:59', '2026-01-22 05:59:59'),
@@ -1611,7 +1655,7 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `due_collections`
 --
 ALTER TABLE `due_collections`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `exams`
@@ -1665,19 +1709,19 @@ ALTER TABLE `fee_payments`
 -- AUTO_INCREMENT for table `fee_payment_details`
 --
 ALTER TABLE `fee_payment_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fee_payment_items`
 --
 ALTER TABLE `fee_payment_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fee_structures`
 --
 ALTER TABLE `fee_structures`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -1719,7 +1763,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
