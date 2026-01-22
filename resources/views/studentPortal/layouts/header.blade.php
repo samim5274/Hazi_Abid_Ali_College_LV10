@@ -177,8 +177,13 @@
                         <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown p-2 overflow-hidden">
                             <div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500">
                                 <div class="flex mb-1 items-center">
-                                    <div class="shrink-0">
-                                        <img src="{{ asset('img/student/'. Auth::guard('student')->user()->photo ) }}" alt="user-image" class="w-10 rounded-full" />
+                                    <div class="shrink-0">                                        
+                                        @php $studentUser = Auth::guard('student')->user(); @endphp
+                                        @if($studentUser && !empty($studentUser->photo))
+                                            <img src="{{ asset('img/student/' . $studentUser->photo) }}" class="w-10 rounded-full" alt="user-image">
+                                        @else
+                                            <img src="{{ asset('img/student/default.png') }}" class="w-10 rounded-full" alt="user-image">
+                                        @endif
                                     </div>
                                     <div class="grow ms-3">
                                         <h6 class="mb-1 text-white">{{ Auth::guard('student')->user()->first_name }} {{ Auth::guard('student')->user()->last_name }}</h6>

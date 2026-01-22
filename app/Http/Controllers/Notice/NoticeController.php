@@ -92,4 +92,10 @@ class NoticeController extends Controller
         }
         return view('notice.notice-view', compact('notice','company'));
     }
+
+    public function show(){
+        $company = Company::first();
+        $notices = Notice::Where('is_active', 1)->get();
+        return view('notice.show-all-notice', compact('notices','company'));
+    }
 }

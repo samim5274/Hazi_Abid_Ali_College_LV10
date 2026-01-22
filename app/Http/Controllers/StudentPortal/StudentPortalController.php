@@ -20,6 +20,7 @@ use App\Models\ClassSchedule;
 use App\Models\StudentDailyRoutine;
 use Auth;
 use App\Models\Company;
+use App\Models\Notice;
 
 class StudentPortalController extends Controller
 {
@@ -31,8 +32,9 @@ class StudentPortalController extends Controller
 
     public function profile(){
         $company = Company::first();
+        $notices = Notice::Where('is_active', 1)->WhereIn('notice_type', ['Student','Public'])->latest()->take(2)->get();
         $student = $student = Auth::guard('student')->user();
-        return view('studentPortal.profile.student-profile', compact('student','company'));
+        return view('studentPortal.profile.student-profile', compact('student','company','notices'));
     }
 
     public function myClass(){
@@ -464,5 +466,11 @@ class StudentPortalController extends Controller
         $student->save();
 
         return back()->with('success', 'Password updated successfully!');
+    }
+
+    public function showNotice(){
+        $company = Company::first();
+        $notices = Notice::Where('is_active', 1)->WhereIn('notice_type', ['Student','Public'])->get();
+        return view('studentPortal.notice.student-notice', compact('company','notices'));
     }
 }

@@ -73,6 +73,69 @@
                                 <li class="flex items-center"><span class="w-8 h-8 bg-blue-100 text-[#3F4D67] rounded-full flex items-center justify-center mr-3"><i class="fa-solid fa-heart"></i></span>{{ $student->guardian_relationship ?? '-' }}</li>
                             </ul>
                         </div>
+                        <!-- Notice Board -->
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300">
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-green-600"></i>
+                                    Notices
+                                </h4>
+
+                                <a href="{{ url('/show-all-student-notice') }}"
+                                class="text-sm font-semibold text-green-700 hover:text-green-900 flex items-center gap-1">
+                                    See all
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                            </div>                            
+                            <ul class="space-y-3">
+                                @forelse($notices as $notice)
+                                    <li>
+                                        <a href="{{ url('/view/notice/'.$notice->id) }}"
+                                        class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition">
+
+                                            <span class="mt-1 h-3 w-3 bg-green-500 rounded-full shrink-0"></span>
+
+                                            <div class="min-w-0">
+                                                <p class="text-sm font-semibold text-gray-800 truncate">
+                                                    {{ $notice->title }}
+                                                </p>
+
+                                                <p class="text-xs text-gray-500 mt-1 flex items-center gap-2">
+                                                    <i class="fa-regular fa-calendar"></i>
+                                                    {{ \Carbon\Carbon::parse($notice->publish_date)->format('d F Y') }}
+
+                                                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">
+                                                        {{ $notice->notice_type ?? 'General' }}
+                                                    </span>
+
+                                                    {{-- NEW badge (example: last 2 days is showing new notice) --}}
+                                                    @php
+                                                        $isNew = false;
+                                                        if(!empty($notice->publish_date)){
+                                                            $isNew = \Carbon\Carbon::parse($notice->publish_date)->diffInDays(now()) <= 2;
+                                                        } elseif(!empty($notice->created_at)){
+                                                            $isNew = \Carbon\Carbon::parse($notice->created_at)->diffInDays(now()) <= 2;
+                                                        }
+                                                    @endphp
+
+                                                    @if($isNew)
+                                                        <span class="px-2 py-1 rounded-full bg-green-500 text-white text-xs font-bold">
+                                                            New
+                                                        </span>
+                                                    @endif
+                                                </p>
+                                                
+                                            </div>
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li class="text-sm text-gray-500">
+                                        No notices available.
+                                    </li>
+                                @endforelse
+                            </ul>
+                        </div>
                     </div>
 
                     <!-- Right Column -->

@@ -211,6 +211,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/notice/view/{file}', [NoticeController::class, 'attachView'])->name('view-attachment');
     Route::get('/delete/notice/{id}', [NoticeController::class, 'delete'])->name('delete-notice');
     Route::get('/view/notice/{id}', [NoticeController::class, 'viewNotice'])->name('view-notice');
+    Route::get('/show-all-notices', [NoticeController::class, 'show'])->name('view-all-notice');
 
 
     // Only Finance and account access this links
@@ -374,4 +375,5 @@ Route::group(['middleware' => ['admin']], function(){
     Route::post('/modify-student-information', [StudentPortalController::class, 'modifyProfile']);
     Route::get('/student/change-password', [StudentPortalController::class, 'passChange'])->name('student-password-change-view');
     Route::post('/update-password', [StudentPortalController::class, 'updatePass']);
+    Route::get('/show-all-student-notice', [StudentPortalController::class, 'showNotice'])->name('show-all-student-notice');
 });
