@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="col-span-12 sm:col-span-6 my-1 justify-self-end">
-        <p class="inline-block max-sm:mr-3 sm:ml-2">Distributed by <a href="https://shamim.deegau.com/" target="_blank">SAMIM-HosseN</a></p>
+        <p class="inline-block max-sm:mr-3 sm:ml-2">Distributed by <a href="https://samim-hossen.vercel.app/" target="_blank">SAMIM-HosseN</a></p>
       </div>
     </div>
   </div>
