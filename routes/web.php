@@ -31,7 +31,7 @@ Route::get('/login', [AdminController::class, 'loginView'])->name('login-view');
 Route::post('/user-login', [AdminController::class, 'userLogin']);
 
 // forget password route
-Route::get('/forteget-password', [AdminController::class, 'forgetPass']);
+Route::get('/forget-password', [AdminController::class, 'forgetPass']);
 Route::post('/find-account', [AdminController::class, 'findAccount']);
 Route::get('/otp-confirm', [AdminController::class, 'otpConfirm'])->name('otp.form');
 Route::post('/otp-verify', [AdminController::class, 'otpVarify']);
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/edit-group/{id}', [SettingController::class, 'editGroup'])->name('edit-group');
     Route::post('/modify-group/{id}', [SettingController::class, 'modifyGroup'])->name('groups.update');
     Route::post('/delete-group/{id}', [SettingController::class, 'deleteGroup']);
-    
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/database-backup', [DashboardController::class, 'dbBackup']);
 
@@ -75,13 +75,13 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('liveSearchStudent', [StudentController::class, 'liveSearch']);
 
     // Only Head of department access this links
-    Route::group(['middleware' => ['hod']], function(){ 
+    Route::group(['middleware' => ['hod']], function(){
         Route::get('/promote-class/{class_id}', [PromoteController::class, 'promoteClass']);
     });
     Route::get('/student/migration', [PromoteController::class, 'classList'])->name('migration-class-list');
     Route::get('/migration/class/{class}', [PromoteController::class, 'stdList'])->name('student-list-migration');
-    Route::post('/update/student/class/{student}', [PromoteController::class, 'updateStudent']);    
-    
+    Route::post('/update/student/class/{student}', [PromoteController::class, 'updateStudent']);
+
 
     Route::get('/student-report', [StudentReportController::class, 'genderReport'])->name('gender-wise-student-report-view');
     Route::get('/find-gender-wise-student', [StudentReportController::class, 'findGenderReport']);
@@ -104,7 +104,7 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/teacher-attendance', [AttendTeacherController::class, 'index'])->name('teacher-attendance-view');
     Route::post('/teacher-attendance/store', [AttendTeacherController::class, 'store'])->name('teacher.attendance.store');
     Route::get('/teacher-attendance/report', [AttendTeacherController::class, 'attendanceReport'])->name('teacher-attendance-report');
-    Route::get('/filter-teacher-attendace', [AttendTeacherController::class, 'filterTeacherAttendace'])->name('filter-teacher-attendace');  
+    Route::get('/filter-teacher-attendace', [AttendTeacherController::class, 'filterTeacherAttendace'])->name('filter-teacher-attendace');
     Route::get('/teacher/attend/edit/{id}', [AttendTeacherController::class, 'editTeacherAttend'])->name('edit-teacher-attendance');
     Route::post('/teacher/attend/update/{id}', [AttendTeacherController::class, 'updateTeacherAttend'])->name('edit-teacher-attendance-update');
 
@@ -156,17 +156,17 @@ Route::group(['middleware' => ['admin']], function(){
 
 
     // Only Head of department access this links
-    Route::group(['middleware' => ['hod']], function(){ 
-        
+    Route::group(['middleware' => ['hod']], function(){
+
     });
     Route::get('/create-exam', [ExamController::class, 'createExam'])->name('create-exam-view');
         Route::post('/create-new-exam', [ExamController::class, 'createNewExam']);
         Route::post('/update-exam/{id}', [ExamController::class, 'updateExam']);
         Route::post('/add-new-exam', [ExamController::class, 'addExam']);
         Route::post('/modify-exam/{exam_id}', [ExamController::class, 'modifyExam']);
-        
+
     Route::get('/exam-management', [ExamController::class, 'viewExam'])->name('exam-details-view');
-    
+
     Route::get('/exam-class-list', [ExamController::class, 'classList'])->name('result-entry-class-view');
     Route::get('/class/exam/{class}', [ExamController::class, 'examView'])->name('class-exam-select');
     Route::get('/class/subject/exam/{class}/{subject}/{exam}', [ExamController::class, 'classExam'])->name('class-exam-view');
@@ -178,12 +178,12 @@ Route::group(['middleware' => ['admin']], function(){
     Route::get('/total-result-report/class/{class}', [ExamController::class, 'totalResult'])->name('total-result-report');
     Route::get('/print-student-result/{id}', [ExamController::class, 'printResult']);
     Route::get('/print-class-student-result/{class_Id}', [ExamController::class, 'printAllClassStudentResult']);
-    
+
 
 
 
     // Only Head of department access this links
-    Route::group(['middleware' => ['hod']], function(){    });            
+    Route::group(['middleware' => ['hod']], function(){    });
         Route::get('/add-class', [ClassController::class, 'addNew'])->name('add-new-class-view');
         Route::post('/insert-class', [ClassController::class, 'insertClass']);
         Route::get('/edit-class/{id}', [ClassController::class, 'editClass'])->name('edit-class-view');
@@ -196,8 +196,8 @@ Route::group(['middleware' => ['admin']], function(){
         Route::get('/delete/class/schedule/{id}', [ClassController::class, 'deleteClassSchedule']);
         Route::get('/assign-teacher-list', [ClassController::class, 'assignTeacehr'])->name('assign-teacher-list-view');
         Route::post('/assigned-teacher-update', [ClassController::class, 'update']);
-    
-    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');    
+
+    Route::get('/class-details', [ClassController::class, 'index'])->name('class-room-list');
     Route::get('/class-schedule', [ClassController::class, 'classSchedule'])->name('class-schedule-view');
     Route::get('/my-class-schedule', [ClassController::class, 'mySchedule'])->name('my-class-schedule');
 
@@ -242,7 +242,7 @@ Route::group(['middleware' => ['admin']], function(){
 
         Route::get('/students/{class_id}', [FeePaymentController::class, 'getStudentsByClass']);
         Route::get('/fee-structures/{class_id}', [FeePaymentController::class, 'getFeeStructuresByClass']);
-        
+
         Route::get('/student-finance-report', [FinanceReportController::class, 'studentFinanceReport'])->name('student-finance-report-view');
         Route::get('/find-payment-report', [FinanceReportController::class, 'findPaymentReport']);
         Route::get('/category-class-finance-report', [FinanceReportController::class, 'categroyReport'])->name('category-finance-report');
@@ -327,7 +327,7 @@ Route::group(['middleware' => ['admin']], function(){
         Route::get('/income-delete/{id}', [IncomeController::class, 'delete']);
         Route::get('/income-print/{id}', [IncomeController::class, 'print']);
         Route::get('/income-edit/{id}', [IncomeController::class, 'edit']);
-        Route::post('/modify-income/{id}', [IncomeController::class, 'update']);    
+        Route::post('/modify-income/{id}', [IncomeController::class, 'update']);
 
         // income setting routes
         Route::get('/income-setting', [IncomeController::class, 'incomeSetting'])->name('income-setting-view');
@@ -349,7 +349,7 @@ Route::group(['middleware' => ['admin']], function(){
         Route::get('/income-category-data-filter', [IncomeController::class, 'filterCatIncome']);
         Route::get('/sub-category-wise-income', [IncomeController::class, 'subCategoyIncome']);
         Route::get('/income-sub-category-data-filter', [IncomeController::class, 'filterSubCatIncome']);
-    
+
 
 
 

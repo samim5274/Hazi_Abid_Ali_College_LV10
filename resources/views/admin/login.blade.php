@@ -23,77 +23,80 @@
     @vite('resources/js/app.js')
 </head>
 <body>
-  <!-- Flash Message -->
-  @include('layouts.message')
+    <!-- Flash Message -->
+    @include('layouts.message')
 
 
-  <!-- [ Main Content ] start -->
-  <div class="auth-main relative">
-    <div class="auth-wrapper v1 flex items-center w-full h-full min-h-screen">
-      <div class="auth-form flex items-center justify-center grow flex-col min-h-screen relative p-6">
-        <div class="w-full max-w-[350px] relative">
-          <div class="auth-bg">
-            <span class="absolute top-[-100px] right-[-100px] w-[300px] h-[300px] block rounded-full bg-theme-bg-1 animate-[floating_7s_infinite]"></span>
-            <span class="absolute top-[150px] right-[-150px] w-5 h-5 block rounded-full bg-primary-500 animate-[floating_9s_infinite]"></span>
-            <span class="absolute left-[-150px] bottom-[150px] w-5 h-5 block rounded-full bg-theme-bg-1 animate-[floating_7s_infinite]"></span>
-            <span class="absolute left-[-100px] bottom-[-100px] w-[300px] h-[300px] block rounded-full bg-theme-bg-2 animate-[floating_9s_infinite]"></span>
-          </div>
+    <!-- [ Main Content ] start -->
+    <div class="auth-main relative">
+        <div class="auth-wrapper v1 flex items-center w-full h-full min-h-screen">
+            <div class="auth-form flex items-center justify-center grow flex-col min-h-screen relative p-6">
+                <div class="w-full max-w-[350px] relative">
+                    <div class="auth-bg">
+                        <span class="absolute top-[-100px] right-[-100px] w-[300px] h-[300px] block rounded-full bg-theme-bg-1 animate-[floating_7s_infinite]"></span>
+                        <span class="absolute top-[150px] right-[-150px] w-5 h-5 block rounded-full bg-primary-500 animate-[floating_9s_infinite]"></span>
+                        <span class="absolute left-[-150px] bottom-[150px] w-5 h-5 block rounded-full bg-theme-bg-1 animate-[floating_7s_infinite]"></span>
+                        <span class="absolute left-[-100px] bottom-[-100px] w-[300px] h-[300px] block rounded-full bg-theme-bg-2 animate-[floating_9s_infinite]"></span>
+                    </div>
 
-          <div class="card sm:my-12 w-full shadow-none">
-            <div class="card-body !p-10">
-              <div class="text-center mb-8">
-                <img src="{{ asset('assets/images/logo-dark.svg') }}" alt="logo" class="mx-auto auth-logo"/>
-              </div>
-              <h4 class="text-center font-medium mb-4">Login</h4>
-              
-              <form action="{{ url('/user-login') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                  <input type="email" name="txtUsername" class="form-control" placeholder="Email Address" required />
+                    <div class="card sm:my-12 w-full shadow-none">
+                        <div class="card-body !p-10">
+                            <div class="text-center mb-4">
+                                <img src="{{ asset('assets/images/logo/logo.png') }}"
+                                    alt="logo"
+                                    class="img-fluid d-block mx-auto"
+                                    style="max-width: 100px; height: auto;">
+                            </div>
+                            <h4 class="text-center font-medium mb-4">Login</h4>
+
+                            <form action="{{ url('/user-login') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <input type="email" name="txtUsername" class="form-control" placeholder="Email Address" required />
+                                </div>
+                                <div class="mb-4">
+                                    <input type="password" name="txtPassword" class="form-control" placeholder="Password" required />
+                                </div>
+                                <div class="mb-3">
+                                    <select name="cbxRole" class="form-control" required>
+                                        <option selected disabled>-- Select Role --</option>
+                                        <option value="1">Teacher</option>
+                                        <option value="2">Student</option>
+                                    </select>
+                                </div>
+                                <div class="flex mt-1 justify-between items-center flex-wrap">
+                                    <div class="form-check">
+                                        <input class="form-check-input input-primary" checked type="checkbox" id="rememberMe" name="cbxRemember" />
+                                        <label class="form-check-label text-muted" for="rememberMe">Remember me?</label>
+                                    </div>
+                                    <h6 class="font-normal text-primary-500 mb-0">
+                                        <a href="{{ url('/forget-password') }}">Forgot Password?</a>
+                                    </h6>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <button type="submit" class="btn btn-primary mx-auto shadow-2xl w-full">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="mb-4">
-                  <input type="password" name="txtPassword" class="form-control" placeholder="Password" required />
-                </div>
-                <div class="mb-3">
-                  <select name="cbxRole" class="form-control" required>
-                    <option selected disabled>-- Select Role --</option>
-                    <option value="1">Teacher</option>
-                    <option value="2">Student</option>
-                  </select>
-                </div>
-                <div class="flex mt-1 justify-between items-center flex-wrap">
-                  <div class="form-check">
-                    <input class="form-check-input input-primary" checked type="checkbox" id="rememberMe" name="cbxRemember" />
-                    <label class="form-check-label text-muted" for="rememberMe">Remember me?</label>
-                  </div>
-                  <h6 class="font-normal text-primary-500 mb-0">
-                    <a href="{{ url('/forteget-password') }}">Forgot Password?</a>
-                  </h6>
-                </div>
-                <div class="mt-4 text-center">
-                  <button type="submit" class="btn btn-primary mx-auto shadow-2xl w-full">Login</button>
-                </div>
-              </form>
             </div>
-          </div>
-
         </div>
-      </div>
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
-   
+    <!-- [ Main Content ] end -->
 
-  @include('layouts.footer')
 
-  <!-- Required Js -->
-  <script src="{{ asset('assets/js/plugins/simplebar.min.js') }}"></script>
-  <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
-  <script src="{{ asset('assets/js/icon/custom-icon.js') }}"></script>
-  <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
-  <script src="{{ asset('assets/js/component.js') }}"></script>
-  <script src="{{ asset('assets/js/theme.js') }}"></script>
-  <script src="{{ asset('assets/js/script.js') }}"></script>
+    @include('layouts.footer')
+
+    <!-- Required Js -->
+    <script src="{{ asset('assets/js/plugins/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/icon/custom-icon.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/component.js') }}"></script>
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
     <script>
         // Pop up message (auto-hide)
