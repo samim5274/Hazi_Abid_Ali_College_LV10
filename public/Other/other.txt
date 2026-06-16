@@ -199,3 +199,61 @@ php artisan optimize:clear
 php artisan optimize
 
 php artisan config:clear
+
+
+
+
+
+
+
+/* =====================================================
+/* =====================================================
+
+
+
+cp .env.example .env
+composer install
+php artisan key:generate
+chmod -R 775 storage bootstrap/cache
+
+
+
+
+git pull origin main or git pull --no-rebase origin main
+
+
+
+
+# ১.
+git merge --abort
+
+# ২.
+git reset --hard origin/main
+
+# ৩.
+git pull origin main
+
+
+
+
+git pull origin main
+composer install --no-dev --optimize-autoloader
+php artisan optimize:clear
+php artisan optimize
+php artisan view:clear
+php artisan route:clear
+php artisan config:cache
+
+// front end change hole
+php artisan view:clear
+php artisan route:clear
+php artisan config:cache
+
+chmod 644 public/storage/users/*.png
+chmod 755 public/storage/users
+chmod 755 public/storage
+
+
+local change korle seta na rakhte chaile
+git reset --hard
+git pull origin main
